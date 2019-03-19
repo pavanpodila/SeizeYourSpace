@@ -1,4 +1,7 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:photo_job/job_store.dart';
 
 void main() => runApp(MyApp());
 
@@ -6,8 +9,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
-      title: 'Flutter Demo',
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      debugShowCheckedModeBanner: false,
+      title: 'Photo Job',
+      home: MyHomePage(title: 'A Photo Job'),
     );
   }
 }
@@ -22,38 +26,33 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  final _store = JobStore();
 
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Text(widget.title),
-      ),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: TextStyle(fontSize: 24),
-            ),
-            CupertinoButton(
-              onPressed: _incrementCounter,
-              child: Icon(CupertinoIcons.add),
-            )
-          ],
+        resizeToAvoidBottomInset: true,
+        navigationBar: CupertinoNavigationBar(
+          middle: Text(widget.title),
         ),
-      ),
-    );
+        child: SafeArea(
+          child: Column(
+            children: <Widget>[
+              Text('hello'),
+              Expanded(
+                child: Observer(
+                    builder: (_) => _store.isCameraReady
+                        ? AspectRatio(
+                            aspectRatio: _store.controller.value.aspectRatio,
+                            child: CameraPreview(_store.controller))
+                        : Container()),
+              ),
+              CupertinoButton(
+                child: Text('Flip'),
+                onPressed: _store.flipCamera,
+              )
+            ],
+          ),
+        ));
   }
 }
