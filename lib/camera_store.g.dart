@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'job_store.dart';
+part of 'camera_store.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,7 +8,7 @@ part of 'job_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies
 
-mixin _$JobStore on _JobStore, Store {
+mixin _$CameraStore on _CameraStore, Store {
   Computed<bool> _$isCameraReadyComputed;
 
   @override
@@ -16,7 +16,7 @@ mixin _$JobStore on _JobStore, Store {
       (_$isCameraReadyComputed ??= Computed<bool>(() => super.isCameraReady))
           .value;
 
-  final _$selectedCameraAtom = Atom(name: '_JobStore.selectedCamera');
+  final _$selectedCameraAtom = Atom(name: '_CameraStore.selectedCamera');
 
   @override
   CameraDescription get selectedCamera {
@@ -31,7 +31,7 @@ mixin _$JobStore on _JobStore, Store {
     _$selectedCameraAtom.reportChanged();
   }
 
-  final _$_cameraStateAtom = Atom(name: '_JobStore._cameraState');
+  final _$_cameraStateAtom = Atom(name: '_CameraStore._cameraState');
 
   @override
   CameraState get _cameraState {
@@ -46,11 +46,11 @@ mixin _$JobStore on _JobStore, Store {
     _$_cameraStateAtom.reportChanged();
   }
 
-  final _$_loadImagesAsyncAction = AsyncAction('_loadImages');
+  final _$_clearPastImagesAsyncAction = AsyncAction('_clearPastImages');
 
   @override
-  Future<void> _loadImages() {
-    return _$_loadImagesAsyncAction.run(() => super._loadImages());
+  Future<void> _clearPastImages() {
+    return _$_clearPastImagesAsyncAction.run(() => super._clearPastImages());
   }
 
   final _$selectCameraAsyncAction = AsyncAction('selectCamera');
@@ -58,5 +58,12 @@ mixin _$JobStore on _JobStore, Store {
   @override
   Future<void> selectCamera(CameraDescription camera) {
     return _$selectCameraAsyncAction.run(() => super.selectCamera(camera));
+  }
+
+  final _$takePictureAsyncAction = AsyncAction('takePicture');
+
+  @override
+  Future<void> takePicture() {
+    return _$takePictureAsyncAction.run(() => super.takePicture());
   }
 }

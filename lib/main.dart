@@ -2,9 +2,13 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:photo_job/job_store.dart';
+import 'package:photo_job/camera_store.dart';
+import 'package:photo_job/jobs_store.dart';
 
+final cameraStore = CameraStore();
+final jobsStore = JobsStore();
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -13,77 +17,154 @@ class MyApp extends StatelessWidget {
     return CupertinoApp(
       debugShowCheckedModeBanner: false,
       title: 'Photo Job',
-      home: MyHomePage(title: 'A Photo Job'),
+      routes: {
+        '/': (_) => HomePage(),
+        '/photo': (_) => TakePhotoPage(),
+        '/jobs': (_) => JobsPage()
+      },
+      initialRoute: '/',
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
+class HomePage extends StatelessWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  Widget build(BuildContext context) {
+    return CupertinoPageScaffold(
+        child: SafeArea(
+            child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Align(
+        alignment: Alignment.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 28.0),
+              child: Text('Publicis Sapient',
+                  style: TextStyle(color: Colors.redAccent, fontSize: 30)),
+            ),
+            Text(
+              'Would you like to see the opportunities we have?',
+              textAlign: TextAlign.center,
+            ),
+            Container(
+              height: 150,
+            ),
+            CupertinoButton(
+              child: Text('Yes, why not!'),
+              onPressed: () => Navigator.pushNamed(context, '/jobs'),
+            )
+          ],
+        ),
+      ),
+    )));
+  }
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  final _store = JobStore();
+class JobsPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoPageScaffold(
+      child: SafeArea(
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: Observer(builder: (_) {
+                if (jobsStore.hasSelection)
+                  return Text(jobsStore.selectedJob.title);
+
+                return Container();
+              }),
+            ),
+            SizedBox(
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (_, index) {
+                  final job = jobsStore.jobs[index];
+
+                  return GestureDetector(
+                    onTap: () => jobsStore.selectJob(job),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                          padding: EdgeInsets.all(16),
+                          alignment: Alignment.center,
+                          width: 150,
+                          decoration: BoxDecoration(boxShadow: [
+                            BoxShadow(
+                                offset: Offset(1, 1),
+                                blurRadius: 5,
+                                color: Color.fromARGB(32, 0, 0, 0))
+                          ], color: Colors.white),
+                          child: Text(
+                            job.title,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 18),
+                          )),
+                    ),
+                  );
+                },
+                itemCount: jobsStore.jobs.length,
+              ),
+              height: 150,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class TakePhotoPage extends StatelessWidget {
+  TakePhotoPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-        resizeToAvoidBottomInset: true,
-        navigationBar: CupertinoNavigationBar(
-          middle: Text(widget.title),
-        ),
         child: SafeArea(
             child: Align(
-          alignment: Alignment.center,
-          child: Column(children: <Widget>[
-            Observer(
-                builder: (_) => _store.isCameraReady
-                    ? Expanded(
-                        child: CircleAvatar(
-                            child: AspectRatio(
-                                aspectRatio:
-                                    _store.controller.value.aspectRatio,
-                                child: CameraPreview(_store.controller))))
-                    : Expanded(child: Container())),
-            Observer(
-                builder: (_) => _store.isCameraReady
-                    ? CupertinoSegmentedControl(
-                        onValueChanged: (camera) {
-                          _store.selectCamera(camera);
-                        },
-                        groupValue: _store.selectedCamera,
-                        children: Map.fromIterables(
-                            _store.cameras,
-                            _store.cameras.map((x) => Padding(
-                                padding: EdgeInsets.all(16),
-                                child: getIcon(x.lensDirection)))),
-                      )
-                    : Container()),
-            CupertinoButton(
-              onPressed: _store.takePicture,
-              child: Text('Take Picture'),
-            ),
-            Observer(
-              builder: (_) => SizedBox(
-                  height: 100,
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: _store.images.length,
-                      itemBuilder: (_, index) => Image.file(
-                            File(_store.images[index]),
-                            key: Key(_store.images[index]),
-                            width: 100,
-                            height: 100,
-                            fit: BoxFit.cover,
-                          ))),
-            ),
-          ]),
-        )));
+      alignment: Alignment.center,
+      child: Column(children: <Widget>[
+        Observer(
+            builder: (_) => cameraStore.isCameraReady
+                ? Expanded(
+                    child: CircleAvatar(
+                        child: AspectRatio(
+                            aspectRatio:
+                                cameraStore.controller.value.aspectRatio,
+                            child: CameraPreview(cameraStore.controller))))
+                : Expanded(
+                    child: CircleAvatar(
+                        color: Colors.grey,
+                        child: Text(
+                          'No Camera',
+                          style: TextStyle(color: Colors.grey),
+                        )))),
+        Observer(
+          builder: (_) => cameraStore.isCameraReady
+              ? CupertinoButton(
+                  onPressed: cameraStore.takePicture,
+                  child: Text('Take Picture'),
+                )
+              : Container(),
+        ),
+        Observer(
+          builder: (_) => SizedBox(
+              height: 100,
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: cameraStore.images.length,
+                  itemBuilder: (_, index) => Image.file(
+                        File(cameraStore.images[index]),
+                        key: Key(cameraStore.images[index]),
+                        width: 100,
+                        height: 100,
+                        fit: BoxFit.cover,
+                      ))),
+        ),
+      ]),
+    )));
   }
 
   Widget getIcon(CameraLensDirection direction) {
@@ -99,19 +180,27 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class CircleAvatar extends StatelessWidget {
-  CircleAvatar({@required this.child});
+  CircleAvatar(
+      {@required this.child, this.color = Colors.redAccent, this.width = 10});
 
-  Widget child;
+  final double width;
+
+  final Color color;
+
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: ClipPath(
         clipper: ShapeBorderClipper(shape: CircleBorder()),
-        child: child,
+        child: Align(
+          child: child,
+          alignment: Alignment.center,
+        ),
       ),
       decoration: BoxDecoration(
-          border: Border.all(width: 10, color: Color.fromARGB(255, 255, 0, 0)),
+          border: Border.all(width: width, color: color),
           shape: BoxShape.circle),
     );
   }

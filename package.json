@@ -1,0 +1,8 @@
+{
+  "name": "photo_job",
+  "version": "1.0.0",
+  "scripts": {
+    "gen": "flutter packages pub run build_runner watch --delete-conflicting-outputs"
+  }
+}
+

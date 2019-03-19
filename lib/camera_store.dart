@@ -4,19 +4,21 @@ import 'package:camera/camera.dart';
 import 'package:mobx/mobx.dart';
 import 'package:path_provider/path_provider.dart';
 
-part 'job_store.g.dart';
+part 'camera_store.g.dart';
 
 enum CameraState { initializing, ready, failed }
 
-class JobStore = _JobStore with _$JobStore;
+class CameraStore = _CameraStore with _$CameraStore;
 
-abstract class _JobStore implements Store {
-  _JobStore() {
+abstract class _CameraStore implements Store {
+  _CameraStore() {
     _prepareCamera();
-    _loadImages();
+    _clearPastImages();
   }
 
   List<CameraDescription> cameras = [];
+  String _imagesDirectory;
+  CameraController controller;
 
   @observable
   CameraDescription selectedCamera;
@@ -27,22 +29,22 @@ abstract class _JobStore implements Store {
   @observable
   CameraState _cameraState = CameraState.initializing;
 
-  CameraController controller;
-
   final ObservableList<String> images = ObservableList();
 
   void _prepareCamera() async {
-    cameras = await availableCameras();
-    selectCamera(cameras
-        .firstWhere((x) => x.lensDirection == CameraLensDirection.front));
+    try {
+      cameras = await availableCameras();
+      selectCamera(cameras
+          .firstWhere((x) => x.lensDirection == CameraLensDirection.front));
+    } catch (e) {
+      cameras = [];
+    }
   }
 
   @action
-  Future<void> _loadImages() async {
-    final dir = await _getDirectory();
-
-    final list = await Directory(dir).list().toList();
-    images.addAll(list.map((f) => f.path));
+  Future<void> _clearPastImages() async {
+    _imagesDirectory = await _getDirectory();
+    Directory(_imagesDirectory).delete();
   }
 
   @action
@@ -62,19 +64,18 @@ abstract class _JobStore implements Store {
     selectedCamera = camera;
   }
 
+  @action
   Future<void> takePicture() async {
     if (controller.value.isTakingPicture) {
       return;
     }
 
-    final dir = await _getDirectory();
-    final filePath = '$dir/${DateTime.now().millisecondsSinceEpoch}.jpg';
+    final filePath =
+        '$_imagesDirectory/${DateTime.now().millisecondsSinceEpoch}.jpg';
 
     await controller.takePicture(filePath);
 
-    runInAction(() {
-      images.insert(0, filePath);
-    });
+    images.insert(0, filePath);
     print('Picture Taken @ $filePath');
   }
 
