@@ -13,6 +13,7 @@ class JobStore = _JobStore with _$JobStore;
 abstract class _JobStore implements Store {
   _JobStore() {
     _prepareCamera();
+    _loadImages();
   }
 
   List<CameraDescription> cameras = [];
@@ -28,10 +29,20 @@ abstract class _JobStore implements Store {
 
   CameraController controller;
 
+  final ObservableList<String> images = ObservableList();
+
   void _prepareCamera() async {
     cameras = await availableCameras();
     selectCamera(cameras
         .firstWhere((x) => x.lensDirection == CameraLensDirection.front));
+  }
+
+  @action
+  Future<void> _loadImages() async {
+    final dir = await _getDirectory();
+
+    final list = await Directory(dir).list().toList();
+    images.addAll(list.map((f) => f.path));
   }
 
   @action
@@ -42,7 +53,7 @@ abstract class _JobStore implements Store {
       await controller.dispose();
     }
 
-    controller = CameraController(camera, ResolutionPreset.medium);
+    controller = CameraController(camera, ResolutionPreset.low);
     await controller.initialize();
 
     _cameraState =
@@ -51,19 +62,27 @@ abstract class _JobStore implements Store {
     selectedCamera = camera;
   }
 
-  void takePicture() async {
+  Future<void> takePicture() async {
     if (controller.value.isTakingPicture) {
       return;
     }
 
+    final dir = await _getDirectory();
+    final filePath = '$dir/${DateTime.now().millisecondsSinceEpoch}.jpg';
+
+    await controller.takePicture(filePath);
+
+    runInAction(() {
+      images.insert(0, filePath);
+    });
+    print('Picture Taken @ $filePath');
+  }
+
+  Future<String> _getDirectory() async {
     final dir = await getApplicationDocumentsDirectory();
     final testDir = '${dir.path}/Pictures/test';
     await Directory(testDir).create(recursive: true);
 
-    final filePath = '$testDir/${DateTime.now().millisecondsSinceEpoch}.jpg';
-
-    await controller.takePicture(filePath);
-
-    print('Picture Taken @ $filePath');
+    return testDir;
   }
 }

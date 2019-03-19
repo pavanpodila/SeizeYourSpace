@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -36,32 +38,52 @@ class _MyHomePageState extends State<MyHomePage> {
           middle: Text(widget.title),
         ),
         child: SafeArea(
-            child: Column(children: <Widget>[
-          Observer(
-              builder: (_) => _store.isCameraReady
-                  ? Expanded(
-                      child:
-                          CircleAvatar(child: CameraPreview(_store.controller)))
-                  : Expanded(child: Container())),
-          Observer(
-              builder: (_) => _store.isCameraReady
-                  ? CupertinoSegmentedControl(
-                      onValueChanged: (camera) {
-                        _store.selectCamera(camera);
-                      },
-                      groupValue: _store.selectedCamera,
-                      children: Map.fromIterables(
-                          _store.cameras,
-                          _store.cameras.map((x) => Padding(
-                              padding: EdgeInsets.all(16),
-                              child: getIcon(x.lensDirection)))),
-                    )
-                  : Container()),
-          CupertinoButton(
-            onPressed: _store.takePicture,
-            child: Text('Take Picture'),
-          )
-        ])));
+            child: Align(
+          alignment: Alignment.center,
+          child: Column(children: <Widget>[
+            Observer(
+                builder: (_) => _store.isCameraReady
+                    ? Expanded(
+                        child: CircleAvatar(
+                            child: AspectRatio(
+                                aspectRatio:
+                                    _store.controller.value.aspectRatio,
+                                child: CameraPreview(_store.controller))))
+                    : Expanded(child: Container())),
+            Observer(
+                builder: (_) => _store.isCameraReady
+                    ? CupertinoSegmentedControl(
+                        onValueChanged: (camera) {
+                          _store.selectCamera(camera);
+                        },
+                        groupValue: _store.selectedCamera,
+                        children: Map.fromIterables(
+                            _store.cameras,
+                            _store.cameras.map((x) => Padding(
+                                padding: EdgeInsets.all(16),
+                                child: getIcon(x.lensDirection)))),
+                      )
+                    : Container()),
+            CupertinoButton(
+              onPressed: _store.takePicture,
+              child: Text('Take Picture'),
+            ),
+            Observer(
+              builder: (_) => SizedBox(
+                  height: 100,
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: _store.images.length,
+                      itemBuilder: (_, index) => Image.file(
+                            File(_store.images[index]),
+                            key: Key(_store.images[index]),
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.cover,
+                          ))),
+            ),
+          ]),
+        )));
   }
 
   Widget getIcon(CameraLensDirection direction) {

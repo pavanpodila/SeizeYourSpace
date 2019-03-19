@@ -46,6 +46,13 @@ mixin _$JobStore on _JobStore, Store {
     _$_cameraStateAtom.reportChanged();
   }
 
+  final _$_loadImagesAsyncAction = AsyncAction('_loadImages');
+
+  @override
+  Future<void> _loadImages() {
+    return _$_loadImagesAsyncAction.run(() => super._loadImages());
+  }
+
   final _$selectCameraAsyncAction = AsyncAction('selectCamera');
 
   @override
