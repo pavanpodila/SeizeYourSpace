@@ -8,11 +8,13 @@ enum CameraState { initializing, ready, failed }
 class JobStore = _JobStore with _$JobStore;
 
 abstract class _JobStore implements Store {
-  List<CameraDescription> _cameras = [];
-
   _JobStore() {
     _prepareCamera();
   }
+
+  List<CameraDescription> _cameras = [];
+
+  CameraDescription _selectedCamera;
 
   @computed
   bool get isCameraReady => _cameraState == CameraState.ready;
@@ -27,25 +29,34 @@ abstract class _JobStore implements Store {
   CameraController get controller => _controller;
 
   void _prepareCamera() async {
-    _cameraState = CameraState.initializing;
-
     _cameras = await availableCameras();
     _selectCamera(_cameras.first);
   }
 
-  void _selectCamera(CameraDescription camera) async {
+  @action
+  Future<void> _selectCamera(CameraDescription camera) async {
+    _cameraState = CameraState.initializing;
+
+    if (_controller != null) {
+      await _controller.dispose();
+    }
+
     _controller = CameraController(camera, ResolutionPreset.medium);
     await _controller.initialize();
 
-    runInAction(() {
-      _cameraState = _controller.value.isInitialized
-          ? CameraState.ready
-          : CameraState.failed;
-    });
+    _cameraState = _controller.value.isInitialized
+        ? CameraState.ready
+        : CameraState.failed;
+
+    _selectedCamera = camera;
   }
 
   @action
   void flipCamera() {
-    _selectCamera(_cameras.last);
+    final index = _cameras.indexOf(_selectedCamera);
+    if (index >= 0) {
+      final nextIndex = (index + 1) % _cameras.length;
+      _selectCamera(_cameras[nextIndex]);
+    }
   }
 }
