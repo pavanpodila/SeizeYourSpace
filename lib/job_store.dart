@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:mobx/mobx.dart';
+import 'package:path_provider/path_provider.dart';
 
 part 'job_store.g.dart';
 
@@ -48,5 +51,19 @@ abstract class _JobStore implements Store {
     selectedCamera = camera;
   }
 
-  void takePicture() async {}
+  void takePicture() async {
+    if (controller.value.isTakingPicture) {
+      return;
+    }
+
+    final dir = await getApplicationDocumentsDirectory();
+    final testDir = '${dir.path}/Pictures/test';
+    await Directory(testDir).create(recursive: true);
+
+    final filePath = '$testDir/${DateTime.now().millisecondsSinceEpoch}.jpg';
+
+    await controller.takePicture(filePath);
+
+    print('Picture Taken @ $filePath');
+  }
 }

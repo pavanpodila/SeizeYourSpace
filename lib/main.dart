@@ -42,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ? Expanded(
                       child:
                           CircleAvatar(child: CameraPreview(_store.controller)))
-                  : Container()),
+                  : Expanded(child: Container())),
           Observer(
               builder: (_) => _store.isCameraReady
                   ? CupertinoSegmentedControl(
@@ -65,9 +65,14 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget getIcon(CameraLensDirection direction) {
-    if (direction == CameraLensDirection.front) return Text('Front');
-    if (direction == CameraLensDirection.back) return Text('Back');
-    if (direction == CameraLensDirection.external) return Text('External');
+    switch (direction) {
+      case CameraLensDirection.front:
+        return Text('Front');
+      case CameraLensDirection.back:
+        return Text('Back');
+      default:
+        return Text('External');
+    }
   }
 }
 

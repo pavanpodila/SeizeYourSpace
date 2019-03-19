@@ -26,6 +26,7 @@ dependencies:
   mobx:
   flutter_mobx:
   camera:
+  path_provider:
 
 dev_dependencies:
   mobx_codegen:
