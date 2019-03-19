@@ -36,23 +36,56 @@ class _MyHomePageState extends State<MyHomePage> {
           middle: Text(widget.title),
         ),
         child: SafeArea(
-          child: Column(
-            children: <Widget>[
-              Text('hello'),
-              Expanded(
-                child: Observer(
-                    builder: (_) => _store.isCameraReady
-                        ? AspectRatio(
-                            aspectRatio: _store.controller.value.aspectRatio,
-                            child: CameraPreview(_store.controller))
-                        : Container()),
-              ),
-              CupertinoButton(
-                child: Text('Flip'),
-                onPressed: _store.flipCamera,
-              )
-            ],
-          ),
-        ));
+            child: Column(children: <Widget>[
+          Observer(
+              builder: (_) => _store.isCameraReady
+                  ? Expanded(
+                      child:
+                          CircleAvatar(child: CameraPreview(_store.controller)))
+                  : Container()),
+          Observer(
+              builder: (_) => _store.isCameraReady
+                  ? CupertinoSegmentedControl(
+                      onValueChanged: (camera) {
+                        _store.selectCamera(camera);
+                      },
+                      groupValue: _store.selectedCamera,
+                      children: Map.fromIterables(
+                          _store.cameras,
+                          _store.cameras.map((x) => Padding(
+                              padding: EdgeInsets.all(16),
+                              child: getIcon(x.lensDirection)))),
+                    )
+                  : Container()),
+          CupertinoButton(
+            onPressed: _store.takePicture,
+            child: Text('Take Picture'),
+          )
+        ])));
+  }
+
+  Widget getIcon(CameraLensDirection direction) {
+    if (direction == CameraLensDirection.front) return Text('Front');
+    if (direction == CameraLensDirection.back) return Text('Back');
+    if (direction == CameraLensDirection.external) return Text('External');
+  }
+}
+
+class CircleAvatar extends StatelessWidget {
+  CircleAvatar({@required this.child});
+
+  Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: ClipPath(
+        clipper: ShapeBorderClipper(shape: CircleBorder()),
+        child: child,
+      ),
+      decoration: BoxDecoration(
+          border: Border.all(width: 10, color: Color.fromARGB(255, 255, 0, 0)),
+          shape: BoxShape.circle),
+    );
   }
 }

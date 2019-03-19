@@ -15,12 +15,21 @@ mixin _$JobStore on _JobStore, Store {
   bool get isCameraReady =>
       (_$isCameraReadyComputed ??= Computed<bool>(() => super.isCameraReady))
           .value;
-  Computed<CameraController> _$controllerComputed;
+
+  final _$selectedCameraAtom = Atom(name: '_JobStore.selectedCamera');
 
   @override
-  CameraController get controller => (_$controllerComputed ??=
-          Computed<CameraController>(() => super.controller))
-      .value;
+  CameraDescription get selectedCamera {
+    _$selectedCameraAtom.reportObserved();
+    return super.selectedCamera;
+  }
+
+  @override
+  set selectedCamera(CameraDescription value) {
+    mainContext.checkIfStateModificationsAreAllowed(_$selectedCameraAtom);
+    super.selectedCamera = value;
+    _$selectedCameraAtom.reportChanged();
+  }
 
   final _$_cameraStateAtom = Atom(name: '_JobStore._cameraState');
 
@@ -37,37 +46,10 @@ mixin _$JobStore on _JobStore, Store {
     _$_cameraStateAtom.reportChanged();
   }
 
-  final _$_controllerAtom = Atom(name: '_JobStore._controller');
+  final _$selectCameraAsyncAction = AsyncAction('selectCamera');
 
   @override
-  CameraController get _controller {
-    _$_controllerAtom.reportObserved();
-    return super._controller;
-  }
-
-  @override
-  set _controller(CameraController value) {
-    mainContext.checkIfStateModificationsAreAllowed(_$_controllerAtom);
-    super._controller = value;
-    _$_controllerAtom.reportChanged();
-  }
-
-  final _$_selectCameraAsyncAction = AsyncAction('_selectCamera');
-
-  @override
-  Future<void> _selectCamera(CameraDescription camera) {
-    return _$_selectCameraAsyncAction.run(() => super._selectCamera(camera));
-  }
-
-  final _$_JobStoreActionController = ActionController(name: '_JobStore');
-
-  @override
-  void flipCamera() {
-    final _$actionInfo = _$_JobStoreActionController.startAction();
-    try {
-      return super.flipCamera();
-    } finally {
-      _$_JobStoreActionController.endAction(_$actionInfo);
-    }
+  Future<void> selectCamera(CameraDescription camera) {
+    return _$selectCameraAsyncAction.run(() => super.selectCamera(camera));
   }
 }
