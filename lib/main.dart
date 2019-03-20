@@ -17,11 +17,7 @@ class MyApp extends StatelessWidget {
     return CupertinoApp(
       debugShowCheckedModeBanner: false,
       title: 'Photo Job',
-      routes: {
-        '/': (_) => HomePage(),
-        '/photo': (_) => TakePhotoPage(),
-        '/jobs': (_) => JobsPage()
-      },
+      routes: {'/': (_) => HomePage(), '/jobs': (_) => JobsPage()},
       initialRoute: '/',
     );
   }
@@ -72,7 +68,7 @@ class JobsPage extends StatelessWidget {
             Expanded(
               child: Observer(builder: (_) {
                 if (jobsStore.hasSelection)
-                  return Text(jobsStore.selectedJob.title);
+                  return JobView(job: jobsStore.selectedJob);
 
                 return Container();
               }),
@@ -81,29 +77,7 @@ class JobsPage extends StatelessWidget {
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (_, index) {
-                  final job = jobsStore.jobs[index];
-
-                  return GestureDetector(
-                    onTap: () => jobsStore.selectJob(job),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                          padding: EdgeInsets.all(16),
-                          alignment: Alignment.center,
-                          width: 150,
-                          decoration: BoxDecoration(boxShadow: [
-                            BoxShadow(
-                                offset: Offset(1, 1),
-                                blurRadius: 5,
-                                color: Color.fromARGB(32, 0, 0, 0))
-                          ], color: Colors.white),
-                          child: Text(
-                            job.title,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 18),
-                          )),
-                    ),
-                  );
+                  return JobCard(store: jobsStore, index: index);
                 },
                 itemCount: jobsStore.jobs.length,
               ),
@@ -112,6 +86,104 @@ class JobsPage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class JobCard extends StatelessWidget {
+  final JobsStore store;
+  final int index;
+
+  JobCard({@required this.store, @required this.index});
+
+  @override
+  Widget build(BuildContext context) {
+    return Observer(
+      builder: (_) {
+        final job = jobsStore.jobs[index];
+        final isSelected = jobsStore.selectedJob == job;
+
+        final cardColor = isSelected ? Colors.redAccent : Colors.white;
+        final textColor = isSelected ? Colors.white : Colors.black;
+        final textWeight = isSelected ? FontWeight.bold : FontWeight.normal;
+
+        return GestureDetector(
+          onTap: () => jobsStore.selectJob(job),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+                padding: EdgeInsets.all(16),
+                alignment: Alignment.center,
+                width: 150,
+                decoration: BoxDecoration(boxShadow: [
+                  BoxShadow(
+                      offset: Offset(1, 1),
+                      blurRadius: 5,
+                      color: Color.fromARGB(32, 0, 0, 0))
+                ], color: cardColor),
+                child: Text(
+                  job.title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 18, color: textColor, fontWeight: textWeight),
+                )),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class JobView extends StatelessWidget {
+  JobView({@required this.job});
+
+  final Job job;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(bottom: 16.0),
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 16),
+            decoration: BoxDecoration(color: Colors.redAccent),
+            child: Text(job.title,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white)),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(job.description, style: TextStyle(fontSize: 16)),
+        ),
+        Expanded(
+          child: CupertinoButton(
+            onPressed: () {
+              Navigator.of(context).push(CupertinoPageRoute(
+                  builder: (_) => TakePhotoPage(), fullscreenDialog: true));
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Icon(
+                  CupertinoIcons.check_mark_circled_solid,
+                  size: 30,
+                ),
+                Text(
+                  'I want this!',
+                  style: TextStyle(fontSize: 20),
+                )
+              ],
+            ),
+          ),
+        )
+      ],
     );
   }
 }
@@ -126,6 +198,11 @@ class TakePhotoPage extends StatelessWidget {
             child: Align(
       alignment: Alignment.center,
       child: Column(children: <Widget>[
+        CupertinoButton(
+          onPressed: () =>
+              Navigator.popUntil(context, ModalRoute.withName('/')),
+          child: Text('Escape'),
+        ),
         Observer(
             builder: (_) => cameraStore.isCameraReady
                 ? Expanded(

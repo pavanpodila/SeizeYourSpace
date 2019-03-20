@@ -18,7 +18,7 @@ abstract class _JobsStore implements Store {
     Job(
         title: 'Cobol Developer',
         description:
-            "'Sorry, we don't offer this. But, you are free to pursue!"),
+            "Sorry, we don't offer this. But, you are free to pursue!"),
   ];
 
   @observable
