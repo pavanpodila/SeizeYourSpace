@@ -46,6 +46,21 @@ mixin _$CameraStore on _CameraStore, Store {
     _$_cameraStateAtom.reportChanged();
   }
 
+  final _$capturedPhotoFileAtom = Atom(name: '_CameraStore.capturedPhotoFile');
+
+  @override
+  String get capturedPhotoFile {
+    _$capturedPhotoFileAtom.reportObserved();
+    return super.capturedPhotoFile;
+  }
+
+  @override
+  set capturedPhotoFile(String value) {
+    mainContext.checkIfStateModificationsAreAllowed(_$capturedPhotoFileAtom);
+    super.capturedPhotoFile = value;
+    _$capturedPhotoFileAtom.reportChanged();
+  }
+
   final _$_clearPastImagesAsyncAction = AsyncAction('_clearPastImages');
 
   @override

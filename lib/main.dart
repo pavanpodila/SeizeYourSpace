@@ -25,6 +25,8 @@ class MyApp extends StatelessWidget {
                           store: cameraStore,
                           onEscape: (context) => Navigator.popUntil(
                               context, ModalRoute.withName('/')),
+                          onCancel: (context) => Navigator.pop(context),
+                          onAccept: (context) => Navigator.pop(context),
                         ),
                     fullscreenDialog: true));
               },

@@ -16,7 +16,6 @@ abstract class _CameraStore implements Store {
     _clearPastImages();
   }
 
-  List<CameraDescription> cameras = [];
   String _imagesDirectory;
   CameraController controller;
 
@@ -29,22 +28,21 @@ abstract class _CameraStore implements Store {
   @observable
   CameraState _cameraState = CameraState.initializing;
 
-  final ObservableList<String> images = ObservableList();
+  @observable
+  String capturedPhotoFile;
 
   void _prepareCamera() async {
     try {
-      cameras = await availableCameras();
+      final cameras = await availableCameras();
       selectCamera(cameras
           .firstWhere((x) => x.lensDirection == CameraLensDirection.front));
-    } catch (e) {
-      cameras = [];
-    }
+    } catch (e) {}
   }
 
   @action
   Future<void> _clearPastImages() async {
     _imagesDirectory = await _getDirectory();
-    Directory(_imagesDirectory).delete();
+    Directory(_imagesDirectory).delete(recursive: true);
   }
 
   @action
@@ -75,11 +73,10 @@ abstract class _CameraStore implements Store {
 
     await controller.takePicture(filePath);
 
-    images.insert(0, filePath);
-    print('Picture Taken @ $filePath');
+    capturedPhotoFile = filePath;
   }
 
-  Future<String> _getDirectory() async {
+  static Future<String> _getDirectory() async {
     final dir = await getApplicationDocumentsDirectory();
     final testDir = '${dir.path}/Pictures/test';
     await Directory(testDir).create(recursive: true);
