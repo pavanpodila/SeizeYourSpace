@@ -31,6 +31,11 @@ abstract class _JobsStore implements Store {
   void selectJob(Job job) {
     selectedJob = job;
   }
+
+  @action
+  void selectJobWithIndex(int index) {
+    selectedJob = index >= 0 && index < jobs.length ? jobs[index] : null;
+  }
 }
 
 class Job {

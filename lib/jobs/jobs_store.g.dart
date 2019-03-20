@@ -42,4 +42,14 @@ mixin _$JobsStore on _JobsStore, Store {
       _$_JobsStoreActionController.endAction(_$actionInfo);
     }
   }
+
+  @override
+  void selectJobWithIndex(int index) {
+    final _$actionInfo = _$_JobsStoreActionController.startAction();
+    try {
+      return super.selectJobWithIndex(index);
+    } finally {
+      _$_JobsStoreActionController.endAction(_$actionInfo);
+    }
+  }
 }
