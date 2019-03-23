@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_job/camera/camera_store.dart';
 import 'package:photo_job/camera/camera_widgets.dart';
+import 'package:photo_job/core/app_page_view.dart';
+import 'package:photo_job/details/details_widgets.dart';
 import 'package:photo_job/jobs/jobs_store.dart';
 import 'package:photo_job/jobs/jobs_widgets.dart';
 
@@ -26,11 +28,13 @@ class MyApp extends StatelessWidget {
                           onEscape: (context) => Navigator.popUntil(
                               context, ModalRoute.withName('/')),
                           onCancel: (context) => Navigator.pop(context),
-                          onAccept: (context) => Navigator.pop(context),
+                          onAccept: (context) =>
+                              Navigator.popAndPushNamed(context, '/details'),
                         ),
                     fullscreenDialog: true));
               },
-            )
+            ),
+        '/details': (_) => DetailsPage()
       },
       initialRoute: '/',
     );
@@ -40,10 +44,7 @@ class MyApp extends StatelessWidget {
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-        child: SafeArea(
-            child: Padding(
-      padding: const EdgeInsets.all(8.0),
+    return AppPageView(
       child: Align(
         alignment: Alignment.center,
         child: Column(
@@ -68,6 +69,6 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-    )));
+    );
   }
 }

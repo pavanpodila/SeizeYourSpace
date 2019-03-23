@@ -42,7 +42,7 @@ abstract class _CameraStore implements Store {
   @action
   Future<void> _clearPastImages() async {
     _imagesDirectory = await _getDirectory();
-    Directory(_imagesDirectory).delete(recursive: true);
+    print(_imagesDirectory);
   }
 
   @action
@@ -77,9 +77,14 @@ abstract class _CameraStore implements Store {
   }
 
   static Future<String> _getDirectory() async {
-    final dir = await getApplicationDocumentsDirectory();
-    final testDir = '${dir.path}/Pictures/test';
-    await Directory(testDir).create(recursive: true);
+    final dir = await getTemporaryDirectory();
+    final testDir = '${dir.path}/Pictures';
+    if (await Directory(testDir).exists()) {
+      await Directory(testDir).delete(recursive: true);
+      await Directory(testDir).create(recursive: true);
+    } else {
+      await Directory(testDir).create(recursive: true);
+    }
 
     return testDir;
   }

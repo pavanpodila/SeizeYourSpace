@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:photo_job/core/app_page_view.dart';
 import 'package:photo_job/jobs/jobs_store.dart';
 
 class JobsPage extends StatelessWidget {
@@ -11,19 +12,19 @@ class JobsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-        child: SafeArea(
-            child: PageView.builder(
-      scrollDirection: Axis.horizontal,
-      onPageChanged: (index) => store.selectJobWithIndex(index),
-      itemBuilder: (_, index) {
-        return JobView(
-          job: store.jobs[index],
-          onSelected: () => onSelected(context),
-        );
-      },
-      itemCount: store.jobs.length,
-    )));
+    return AppPageView(
+      child: PageView.builder(
+        scrollDirection: Axis.horizontal,
+        onPageChanged: (index) => store.selectJobWithIndex(index),
+        itemBuilder: (_, index) {
+          return JobView(
+            job: store.jobs[index],
+            onSelected: () => onSelected(context),
+          );
+        },
+        itemCount: store.jobs.length,
+      ),
+    );
   }
 }
 
