@@ -26,31 +26,18 @@ class TakePhotoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppPageView(
       child: Column(children: <Widget>[
-        CupertinoButton(
-          onPressed: () => onEscape(context),
-          child: Text(
-            'Escape',
-            style: TextStyle(fontSize: 12),
-          ),
-        ),
         Text(
           'How about a quick selfie?',
           style: TextStyle(fontSize: 20, color: Colors.redAccent),
         ),
-        CupertinoButton(
-          onPressed: () => onCancel(context),
-          child: Text('Nah, Skip'),
-        ),
         Expanded(
           child: Stack(
+            fit: StackFit.expand,
             alignment: AlignmentDirectional.center,
             children: <Widget>[
               Observer(
                   builder: (_) => store.isCameraReady
-                      ? CircleAvatar(
-                          child: AspectRatio(
-                              aspectRatio: store.controller.value.aspectRatio,
-                              child: CameraPreview(store.controller)))
+                      ? CircleAvatar(child: CameraPreview(store.controller))
                       : CircleAvatar(
                           color: Colors.grey,
                           child: Text(
@@ -64,12 +51,13 @@ class TakePhotoPage extends StatelessWidget {
                         width: 150,
                         height: 150,
                         child: CircleAvatar(
-                          width: 5,
+                          borderWidth: 5,
                           color: store.isCameraReady
                               ? Colors.redAccent
                               : Colors.grey,
                           child: store.capturedPhotoFile != null
-                              ? Image.file(File(store.capturedPhotoFile))
+                              ? Image.file(File(store.capturedPhotoFile),
+                                  fit: BoxFit.fitWidth)
                               : Text('Your Photo'),
                         ),
                       ),
@@ -117,9 +105,9 @@ class CircleAvatar extends StatelessWidget {
       {@required this.child,
       this.color = Colors.redAccent,
       this.backgroundColor = Colors.white,
-      this.width = 10});
+      this.borderWidth = 10});
 
-  final double width;
+  final double borderWidth;
 
   final Color color;
   final Color backgroundColor;
@@ -131,11 +119,11 @@ class CircleAvatar extends StatelessWidget {
     return Container(
       child: ClipPath(
         clipper: ShapeBorderClipper(shape: CircleBorder()),
-        child: Align(child: child),
+        child: child,
       ),
       decoration: BoxDecoration(
           color: backgroundColor,
-          border: Border.all(width: width, color: color),
+          border: Border.all(width: borderWidth, color: color),
           shape: BoxShape.circle),
     );
   }
