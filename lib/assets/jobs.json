@@ -1,0 +1,56 @@
+{
+  "jobs": [
+    {
+      "id": "ui_id",
+      "title": "UI developer",
+      "location": "banglore",
+      "summary": "some text some text some text some textsome text some text some text some text some text",
+      "responsibilities": [
+        "l1",
+        "l2",
+        "l3",
+        "l4",
+        "l5"
+      ]
+    },
+    {
+      "id": "web_id",
+      "title": "web developer",
+      "location": "banglore",
+      "summary": "some text some text some text some textsome text some text some text some text some text",
+      "responsibilities": [
+        "l1",
+        "l2",
+        "l3",
+        "l4",
+        "l5"
+      ]
+    },
+    {
+      "id": "devops_id",
+      "title": "devops",
+      "location": "banglore",
+      "summary": "some text some text some text some textsome text some text some text some text some text",
+      "responsibilities": [
+        "l1",
+        "l2",
+        "l3",
+        "l4",
+        "l5"
+      ]
+    },
+    {
+      "id": "test_id",
+      "title": "automation tester",
+      "location": "banglore",
+      "summary": "some text some text some text some textsome text some text some text some text some text",
+      "responsibilities": [
+        "l1",
+        "l2",
+        "l3",
+        "l4",
+        "l5"
+      ]
+    }
+  ]
+}
