@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:mobx/mobx.dart';
+import 'package:photo_job/jobs/job.dart';
 
 part 'counter.g.dart';
 
@@ -13,24 +12,21 @@ abstract class CounterBase implements Store {
   int value = 0;
 
   @observable
-  List<Job> jobs = [];
+  List<Job> jobs = ObservableList<Job>();
 
   @action
   void increment() {
     value++;
   }
 
+  @action
   readFileContent() async {
     final Map parsed =
         json.decode(await rootBundle.loadString('lib/assets/jobs.json'));
     final jobList = parsed["jobs"].toList();
     final jobs = jobList
-        .map<Job>((job) => Job(
-            id: job["id"],
-            title: job["title"],
-            description: job["description"],
-            location: job["location"],
-            responsibilities: job["responsibilities"]))
+        .map<Job>((job) => Job(job["id"], job["title"], job["description"],
+            job["location"], job["responsibilities"]))
         .toList();
     jobs.forEach((job) => {this.jobs.add(job)});
     print("check");
@@ -56,19 +52,4 @@ abstract class CounterBase implements Store {
   void selectJobWithIndex(int index) {
     selectedJob = index >= 0 && index < jobs.length ? jobs[index] : null;
   }
-}
-
-class Job {
-  Job(
-      {this.id,
-      this.title,
-      this.description,
-      this.location,
-      this.responsibilities});
-
-  final String id;
-  final String title;
-  final String description;
-  final String location;
-  final List responsibilities;
 }

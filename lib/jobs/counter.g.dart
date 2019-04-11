@@ -61,6 +61,13 @@ mixin _$Counter on CounterBase, Store {
     _$selectedJobAtom.reportChanged();
   }
 
+  final _$readFileContentAsyncAction = AsyncAction('readFileContent');
+
+  @override
+  Future readFileContent() {
+    return _$readFileContentAsyncAction.run(() => super.readFileContent());
+  }
+
   final _$CounterBaseActionController = ActionController(name: 'CounterBase');
 
   @override
