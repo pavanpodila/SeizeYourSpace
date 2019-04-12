@@ -3,20 +3,20 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:mobx/mobx.dart';
 import 'package:photo_job/jobs/job.dart';
 
-part 'counter.g.dart';
+part 'job_list.g.dart';
 
-class Counter = CounterBase with _$Counter;
+class JobList = JobListBase with _$JobList;
 
-abstract class CounterBase implements Store {
+abstract class JobListBase implements Store {
   @observable
   int value = 0;
 
   @observable
-  List<Job> jobs = ObservableList<Job>();
+  ObservableList<Job> jobs = ObservableList<Job>();
 
   @action
   void increment() {
-    value++;
+    this.jobs.add(Job('', '', '', '', []));
   }
 
   @action
@@ -33,7 +33,7 @@ abstract class CounterBase implements Store {
     print(this.jobs);
   }
 
-  CounterBase() {
+  JobListBase() {
     readFileContent();
   }
 

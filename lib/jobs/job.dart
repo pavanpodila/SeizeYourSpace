@@ -19,6 +19,5 @@ abstract class JobBase implements Store {
   String description = '';
   @observable
   String location = '';
-  @observable
   List responsibilities = [];
 }

@@ -68,19 +68,4 @@ mixin _$Job on JobBase, Store {
     super.location = value;
     _$locationAtom.reportChanged();
   }
-
-  final _$responsibilitiesAtom = Atom(name: 'JobBase.responsibilities');
-
-  @override
-  List get responsibilities {
-    _$responsibilitiesAtom.reportObserved();
-    return super.responsibilities;
-  }
-
-  @override
-  set responsibilities(List value) {
-    mainContext.checkIfStateModificationsAreAllowed(_$responsibilitiesAtom);
-    super.responsibilities = value;
-    _$responsibilitiesAtom.reportChanged();
-  }
 }

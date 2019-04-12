@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:photo_job/camera/camera_store.dart';
 import 'package:photo_job/camera/camera_widgets.dart';
 import 'package:photo_job/details/details_widgets.dart';
-import 'package:photo_job/jobs/counter.dart';
+import 'package:photo_job/jobs/job_list.dart';
 import 'package:photo_job/jobs/jobs_widgets.dart';
 import 'package:photo_job/home/home_widget.dart';
 
