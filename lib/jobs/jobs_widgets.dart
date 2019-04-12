@@ -4,21 +4,15 @@ import 'package:photo_job/core/app_page_view.dart';
 import 'package:photo_job/jobs/job_list.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:photo_job/jobs/job.dart';
+import 'package:provider/provider.dart';
 
-class JobsPage extends StatefulWidget {
-  const JobsPage({Key key}) : super(key: key);
-
-  @override
-  _JobsPageState createState() => _JobsPageState();
-}
-
-class _JobsPageState extends State<JobsPage> {
-//  final void Function(BuildContext context) onSelected;
-  final jobStore = JobList();
+class JobsPage extends StatelessWidget {
 
 //  JobsPage({@required this.store, @required this.onSelected});
   @override
   Widget build(BuildContext context) {
+    print('see here');
+    final jobStore = Provider.of<JobList>(context);
 //    print(_counter.value);
     return AppPageView(
       child: Observer(builder: (_) {
@@ -27,8 +21,6 @@ class _JobsPageState extends State<JobsPage> {
         scrollDirection: Axis.horizontal,
         onPageChanged: (index) => jobStore.selectJobWithIndex(index),
         itemBuilder: (_, index) {
-          print('inner');
-          print(jobStore.jobs.length);
           return JobView(
             job: jobStore.jobs[index],
 //            onSelected: () => onSelected(context),
@@ -49,8 +41,6 @@ class JobView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('actual wid');
-//    print(this.job.title);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -68,17 +58,19 @@ class JobView extends StatelessWidget {
                 Divider(
                   color: Colors.black26,
                 ),
-                const ListTile(
+                ListTile(
                   title: Text('JOB LOCATION'),
-                  subtitle: Text('Bangalore'),
+                  subtitle: Text('${this.job.location}'),
                 ),
                 Divider(
                   color: Colors.black26,
                 ),
-                const ListTile(
+                Padding(
+                    padding: const EdgeInsets.only(bottom: 15.0, left: 0, right: 0),
+                    child: ListTile(
                   title: Text('Job Summary'),
-                  subtitle: Text('Music by Julie Gable. Lyrics by Sidney Stein.'),
-                )
+                  subtitle: Text('${this.job.summary}'),
+                ))
               ],
             ),
           ),

@@ -4,13 +4,18 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 
 class CircularButton extends StatelessWidget {
+
+  CircularButton({@required this.textContent, @required this.onSelected});
+  String textContent;
+  final void Function() onSelected;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () async {
-          Navigator.pushNamed(context, '/jobs');
-          final Map parsed = json.decode(await rootBundle.loadString('lib/assets/jobs.json'));
-          print(parsed["jobs"][1]);
+//          Navigator.pushNamed(context, '/jobs');
+
+          this.onSelected();
         },
         child: Container(
           width: 120,
@@ -31,15 +36,10 @@ class CircularButton extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   child: null),
               Text(
-                "Yes",
+                '${this.textContent}',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              ),
-              Text(
-                "Why Not!",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              ),
+              )
             ],
           ),
         ));

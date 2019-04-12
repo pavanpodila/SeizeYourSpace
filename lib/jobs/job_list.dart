@@ -14,18 +14,26 @@ abstract class JobListBase implements Store {
   }
 
   @observable
+  String jobCategory = 'web';
+
+  @observable
   ObservableList<Job> jobs = ObservableList<Job>();
 
   @action
   readFileContent() async {
     final Map parsed =
         json.decode(await rootBundle.loadString('lib/assets/jobs.json'));
-    final parsedJobList = parsed["jobs"].toList();
+    final parsedJobList = parsed['${this.jobCategory}'].toList();
     final jobsArray = parsedJobList
-        .map<Job>((job) => Job(id: job["id"], title: job["title"], description: job["description"],
+        .map<Job>((job) => Job(id: job["id"], title: job["title"], summary: job["summary"],
         location: job["location"], responsibilities: job["responsibilities"]))
         .toList();
     jobsArray.forEach((job) => {this.jobs.add(job)});
+  }
+
+  @action
+  setJobCategory(String jobCategory) {
+    this.jobCategory = jobCategory;
   }
 
   @observable

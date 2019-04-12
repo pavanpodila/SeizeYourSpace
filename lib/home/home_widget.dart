@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_job/core/app_page_view.dart';
-import 'package:photo_job/home/circular_button.dart';
+import 'package:photo_job/core/circular_button.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -40,7 +40,10 @@ class HomePage extends StatelessWidget {
             ),
             Padding(
                 padding: const EdgeInsets.symmetric(vertical: 50), child: null),
-            CircularButton(),
+            CircularButton(textContent: 'Yes \r Why not?', onSelected: () {
+              print('onSelected');
+              return Navigator.pushNamed(context, '/jobCategory');
+            }),
           ],
         ),
       ),

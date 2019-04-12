@@ -1,11 +1,11 @@
 import 'package:mobx/mobx.dart';
 
 class Job {
-  Job({this.id, this.title, this.description, this.location, this.responsibilities});
+  Job({this.id, this.title, this.summary, this.location, this.responsibilities});
 
   String id;
   String title;
-  String description;
+  String summary;
   String location;
   List responsibilities;
 }
