@@ -1,5 +1,3 @@
-import 'package:mobx/mobx.dart';
-
 class Job {
   Job({this.id, this.title, this.summary, this.location, this.responsibilities});
 

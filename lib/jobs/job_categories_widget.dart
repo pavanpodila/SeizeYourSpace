@@ -9,11 +9,14 @@ class JobCategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final jobCategories = Provider
         .of<JobList>(context)
         .jobCategories;
+
     final setJobCategory = Provider
         .of<JobList>(context).setJobCategory;
+
     return AppPageView(
         child: GridView.count(
             primary: true,
@@ -22,7 +25,6 @@ class JobCategoryPage extends StatelessWidget {
             crossAxisCount: 2,
             children: jobCategories.map((jobCategory) =>
               CircularButton(textContent: '${jobCategory}', onSelected: () {
-                print('onSelected');
                 setJobCategory(jobCategory);
                 return Navigator.pushNamed(context, '/jobs');
               })

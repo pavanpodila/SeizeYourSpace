@@ -8,22 +8,17 @@ import 'package:provider/provider.dart';
 
 class JobsPage extends StatelessWidget {
 
-//  JobsPage({@required this.store, @required this.onSelected});
   @override
   Widget build(BuildContext context) {
-    print('see here');
     final jobStore = Provider.of<JobList>(context);
-//    print(_counter.value);
     return AppPageView(
       child: Observer(builder: (_) {
-        print(jobStore.jobs.length);
         return PageView.builder(
         scrollDirection: Axis.horizontal,
         onPageChanged: (index) => jobStore.selectJobWithIndex(index),
         itemBuilder: (_, index) {
           return JobView(
             job: jobStore.jobs[index],
-//            onSelected: () => onSelected(context),
           );
         },
         itemCount: jobStore.jobs.length,
