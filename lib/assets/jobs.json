@@ -55,8 +55,8 @@
   ],
   "mobile": [
     {
-      "id": "ui_id",
-      "title": "UI developer",
+      "id": "mobile_id",
+      "title": "mobile developer",
       "location": "banglore",
       "summary": "some text some text some text some textsome text some text some text some text some text",
       "responsibilities": [
@@ -68,8 +68,8 @@
       ]
     },
     {
-      "id": "web_id",
-      "title": "web developer",
+      "id": "ios_id",
+      "title": "ios developer",
       "location": "banglore",
       "summary": "some text some text some text some textsome text some text some text some text some text",
       "responsibilities": [
@@ -83,8 +83,8 @@
   ],
   "Devops": [
     {
-      "id": "web_id",
-      "title": "web developer",
+      "id": "devops_id",
+      "title": "devops developer",
       "location": "banglore",
       "summary": "some text some text some text some textsome text some text some text some text some text",
       "responsibilities": [
@@ -98,8 +98,8 @@
   ],
   "cloud": [
     {
-      "id": "web_id",
-      "title": "web developer",
+      "id": "cloud_id",
+      "title": "cloud developer",
       "location": "banglore",
       "summary": "some text some text some text some textsome text some text some text some text some text",
       "responsibilities": [
@@ -113,8 +113,8 @@
   ],
   "aws": [
     {
-      "id": "web_id",
-      "title": "web developer",
+      "id": "aws_id",
+      "title": "aws developer",
       "location": "banglore",
       "summary": "some text some text some text some textsome text some text some text some text some text",
       "responsibilities": [

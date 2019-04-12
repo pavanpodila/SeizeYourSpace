@@ -10,8 +10,11 @@ class JobList = JobListBase with _$JobList;
 abstract class JobListBase implements Store {
 
   JobListBase() {
-    readFileContent();
+    setJobCategories();
   }
+
+  @observable
+  ObservableList<String> jobCategories = ObservableList<String>();
 
   @observable
   String jobCategory = 'web';
@@ -20,7 +23,16 @@ abstract class JobListBase implements Store {
   ObservableList<Job> jobs = ObservableList<Job>();
 
   @action
-  readFileContent() async {
+  setJobCategories() async {
+    final Map parsed =
+    json.decode(await rootBundle.loadString('lib/assets/jobs.json'));
+    final categories = parsed.keys.toList();
+    categories.forEach((jobCategory) => {this.jobCategories.add(jobCategory)});
+  }
+
+  @action
+  selectJobsForCategory() async {
+    this.jobs.clear();
     final Map parsed =
         json.decode(await rootBundle.loadString('lib/assets/jobs.json'));
     final parsedJobList = parsed['${this.jobCategory}'].toList();
@@ -34,6 +46,7 @@ abstract class JobListBase implements Store {
   @action
   setJobCategory(String jobCategory) {
     this.jobCategory = jobCategory;
+    selectJobsForCategory();
   }
 
   @observable
