@@ -1,23 +1,11 @@
 import 'package:mobx/mobx.dart';
-part 'job.g.dart';
 
-class Job = JobBase with _$Job;
+class Job {
+  Job({this.id, this.title, this.description, this.location, this.responsibilities});
 
-abstract class JobBase implements Store {
-  JobBase(
-      id,
-        title,
-        description,
-        location,
-        responsibilities);
-
-  @observable
-  String id = '';
-  @observable
-  String title = '';
-  @observable
-  String description = '';
-  @observable
-  String location = '';
-  List responsibilities = [];
+  String id;
+  String title;
+  String description;
+  String location;
+  List responsibilities;
 }
