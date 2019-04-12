@@ -8,8 +8,10 @@ part 'job_list.g.dart';
 class JobList = JobListBase with _$JobList;
 
 abstract class JobListBase implements Store {
-  @observable
-  int value = 0;
+
+  JobListBase() {
+    readFileContent();
+  }
 
   @observable
   ObservableList<Job> jobs = ObservableList<Job>();
@@ -18,16 +20,12 @@ abstract class JobListBase implements Store {
   readFileContent() async {
     final Map parsed =
         json.decode(await rootBundle.loadString('lib/assets/jobs.json'));
-    final jobList = parsed["jobs"].toList();
-    final jobsArray = jobList
+    final parsedJobList = parsed["jobs"].toList();
+    final jobsArray = parsedJobList
         .map<Job>((job) => Job(id: job["id"], title: job["title"], description: job["description"],
         location: job["location"], responsibilities: job["responsibilities"]))
         .toList();
     jobsArray.forEach((job) => {this.jobs.add(job)});
-  }
-
-  JobListBase() {
-    readFileContent();
   }
 
   @observable
