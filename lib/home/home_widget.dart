@@ -40,8 +40,7 @@ class HomePage extends StatelessWidget {
             ),
             Padding(
                 padding: const EdgeInsets.symmetric(vertical: 50), child: null),
-            CircularButton(textContent: 'Yes \r Why not?', onSelected: () {
-              print('onSelected');
+            CircularButton(textContent: 'Yes \n Why not?', onSelected: () {
               return Navigator.pushNamed(context, '/jobCategory');
             }),
           ],

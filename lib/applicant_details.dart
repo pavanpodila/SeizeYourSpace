@@ -14,4 +14,12 @@ class ApplicantDetails {
     this.email = email;
   }
 
+  setJobCategory(String category) {
+    this.jobCategory = category;
+  }
+
+  setJobId(String id) {
+    this.jobId = id;
+  }
+
 }

@@ -23,8 +23,9 @@ class JobCategoryPage extends StatelessWidget {
         child: GridView.count(
             primary: true,
             padding: const EdgeInsets.all(20.0),
-            crossAxisSpacing: 10.0,
-            crossAxisCount: 2,
+            crossAxisSpacing: 20.0,
+            mainAxisSpacing: 20.0,
+            crossAxisCount: 3,
             children: jobCategories.map((jobCategory) =>
               CircularButton(textContent: '${jobCategory}', onSelected: () {
                 setJobCategory(jobCategory);

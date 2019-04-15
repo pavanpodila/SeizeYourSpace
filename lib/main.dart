@@ -23,7 +23,9 @@ class MyApp extends StatelessWidget {
         providers: [
           Provider<ApplicantDetails>(value: applicantDetails),
           Provider<JobList>(value: jobsStore),
-          Provider<Function>(value: applicantDetails.setNamePhoneAndEmailValue)
+          Provider<Function>(value: applicantDetails.setNamePhoneAndEmailValue),
+//          Provider<Function>(value: applicantDetails.setJobCategory),
+//          Provider<Function>(value: applicantDetails.setJobId)
         ],
       child: CupertinoApp(
         debugShowCheckedModeBanner: false,

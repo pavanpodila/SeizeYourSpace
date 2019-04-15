@@ -194,7 +194,7 @@ class _DetailsPageState extends State<DetailsPage> {
       onPressed: () {
         _submit(context);
       },
-      color: Colors.pinkAccent,
+      color: Colors.blueAccent,
       child: Text(
         'Apply',
         style: TextStyle(fontSize: 16.9),

@@ -13,8 +13,6 @@ class CircularButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () async {
-//          Navigator.pushNamed(context, '/jobs');
-
           this.onSelected();
         },
         child: Container(
@@ -27,7 +25,7 @@ class CircularButton extends StatelessWidget {
             // The border you want
             border: new Border.all(
               width: 5.0,
-              color: Colors.redAccent,
+              color: Colors.blueAccent,
             ),
           ),
           child: Column(
