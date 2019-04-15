@@ -1,41 +1,92 @@
 import 'package:flutter/cupertino.dart';
 import 'package:photo_job/core/app_page_view.dart';
 import 'package:flutter/material.dart';
-import 'package:email_validator/email_validator.dart';
+import 'package:photo_job/core/circular_button.dart';
+import 'package:provider/provider.dart';
+import 'package:photo_job/jobs/job_list.dart';
 import 'package:regexed_validator/regexed_validator.dart';
+import 'package:flutter/services.dart';
 
-var formKey = GlobalKey<FormState>();
+class DetailsPage extends StatefulWidget {
 
-class DetailsPage extends StatelessWidget {
+  @override
+  _DetailsPageState createState() {
+    return _DetailsPageState();
+  }
+}
 
+class _DetailsPageState extends State<DetailsPage> {
+
+  String _name = '';
+  String _phone = '';
+  String _email = '';
+  final _formKey = GlobalKey<FormState>();
+  bool _showDialog = false;
   final FocusNode _nameFocus = FocusNode();
   final FocusNode _emailFocus = FocusNode();
   final FocusNode _phoneFocus = FocusNode();
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      body: new Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          SingleChildScrollView(
-            child: Form(
-              key: formKey,
-              child: Column(
-                children: <Widget>[
-                  nameField(context),
-                  emailFormField(context),
-                  phoneField(context),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10.0),
-                    child: submitButton(context)
-                    ),
-                ],
-              ),
+    final jobStore = Provider.of<JobList>(context);
+    final onComplete = Provider.of<Function>(context);
+
+    return Scaffold(
+        body: _showDialog ? CupertinoAlertDialog(
+          title: new Text("Success!!"),
+          content: new Text("We have received your application. We will get back to you shortly"),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              isDefaultAction: true,
+              child: Text("Ok"),
+              onPressed: () {
+                onComplete(_name, _email, _phone);
+                Navigator.pop(context);
+                return Navigator.pushNamed(context, '/');
+              },
             ),
+          ],
+        ) : AppPageView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                child: CircularButton(
+                    textContent: '${jobStore.jobCategory}', onSelected: () {}),
+                padding: EdgeInsets.only(bottom: 5, top: 10),
+              ),
+              Padding(
+                child: Divider(
+                  color: Colors.black26,
+                ),
+                padding: EdgeInsets.only(bottom: 5),
+              ),
+              SingleChildScrollView(
+                child: Form(
+                  key: _formKey,
+                  autovalidate: true,
+                  child: Column(
+                    children: <Widget>[
+                      _addPaddingForField(nameField(context)),
+                      _addPaddingForField(emailFormField(context)),
+                      _addPaddingForField(phoneField(context)),
+                      Padding(
+                        child: submitButton(context),
+                        padding: EdgeInsets.only(top: 5),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
           ),
-        ],
-      ),
+        ));
+  }
+
+  _addPaddingForField(Widget widget) {
+    return Padding(
+      child: widget,
+      padding: EdgeInsets.all(8),
     );
   }
 
@@ -54,12 +105,16 @@ class DetailsPage extends StatelessWidget {
         }
       },
       onSaved: (value) {
-        print(value);
+        _phone = value;
       },
-      decoration: InputDecoration(
-          hintText: 'Enter Your Phone Number',
-          labelText: 'Phone',
-          fillColor: Colors.white
+      decoration: new InputDecoration(
+        alignLabelWithHint: true,
+        labelText: "Phone",
+        fillColor: Colors.white,
+        border: new OutlineInputBorder(
+          borderRadius: new BorderRadius.circular(5),
+          borderSide: new BorderSide(),
+        ),
       ),
     );
   }
@@ -69,7 +124,7 @@ class DetailsPage extends StatelessWidget {
       keyboardType: TextInputType.emailAddress,
       focusNode: _emailFocus,
       textInputAction: TextInputAction.next,
-      onFieldSubmitted: (value){
+      onFieldSubmitted: (value) {
         _fieldFocusChange(context, _emailFocus, _phoneFocus);
       },
       validator: (value) {
@@ -78,52 +133,57 @@ class DetailsPage extends StatelessWidget {
         }
       },
       onSaved: (value) {
-        print(value);
+        _email = value;
       },
-      decoration: InputDecoration(
-          hintText: 'Enter Your Email',
-          labelText: 'Email',
-          fillColor: Colors.white
+      decoration: new InputDecoration(
+        labelText: "Email",
+        fillColor: Colors.white,
+        border: new OutlineInputBorder(
+          borderRadius: new BorderRadius.circular(5),
+          borderSide: new BorderSide(),
+        ),
       ),
     );
   }
 
   TextFormField nameField(BuildContext context) {
     return TextFormField(
-      keyboardType: TextInputType.text,
-      textInputAction: TextInputAction.next,
-      focusNode: _nameFocus,
-      onFieldSubmitted: (term){
-        _fieldFocusChange(context, _nameFocus, _emailFocus);
-      },
-      validator: (value) {
-        if ((isNumeric(value) == true) || (value.length <= 1)) {
-          return ('Enter Name');
-        }
-      },
-      onSaved: (value) {
-        print(value);
-      },
-      decoration: InputDecoration(
-          hintText: 'Enter Your Name',
-          labelText: 'Name',
-          fillColor: Colors.white
-      ),
-    );
+        decoration: new InputDecoration(
+          labelText: "Name",
+          fillColor: Colors.white,
+          border: new OutlineInputBorder(
+            borderRadius: new BorderRadius.circular(5),
+            borderSide: new BorderSide(),
+          ),
+        ),
+        keyboardType: TextInputType.text,
+        textInputAction: TextInputAction.next,
+        focusNode: _nameFocus,
+        onFieldSubmitted: (term) {
+          _fieldFocusChange(context, _nameFocus, _emailFocus);
+        },
+        validator: (value) {
+          if ((isNumeric(value) == true) || (value.length <= 1)) {
+            return ('Name cannot be empty');
+          }
+        },
+        onSaved: (value) {
+          _name = value;
+        });
   }
 
   _submit(context) {
-    if (formKey.currentState.validate()) {
-      print('formData');
-      print(formKey.currentState);
-      formKey.currentState.save();
-      Navigator.pop(context);
-      return Navigator.pushNamed(context, '/');
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      FocusScope.of(context).requestFocus(new FocusNode());
+      setState(() {
+        _showDialog = true;
+      });
     }
   }
 
   bool isNumeric(String s) {
-    if(s == null) {
+    if (s == null) {
       return false;
     }
     return double.parse(s, (e) => null) != null;
@@ -132,19 +192,21 @@ class DetailsPage extends StatelessWidget {
   RaisedButton submitButton(BuildContext context) {
     return RaisedButton(
       onPressed: () {
-       _submit(context);
+        _submit(context);
       },
       color: Colors.pinkAccent,
       child: Text(
-        'Submit',
+        'Apply',
         style: TextStyle(fontSize: 16.9),
       ),
       textColor: Colors.white70,
     );
   }
 
-  _fieldFocusChange(BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
+  _fieldFocusChange(
+      BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
     currentFocus.unfocus();
     FocusScope.of(context).requestFocus(nextFocus);
   }
 }
+

@@ -7,4 +7,11 @@ class ApplicantDetails {
   String jobCategory;
   String jobId;
   String picPath;
+
+  setNamePhoneAndEmailValue(String name, String email, String phone) {
+    this.name = name;
+    this.phone = phone;
+    this.email = email;
+  }
+
 }

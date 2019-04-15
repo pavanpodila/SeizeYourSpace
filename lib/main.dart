@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
         providers: [
           Provider<ApplicantDetails>(value: applicantDetails),
           Provider<JobList>(value: jobsStore),
+          Provider<Function>(value: applicantDetails.setNamePhoneAndEmailValue)
         ],
       child: CupertinoApp(
         debugShowCheckedModeBanner: false,
@@ -31,9 +32,8 @@ class MyApp extends StatelessWidget {
           '/': (_) => HomePage(),
           '/jobCategory': (_) => JobCategoryPage(),
           '/jobs': (_) => JobsPage(),
-          '/details': (_)  {
-            return DetailsPage();
-          }
+          '/details': (_) => DetailsPage()
+
         },
         initialRoute: '/',
       )
