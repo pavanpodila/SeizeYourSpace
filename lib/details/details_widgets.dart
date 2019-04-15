@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:photo_job/jobs/job_list.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'package:flutter/services.dart';
+import 'package:photo_job/applicant_details.dart';
 
 class DetailsPage extends StatefulWidget {
 
@@ -29,8 +30,7 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   Widget build(BuildContext context) {
     final jobStore = Provider.of<JobList>(context);
-    final onComplete = Provider.of<Function>(context);
-
+    final applicantDetails = Provider.of<ApplicantDetails>(context);
     return Scaffold(
         body: _showDialog ? CupertinoAlertDialog(
           title: new Text("Success!!"),
@@ -40,7 +40,7 @@ class _DetailsPageState extends State<DetailsPage> {
               isDefaultAction: true,
               child: Text("Ok"),
               onPressed: () {
-                onComplete(_name, _email, _phone);
+                applicantDetails.setNamePhoneAndEmailValue(_name, _email, _phone);
                 Navigator.pop(context);
                 return Navigator.pushNamed(context, '/');
               },

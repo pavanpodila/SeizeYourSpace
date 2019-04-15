@@ -29,7 +29,7 @@ class JobCategoryPage extends StatelessWidget {
             children: jobCategories.map((jobCategory) =>
               CircularButton(textContent: '${jobCategory}', onSelected: () {
                 setJobCategory(jobCategory);
-                applicantDetails.jobCategory = jobCategory;
+                applicantDetails.setJobCategory(jobCategory);
                 return Navigator.pushNamed(context, '/jobs');
               })
             ).toList()

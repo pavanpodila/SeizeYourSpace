@@ -19,10 +19,8 @@ class JobsPage extends StatelessWidget {
           return JobView(
             job: jobStore.jobs[index],
             onSelected: (job) {
-              applicantDetails.jobId = job.id;
+              applicantDetails.setJobId(job.id);
               jobStore.selectJob(job);
-              print('here');
-              print(applicantDetails.jobId);
               return Navigator.pushNamed(context, '/details');
             },
           );
