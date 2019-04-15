@@ -5,20 +5,29 @@ import 'package:photo_job/jobs/job_list.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:photo_job/jobs/job.dart';
 import 'package:provider/provider.dart';
+import 'package:photo_job/applicant_details.dart';
 
 class JobsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final jobStore = Provider.of<JobList>(context);
+    final applicantDetails = Provider.of<ApplicantDetails>(context);
+
     return AppPageView(
       child: Observer(builder: (_) {
-        return PageView.builder(
-        scrollDirection: Axis.horizontal,
-        onPageChanged: (index) => jobStore.selectJobWithIndex(index),
+        return ListView.builder(
         itemBuilder: (_, index) {
           return JobView(
             job: jobStore.jobs[index],
+            onSelected: (job) {
+              applicantDetails.jobId = job.id;
+              jobStore.selectJob(job);
+              print('here');
+              print(applicantDetails.jobId);
+              return Navigator.pushNamed(context, '/details');
+            },
           );
         },
         itemCount: jobStore.jobs.length,
@@ -28,9 +37,9 @@ class JobsPage extends StatelessWidget {
 }
 
 class JobView extends StatelessWidget {
-  JobView({@required this.job});
+  JobView({@required this.job, @required this.onSelected});
 
-//  final void Function() onSelected;
+  final void Function(Job job) onSelected;
 
   final Job job;
 
@@ -65,7 +74,11 @@ class JobView extends StatelessWidget {
                     child: ListTile(
                   title: Text('Job Summary'),
                   subtitle: Text('${this.job.summary}'),
-                ))
+                )),
+                InkWell(onTap: () {
+                  this.onSelected(this.job);
+                },
+                    child: Text("Apply"))
               ],
             ),
           ),

@@ -4,6 +4,7 @@ import 'package:photo_job/core/app_page_view.dart';
 import 'package:photo_job/core/circular_button.dart';
 import 'package:provider/provider.dart';
 import 'package:photo_job/jobs/job_list.dart';
+import 'package:photo_job/applicant_details.dart';
 
 class JobCategoryPage extends StatelessWidget {
 
@@ -13,6 +14,7 @@ class JobCategoryPage extends StatelessWidget {
     final jobCategories = Provider
         .of<JobList>(context)
         .jobCategories;
+    final applicantDetails = Provider.of<ApplicantDetails>(context);
 
     final setJobCategory = Provider
         .of<JobList>(context).setJobCategory;
@@ -26,6 +28,7 @@ class JobCategoryPage extends StatelessWidget {
             children: jobCategories.map((jobCategory) =>
               CircularButton(textContent: '${jobCategory}', onSelected: () {
                 setJobCategory(jobCategory);
+                applicantDetails.jobCategory = jobCategory;
                 return Navigator.pushNamed(context, '/jobs');
               })
             ).toList()

@@ -7,9 +7,11 @@ import 'package:photo_job/jobs/jobs_widgets.dart';
 import 'package:photo_job/home/home_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:photo_job/jobs/job_categories_widget.dart';
+import 'package:photo_job/applicant_details.dart';
 
 final cameraStore = CameraStore();
 final jobsStore = JobList();
+final applicantDetails = ApplicantDetails();
 
 void main() => runApp(MyApp());
 
@@ -19,6 +21,7 @@ class MyApp extends StatelessWidget {
 
     return MultiProvider(
         providers: [
+          Provider<ApplicantDetails>(value: applicantDetails),
           Provider<JobList>(value: jobsStore),
         ],
       child: CupertinoApp(
@@ -28,7 +31,9 @@ class MyApp extends StatelessWidget {
           '/': (_) => HomePage(),
           '/jobCategory': (_) => JobCategoryPage(),
           '/jobs': (_) => JobsPage(),
-          '/details': (_) => DetailsPage()
+          '/details': (_)  {
+            return DetailsPage();
+          }
         },
         initialRoute: '/',
       )

@@ -28,6 +28,9 @@ dependencies:
   camera:
   path_provider:
   provider: ^1.6.1
+  email_validator: '^1.0.0'
+  regexed_validator: ^1.0.2
+
 
 
 dev_dependencies:

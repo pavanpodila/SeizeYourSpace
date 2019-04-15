@@ -141,6 +141,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.4"
+  email_validator:
+    dependency: "direct main"
+    description:
+      name: email_validator
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   fixnum:
     dependency: transitive
     description:
@@ -354,6 +361,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  regexed_validator:
+    dependency: "direct main"
+    description:
+      name: regexed_validator
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
   shelf:
     dependency: transitive
     description:
