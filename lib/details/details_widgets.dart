@@ -40,7 +40,6 @@ class _DetailsPageState extends State<DetailsPage> {
               isDefaultAction: true,
               child: Text("Ok"),
               onPressed: () {
-                applicantDetails.setNamePhoneAndEmailValue(_name, _email, _phone);
                 Navigator.pop(context);
                 return Navigator.pushNamed(context, '/');
               },
@@ -69,9 +68,9 @@ class _DetailsPageState extends State<DetailsPage> {
                     children: <Widget>[
                       _addPaddingForField(nameField(context)),
                       _addPaddingForField(emailFormField(context)),
-                      _addPaddingForField(phoneField(context)),
+                      _addPaddingForField(phoneField(context, applicantDetails)),
                       Padding(
-                        child: submitButton(context),
+                        child: submitButton(context, applicantDetails),
                         padding: EdgeInsets.only(top: 5),
                       ),
                     ],
@@ -90,14 +89,14 @@ class _DetailsPageState extends State<DetailsPage> {
     );
   }
 
-  TextFormField phoneField(BuildContext context) {
+  TextFormField phoneField(BuildContext context, ApplicantDetails applicantDetails) {
     return TextFormField(
       keyboardType: TextInputType.phone,
       textInputAction: TextInputAction.done,
       focusNode: _phoneFocus,
       onFieldSubmitted: (term) {
         _phoneFocus.unfocus();
-        _submit(context);
+        _submit(context, applicantDetails);
       },
       validator: (value) {
         if (validator.phone(value) != true || value.length < 10) {
@@ -172,10 +171,11 @@ class _DetailsPageState extends State<DetailsPage> {
         });
   }
 
-  _submit(context) {
+  _submit(context, applicantDetails) {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       FocusScope.of(context).requestFocus(new FocusNode());
+      applicantDetails.setNamePhoneAndEmailValue(_name, _email, _phone);
       setState(() {
         _showDialog = true;
       });
@@ -189,10 +189,10 @@ class _DetailsPageState extends State<DetailsPage> {
     return double.parse(s, (e) => null) != null;
   }
 
-  RaisedButton submitButton(BuildContext context) {
+  RaisedButton submitButton(BuildContext context, ApplicantDetails applicantDetails) {
     return RaisedButton(
       onPressed: () {
-        _submit(context);
+        _submit(context, applicantDetails);
       },
       color: Colors.blueAccent,
       child: Text(

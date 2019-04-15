@@ -30,7 +30,7 @@ dependencies:
   provider: ^1.6.1
   email_validator: '^1.0.0'
   regexed_validator: ^1.0.2
-
+  serializable: ^0.11.2+1
 
 
 dev_dependencies:
