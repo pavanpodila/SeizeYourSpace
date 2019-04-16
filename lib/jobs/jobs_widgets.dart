@@ -8,6 +8,11 @@ import 'package:provider/provider.dart';
 import 'package:photo_job/applicant_details.dart';
 
 class JobsPage extends StatelessWidget {
+
+  JobsPage({this.onSelected});
+
+  final void Function(BuildContext context) onSelected;
+
   @override
   Widget build(BuildContext context) {
     final jobStore = Provider.of<JobList>(context);
@@ -21,7 +26,7 @@ class JobsPage extends StatelessWidget {
             onSelected: (job) {
               applicantDetails.setJobId(job.id);
               jobStore.selectJob(job);
-              return Navigator.pushNamed(context, '/details');
+              this.onSelected(context);
             },
           );
         },

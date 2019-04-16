@@ -8,6 +8,7 @@ import 'package:photo_job/home/home_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:photo_job/jobs/job_categories_widget.dart';
 import 'package:photo_job/applicant_details.dart';
+import 'package:photo_job/camera/camera_widgets.dart';
 
 final cameraStore = CameraStore();
 final jobsStore = JobList();
@@ -18,24 +19,35 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     return MultiProvider(
         providers: [
           Provider<ApplicantDetails>(value: applicantDetails),
           Provider<JobList>(value: jobsStore),
+          Provider<CameraStore>(value: cameraStore)
         ],
-      child: CupertinoApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Photo Job',
-        routes: {
-          '/': (_) => HomePage(),
-          '/jobCategory': (_) => JobCategoryPage(),
-          '/jobs': (_) => JobsPage(),
-          '/details': (_) => DetailsPage()
-
-        },
-        initialRoute: '/',
-      )
-    );
+        child: CupertinoApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Photo Job',
+          routes: {
+            '/': (_) => HomePage(),
+            '/jobCategory': (_) => JobCategoryPage(),
+            '/jobs': (_) => JobsPage(
+                  onSelected: (context) {
+                    Navigator.of(context).push(CupertinoPageRoute(
+                        builder: (_) => TakePhotoPage(
+                              store: cameraStore,
+                              onEscape: (context) => Navigator.popUntil(
+                                  context, ModalRoute.withName('/')),
+                              onCancel: (context) => Navigator.pop(context),
+                              onAccept: (context) => Navigator.popAndPushNamed(
+                                  context, '/details'),
+                            ),
+                        fullscreenDialog: true));
+                  },
+                ),
+            '/details': (_) => DetailsPage()
+          },
+          initialRoute: '/',
+        ));
   }
 }

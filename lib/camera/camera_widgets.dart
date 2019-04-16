@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:photo_job/camera/camera_store.dart';
 import 'package:photo_job/core/app_page_view.dart';
+import 'package:provider/provider.dart';
+import 'package:photo_job/applicant_details.dart';
 
 class TakePhotoPage extends StatelessWidget {
   final CameraStore store;
@@ -24,11 +26,12 @@ class TakePhotoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final applicantDetails = Provider.of<ApplicantDetails>(context);
     return AppPageView(
       child: Column(children: <Widget>[
         Text(
           'How about a quick selfie?',
-          style: TextStyle(fontSize: 20, color: Colors.redAccent),
+          style: TextStyle(fontSize: 25, color: Colors.blueAccent),
         ),
         Expanded(
           child: Stack(
@@ -45,33 +48,35 @@ class TakePhotoPage extends StatelessWidget {
                             style: TextStyle(color: Colors.grey),
                           ))),
               Observer(
-                builder: (_) => Align(
-                      alignment: Alignment.bottomLeft,
-                      child: SizedBox(
-                        width: 150,
-                        height: 150,
-                        child: CircleAvatar(
-                          borderWidth: 5,
-                          color: store.isCameraReady
-                              ? Colors.redAccent
-                              : Colors.grey,
-                          child: store.capturedPhotoFile != null
-                              ? Image.file(File(store.capturedPhotoFile),
-                                  fit: BoxFit.fitWidth)
-                              : Text('Your Photo'),
-                        ),
-                      ),
-                    ),
-              )
+                  builder: (_) => (store.capturedPhotoFile != null)
+                      ? Align(
+                          alignment: Alignment.bottomLeft,
+                          child: SizedBox(
+                            width: 150,
+                            height: 150,
+                            child: CircleAvatar(
+                              borderWidth: 5,
+                              color: store.isCameraReady
+                                  ? Colors.redAccent
+                                  : Colors.grey,
+                              child: store.capturedPhotoFile != null
+                                  ? Image.file(File(store.capturedPhotoFile),
+                                      fit: BoxFit.fitWidth)
+                                  : Text('Your Photo'),
+                            ),
+                          ),
+                        )
+                      : Container(height: 0, width: 0))
             ],
           ),
         ),
-        _buildActionButtonBar(context),
+        _buildActionButtonBar(context, applicantDetails),
       ]),
     );
   }
 
-  Observer _buildActionButtonBar(BuildContext context) {
+  Observer _buildActionButtonBar(
+      BuildContext context, ApplicantDetails applicantDetails) {
     return Observer(
       builder: (_) => store.isCameraReady
           ? Column(
@@ -89,10 +94,18 @@ class TakePhotoPage extends StatelessWidget {
                           size: 40,
                         )),
                     onPressed: store.takePicture),
-                CupertinoButton(
-                  child: Text('Looks good'),
-                  onPressed: () => onAccept(context),
-                )
+                (store.capturedPhotoFile != null) ? RaisedButton(
+                  onPressed: () {
+                    applicantDetails.setImagePath(store.capturedPhotoFile);
+                    onAccept(context);
+                  },
+                  color: Colors.blueAccent,
+                  child: Text(
+                    'Looks Good',
+                    style: TextStyle(fontSize: 16.9),
+                  ),
+                  textColor: Colors.white70,
+                ) : Container(height: 0, width: 0)
               ],
             )
           : Container(),

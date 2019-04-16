@@ -7,6 +7,7 @@ import 'package:photo_job/jobs/job_list.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'package:flutter/services.dart';
 import 'package:photo_job/applicant_details.dart';
+import  'package:photo_job/camera/camera_store.dart';
 
 class DetailsPage extends StatefulWidget {
 
@@ -173,8 +174,10 @@ class _DetailsPageState extends State<DetailsPage> {
 
   _submit(context, applicantDetails) {
     if (_formKey.currentState.validate()) {
+      final cameraStore = Provider.of<CameraStore>(context);
       _formKey.currentState.save();
       FocusScope.of(context).requestFocus(new FocusNode());
+      cameraStore.clearPhotoPath();
       applicantDetails.setNamePhoneAndEmailValue(_name, _email, _phone);
       setState(() {
         _showDialog = true;

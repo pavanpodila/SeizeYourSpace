@@ -33,9 +33,17 @@ class ApplicantDetails {
     this.jobId = id;
   }
 
+  setImagePath(String path ) {
+    this.picPath = path;
+  }
+
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
-    return directory.path;
+    final path = '${directory.path}/profiles';
+    if (!await Directory(path).exists()) {
+      await Directory(path).create(recursive: true);
+    }
+    return path;
   }
 
   Future<File> get _localFile async {
@@ -52,7 +60,28 @@ class ApplicantDetails {
       "jobCategory": details.jobCategory,
       "name": details.name,
       "phone": details.phone,
-      "email": details.email
+      "email": details.email,
+      "picPath": details.picPath
     }));
+//    readApplicantDetails();
   }
+
+//  Future<ApplicantDetails> readApplicantDetails() async {
+//    try {
+//      final file = await _localFile;
+//      this.test.listSync(recursive: true, followLinks:  true).forEach((entity){
+//        print(entity.path);
+//      });
+//      // Read the file
+//      String contents = await file.readAsString();
+//      print('seeeeee');
+//      print(contents);
+//      print(json.decode(contents));
+//
+////      return int.parse(contents);
+//    } catch (e) {
+//      // If encountering an error, return 0
+//      return null;
+//    }
+//  }
 }
