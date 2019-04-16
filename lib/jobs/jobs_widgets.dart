@@ -1,37 +1,40 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_job/core/app_page_view.dart';
-import 'package:photo_job/jobs/jobs_store.dart';
+import 'package:photo_job/jobs/job_list.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:photo_job/jobs/job.dart';
+import 'package:provider/provider.dart';
+import 'package:photo_job/applicant_details.dart';
 
 class JobsPage extends StatelessWidget {
-  final JobsStore store;
-
-  final void Function(BuildContext context) onSelected;
-
-  JobsPage({@required this.store, @required this.onSelected});
-
   @override
   Widget build(BuildContext context) {
-    return AppPageView(
-      child: PageView.builder(
-        scrollDirection: Axis.horizontal,
-        onPageChanged: (index) => store.selectJobWithIndex(index),
+    final jobStore = Provider.of<JobList>(context);
+    final applicantDetails = Provider.of<ApplicantDetails>(context);
+
+    return AppPageView(child: Observer(builder: (_) {
+      return ListView.builder(
         itemBuilder: (_, index) {
           return JobView(
-            job: store.jobs[index],
-            onSelected: () => onSelected(context),
+            job: jobStore.jobs[index],
+            onSelected: (job) {
+              applicantDetails.setJobId(job.id);
+              jobStore.selectJob(job);
+              return Navigator.pushNamed(context, '/details');
+            },
           );
         },
-        itemCount: store.jobs.length,
-      ),
-    );
+        itemCount: jobStore.jobs.length,
+      );
+    }));
   }
 }
 
 class JobView extends StatelessWidget {
   JobView({@required this.job, @required this.onSelected});
 
-  final void Function() onSelected;
+  final void Function(Job job) onSelected;
 
   final Job job;
 
@@ -41,42 +44,53 @@ class JobView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.only(bottom: 16.0),
+          padding: const EdgeInsets.only(top: 30.0, left: 15.0, right: 15.0),
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 16),
-            decoration: BoxDecoration(color: Colors.redAccent),
-            child: Text(job.title,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white)),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(job.description, style: TextStyle(fontSize: 16)),
-        ),
-        Expanded(
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: CupertinoButton(
-              onPressed: onSelected,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
+            child: Card(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Icon(
-                    CupertinoIcons.check_mark_circled_solid,
-                    size: 30,
+                  ListTile(
+                    title: Text('JOB TITLE'),
+                    subtitle: Text('${this.job.title}'),
                   ),
-                  Text(
-                    'I want this!',
-                    style: TextStyle(fontSize: 20),
+                  Divider(
+                    color: Colors.black26,
+                  ),
+                  ListTile(
+                    title: Text('JOB LOCATION'),
+                    subtitle: Text('${this.job.location}'),
+                  ),
+                  Divider(
+                    color: Colors.black26,
+                  ),
+                  Padding(
+                      padding:
+                      const EdgeInsets.only(bottom: 15.0, left: 0, right: 0),
+                      child: ListTile(
+                        title: Text('Job Summary'),
+                        subtitle: Text('${this.job.summary}'),
+                      )),
+                  RaisedButton(
+                    onPressed: () {
+                      this.onSelected(this.job);
+                    },
+                    color: Colors.blueAccent,
+                    child: Text(
+                      'I am here!',
+                      style: TextStyle(fontSize: 16.9),
+                    ),
+                    textColor: Colors.white70,
                   )
                 ],
               ),
             ),
+            decoration: new BoxDecoration(boxShadow: [
+              new BoxShadow(
+                color: Colors.black12,
+                blurRadius: 1.0,
+              ),
+            ]),
           ),
         )
       ],
