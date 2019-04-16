@@ -7,17 +7,19 @@ import 'package:photo_job/jobs/job_list.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'package:flutter/services.dart';
 import 'package:photo_job/applicant_details.dart';
-import  'package:photo_job/camera/camera_store.dart';
+import 'package:photo_job/camera/camera_store.dart';
+import 'package:photo_job/camera/camera_widgets.dart';
+import 'dart:io';
 
 class DetailsPage extends StatefulWidget {
 
   @override
-  _DetailsPageState createState() {
-    return _DetailsPageState();
+  DetailsPageState createState() {
+    return DetailsPageState();
   }
 }
 
-class _DetailsPageState extends State<DetailsPage> {
+class DetailsPageState extends State<DetailsPage> {
 
   String _name = '';
   String _phone = '';
@@ -50,10 +52,25 @@ class _DetailsPageState extends State<DetailsPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Padding(
-                child: CircularButton(
-                    textContent: '${jobStore.jobCategory}', onSelected: () {}),
-                padding: EdgeInsets.only(bottom: 5, top: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  SizedBox(
+                    width: 125,
+                    height: 125,
+                    child: CircleAvatarPhoto(
+                      borderWidth: 5,
+                      color: Colors.blueAccent,
+                      child: Image.file(File(applicantDetails.picPath),
+                          fit: BoxFit.fitWidth),
+                    ),
+                  ),
+                  Padding(
+                    child: CircularButton(
+                        textContent: '${jobStore.jobCategory}', onSelected: () {}),
+                    padding: EdgeInsets.only(bottom: 5, top: 10),
+                  )
+                ]
               ),
               Padding(
                 child: Divider(

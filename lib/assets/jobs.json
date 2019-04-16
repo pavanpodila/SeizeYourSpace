@@ -1,128 +1,84 @@
 {
-  "web": [
-    {
-      "id": "ui_id",
-      "title": "UI developer",
-      "location": "banglore",
-      "summary": "some text some text some text some textsome text some text some text some text some text",
-      "responsibilities": [
-        "l1",
-        "l2",
-        "l3",
-        "l4",
-        "l5"
-      ]
-    },
-    {
-      "id": "web_id",
-      "title": "web developer",
-      "location": "banglore",
-      "summary": "some text some text some text some textsome text some text some text some text some text",
-      "responsibilities": [
-        "l1",
-        "l2",
-        "l3",
-        "l4",
-        "l5"
-      ]
-    },
-    {
-      "id": "devops_id",
-      "title": "devops",
-      "location": "banglore",
-      "summary": "some text some text some text some textsome text some text some text some text some text",
-      "responsibilities": [
-        "l1",
-        "l2",
-        "l3",
-        "l4",
-        "l5"
-      ]
-    },
-    {
-      "id": "test_id",
-      "title": "automation tester",
-      "location": "banglore",
-      "summary": "some text some text some text some textsome text some text some text some text some text",
-      "responsibilities": [
-        "l1",
-        "l2",
-        "l3",
-        "l4",
-        "l5"
-      ]
-    }
-  ],
-  "mobile": [
-    {
-      "id": "mobile_id",
-      "title": "mobile developer",
-      "location": "banglore",
-      "summary": "some text some text some text some textsome text some text some text some text some text",
-      "responsibilities": [
-        "l1",
-        "l2",
-        "l3",
-        "l4",
-        "l5"
-      ]
-    },
-    {
-      "id": "ios_id",
-      "title": "ios developer",
-      "location": "banglore",
-      "summary": "some text some text some text some textsome text some text some text some text some text",
-      "responsibilities": [
-        "l1",
-        "l2",
-        "l3",
-        "l4",
-        "l5"
-      ]
-    }
-  ],
   "Devops": [
     {
-      "id": "devops_id",
-      "title": "devops developer",
-      "location": "banglore",
-      "summary": "some text some text some text some textsome text some text some text some text some text",
+      "id": "devops_1",
+      "title": "Senior Associate- Infrastructure DevOps",
+      "location": "Gurgaon/Bangalore",
+      "summary": "DevOps Engineer who is ideally a good programmer and knowledge of wide variety of open source technologies and tools. Being comfortable with frequent, incremental code testing and deployment. DevOps Engineer will drive the automation of multiple parts of infrastructure and deployment systems, striving to improve and shorten processes to enable engineering and operations teams work smarter and faster. Design and develop infrastructure interfaces for complex business applications. Contribute ideas for improvements in DevOps practices, delivering innovation through automation.",
       "responsibilities": [
-        "l1",
-        "l2",
-        "l3",
-        "l4",
-        "l5"
+        "Responsible for implementation and support of application/web server infrastructure for complex business applications",
+        "Server configuration management, release management, deployments, automation & troubleshooting",
+        "Set-up and configure Development, Staging, UAT and Production server environment for projects and install/configure all dependencies using the industry best practices ",
+        "Manage Code Repositories",
+        "Manage, Document, Control and Innovate Development and Release procedure.",
+        "Configure automated deployment on multiple environment",
+        "Hands-on working experience of Amazon Web Services, Azure or traditional hosting experience.",
+        "Knowledge Transfer the implementation to support team and until such time support any production issues",
+        "Will be responsible for documentation of the implementation",
+        "Is expected to deliver as planned",
+        "Expected to work in rotational shifts when required"
+      ]
+    },
+    {
+      "id": "devops_2",
+      "title": "Specialist Infrastructure DevOps",
+      "location": "Gurgaon/Bangalore",
+      "summary": "DevOps Engineer who is ideally a good programmer and knowledge of wide variety of open source technologies and tools. Being comfortable with frequent, incremental code testing and deployment. DevOps Engineer will drive the automation of multiple parts of infrastructure and deployment systems, striving to improve and shorten processes to enable engineering and operations teams work smarter and faster. Design and develop infrastructure interfaces for complex business applications. Contribute ideas for improvements in DevOps practices, delivering innovation through automation.",
+      "responsibilities": [
+        "The Specialist would bring hands-on technological expertise, passion and innovation to the table.",
+        "He will be responsible for designing and enabling Application support and handling Production farm and various Infrastructure platform for different delivery teams.",
+        "In the capacity of a subject matter experts will be responsible as a system architecture to design and build scalable and efficient Infrastructure Platforms.",
+        "At the same time, specialists will also be responsible for establishing best practices, cultivating thought leadership, and developing common practices/ solutions on Infrastructure."
       ]
     }
   ],
   "cloud": [
     {
       "id": "cloud_id",
-      "title": "cloud developer",
-      "location": "banglore",
-      "summary": "some text some text some text some textsome text some text some text some text some text",
+      "title": "Cloud - Specialist",
+      "location": "Gurgaon/Bangalore",
+      "summary": "12+ years demonstrated experience designing, implementing and supporting enterprise-grade technical solutions in cloud meeting complex business requirements.",
       "responsibilities": [
-        "l1",
-        "l2",
-        "l3",
-        "l4",
-        "l5"
+        "Strategizing, designing and implementing highly efficient solution on Amazon Web Services, Azure or GCP for security, resilience, performant, networking,  availability, Blue-green deployments in context of business application. By leveraging CI best practices and tooling of Azure, AWS or Google",
+        "Writing infrastructure as code for public or private clouds and implement modern cloud Integration architecture using – Configuration Management (Chef, Puppet or Ansible ), SCM (TFS or GIT), CI tools (Jenkins or Bamboo), Azure Resource Manager, Cloud formation or Google Cloud Deployment Manager, Scripting language: Python, Bash and Shell, Container services like ECS, ACS, GCE or Kubernetes",
+        "Security Hardening of cloud infrastructure application/web server against known/unknown vulnerabilities.",
+        "Understands compliance, safe habour and law of land  ",
+        "Designing and implementing software engineering processes, improve  efficiency",
+        "Implementing shift left strategy",
+        "Designing and set up automated backup and restoration of application/web servers/databases/datalakes to object storage like S3",
+        "Architecting and implementing end to end monitoring solution in cloud (Nagios, Zabbix, AppD, CWatch etc) including billing"
       ]
     }
   ],
-  "aws": [
+  "fullstack": [
     {
-      "id": "aws_id",
-      "title": "aws developer",
-      "location": "banglore",
-      "summary": "some text some text some text some textsome text some text some text some text some text",
+      "id": "fullstack_id",
+      "title": "Sr. Associate Platform Level 1/Level 2 – Full Stack",
+      "location": "Bangalore",
+      "summary": "A Senior Associate Platform (Senior Developer-Full Stack) contributes towards a particu- lar module/s of work by bringing deep core technology expertise and relevant business subject matter expertise to the table.",
       "responsibilities": [
-        "l1",
-        "l2",
-        "l3",
-        "l4",
-        "l5"
+        "Providing technical expertise for every phase of the project lifecycle—from concept development to solution design, implementation, optimization and support.",
+        "Interacts with a set of clients (client senior developers and architects) to create technology specifications from business requirements for one of the modules within the project.",
+        "Prepares the technical design of the more complex technology components within the module (one or more of client/web presentation tier, server tier, data access and data model, integration component, package function customization).",
+        "Assists the architect in articulating the pros and cons of using a certain technology stack or component or design pattern versus another to the clients and project team and drives selection of technologies, designs to come up with the optimal architecture.",
+        "Drives the performance tuning, re-design and re-factoring for a module.",
+        "Contributes to designing and implementing the build, releases process as well as system configuration and deployment characteristics of the application."
+      ]
+    }
+  ],
+  "java": [
+    {
+      "id": "java_id",
+      "title": "Sr. Associate Platform Level 1/Level 2 – Core Java",
+      "location": "Bangalore",
+      "summary": "A Senior Associate Platform (Senior Developer-Core Java) contributes towards a particu- lar module/s of work by bringing deep core technology expertise and relevant business subject matter expertise to the table.",
+      "responsibilities": [
+        "Providing technical expertise for every phase of the project lifecycle—from concept development to solution design, implementation, optimization and support.",
+        "Interacts with a set of clients (client senior developers and architects) to create technology specifications from business requirements for one of the modules within the project.",
+        "Prepares the technical design of the more complex technology components within the module (one or more of client/web presentation tier, server tier, data access and data model, integration component, package function customization).",
+        "Assists the architect in articulating the pros and cons of using a certain technology stack or component or design pattern versus another to the clients and project team and drives selection of technologies, designs to come up with the optimal architecture.",
+        "Drives the performance tuning, re-design and re-factoring for a module.",
+        "Contributes to designing and implementing the build, releases process as well as system configuration and deployment characteristics of the application."
       ]
     }
   ]

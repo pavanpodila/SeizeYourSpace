@@ -31,7 +31,8 @@ class TakePhotoPage extends StatelessWidget {
       child: Column(children: <Widget>[
         Text(
           'How about a quick selfie?',
-          style: TextStyle(fontSize: 25, color: Colors.blueAccent),
+          textAlign: TextAlign.center,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, height: 1.5, color: Colors.blueAccent),
         ),
         Expanded(
           child: Stack(
@@ -40,8 +41,8 @@ class TakePhotoPage extends StatelessWidget {
             children: <Widget>[
               Observer(
                   builder: (_) => store.isCameraReady
-                      ? CircleAvatar(child: CameraPreview(store.controller))
-                      : CircleAvatar(
+                      ? CircleAvatarPhoto(child: CameraPreview(store.controller))
+                      : CircleAvatarPhoto(
                           color: Colors.grey,
                           child: Text(
                             'No Camera',
@@ -54,7 +55,7 @@ class TakePhotoPage extends StatelessWidget {
                           child: SizedBox(
                             width: 150,
                             height: 150,
-                            child: CircleAvatar(
+                            child: CircleAvatarPhoto(
                               borderWidth: 5,
                               color: store.isCameraReady
                                   ? Colors.redAccent
@@ -113,8 +114,8 @@ class TakePhotoPage extends StatelessWidget {
   }
 }
 
-class CircleAvatar extends StatelessWidget {
-  CircleAvatar(
+class CircleAvatarPhoto extends StatelessWidget {
+  CircleAvatarPhoto(
       {@required this.child,
       this.color = Colors.redAccent,
       this.backgroundColor = Colors.white,

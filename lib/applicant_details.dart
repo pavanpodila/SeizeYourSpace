@@ -17,6 +17,7 @@ class ApplicantDetails {
   String jobCategory;
   String jobId;
   String picPath;
+//  Directory test;
 
   setNamePhoneAndEmailValue(String name, String email, String phone) {
     this.name = name;
@@ -43,6 +44,7 @@ class ApplicantDetails {
     if (!await Directory(path).exists()) {
       await Directory(path).create(recursive: true);
     }
+//    this.test = directory;
     return path;
   }
 
@@ -69,14 +71,18 @@ class ApplicantDetails {
 //  Future<ApplicantDetails> readApplicantDetails() async {
 //    try {
 //      final file = await _localFile;
-//      this.test.listSync(recursive: true, followLinks:  true).forEach((entity){
-//        print(entity.path);
+//      this.test.listSync(recursive: true, followLinks:  true).forEach((entity) async {
+//        if(entity.path.contains("profiles") && entity.path.contains(".txt")) {
+//          File file = File(entity.path);
+//          String contents = await file.readAsString();
+//          print(json.decode(contents));
+//        }
 //      });
-//      // Read the file
-//      String contents = await file.readAsString();
-//      print('seeeeee');
-//      print(contents);
-//      print(json.decode(contents));
+////      // Read the file
+////      String contents = await file.readAsString();
+////      print('seeeeee');
+////      print(contents);
+////      print(json.decode(contents));
 //
 ////      return int.parse(contents);
 //    } catch (e) {
