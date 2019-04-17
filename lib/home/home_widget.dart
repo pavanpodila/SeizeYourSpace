@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
                   "Makes bold choices for clients and communities?\n"
                   "Never ceases to learn and grow?",
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.normal, fontSize: 20, height: 1.5),
+                  style: TextStyle(fontWeight: FontWeight.normal, fontSize: 15),
                 )
               ],
             ),
@@ -42,6 +42,15 @@ class HomePage extends StatelessWidget {
             CircularButton(textContent: 'Yes, \n this is me!', onSelected: () {
               return Navigator.pushNamed(context, '/jobCategory');
             }),
+            Padding(
+                padding: const EdgeInsets.symmetric(vertical: 50), child: null),
+            Column(
+            children: <Widget>[
+              Image.asset(
+                'lib/assets/image1.png',
+              ),
+            ],
+          ),
           ],
         ),
       ),
