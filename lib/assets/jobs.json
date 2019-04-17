@@ -1,128 +1,273 @@
 {
-  "web": [
-    {
-      "id": "ui_id",
-      "title": "UI developer",
-      "location": "banglore",
-      "summary": "some text some text some text some textsome text some text some text some text some text",
-      "responsibilities": [
-        "l1",
-        "l2",
-        "l3",
-        "l4",
-        "l5"
-      ]
-    },
-    {
-      "id": "web_id",
-      "title": "web developer",
-      "location": "banglore",
-      "summary": "some text some text some text some textsome text some text some text some text some text",
-      "responsibilities": [
-        "l1",
-        "l2",
-        "l3",
-        "l4",
-        "l5"
-      ]
-    },
-    {
-      "id": "devops_id",
-      "title": "devops",
-      "location": "banglore",
-      "summary": "some text some text some text some textsome text some text some text some text some text",
-      "responsibilities": [
-        "l1",
-        "l2",
-        "l3",
-        "l4",
-        "l5"
-      ]
-    },
-    {
-      "id": "test_id",
-      "title": "automation tester",
-      "location": "banglore",
-      "summary": "some text some text some text some textsome text some text some text some text some text",
-      "responsibilities": [
-        "l1",
-        "l2",
-        "l3",
-        "l4",
-        "l5"
-      ]
-    }
-  ],
-  "mobile": [
-    {
-      "id": "mobile_id",
-      "title": "mobile developer",
-      "location": "banglore",
-      "summary": "some text some text some text some textsome text some text some text some text some text",
-      "responsibilities": [
-        "l1",
-        "l2",
-        "l3",
-        "l4",
-        "l5"
-      ]
-    },
-    {
-      "id": "ios_id",
-      "title": "ios developer",
-      "location": "banglore",
-      "summary": "some text some text some text some textsome text some text some text some text some text",
-      "responsibilities": [
-        "l1",
-        "l2",
-        "l3",
-        "l4",
-        "l5"
-      ]
-    }
-  ],
   "Devops": [
     {
-      "id": "devops_id",
-      "title": "devops developer",
-      "location": "banglore",
-      "summary": "some text some text some text some textsome text some text some text some text some text",
+      "id": "devops_1",
+      "title": "Senior Associate- Infrastructure DevOps",
+      "location": "Gurgaon/Bangalore",
+      "summary": "DevOps Engineer who is ideally a good programmer and knowledge of wide variety of open source technologies and tools. Being comfortable with frequent, incremental code testing and deployment. DevOps Engineer will drive the automation of multiple parts of infrastructure and deployment systems, striving to improve and shorten processes to enable engineering and operations teams work smarter and faster. Design and develop infrastructure interfaces for complex business applications. Contribute ideas for improvements in DevOps practices, delivering innovation through automation.",
       "responsibilities": [
-        "l1",
-        "l2",
-        "l3",
-        "l4",
-        "l5"
+        "Responsible for implementation and support of application/web server infrastructure for complex business applications",
+        "Server configuration management, release management, deployments, automation & troubleshooting",
+        "Set-up and configure Development, Staging, UAT and Production server environment for projects and install/configure all dependencies using the industry best practices ",
+        "Manage Code Repositories",
+        "Manage, Document, Control and Innovate Development and Release procedure.",
+        "Configure automated deployment on multiple environment",
+        "Hands-on working experience of Amazon Web Services, Azure or traditional hosting experience.",
+        "Knowledge Transfer the implementation to support team and until such time support any production issues",
+        "Will be responsible for documentation of the implementation",
+        "Is expected to deliver as planned",
+        "Expected to work in rotational shifts when required"
+      ]
+    },
+    {
+      "id": "devops_2",
+      "title": "Specialist Infrastructure DevOps",
+      "location": "Gurgaon/Bangalore",
+      "summary": "DevOps Engineer who is ideally a good programmer and knowledge of wide variety of open source technologies and tools. Being comfortable with frequent, incremental code testing and deployment. DevOps Engineer will drive the automation of multiple parts of infrastructure and deployment systems, striving to improve and shorten processes to enable engineering and operations teams work smarter and faster. Design and develop infrastructure interfaces for complex business applications. Contribute ideas for improvements in DevOps practices, delivering innovation through automation.",
+      "responsibilities": [
+        "The Specialist would bring hands-on technological expertise, passion and innovation to the table.",
+        "He will be responsible for designing and enabling Application support and handling Production farm and various Infrastructure platform for different delivery teams.",
+        "In the capacity of a subject matter experts will be responsible as a system architecture to design and build scalable and efficient Infrastructure Platforms.",
+        "At the same time, specialists will also be responsible for establishing best practices, cultivating thought leadership, and developing common practices/ solutions on Infrastructure."
       ]
     }
   ],
   "cloud": [
     {
       "id": "cloud_id",
-      "title": "cloud developer",
-      "location": "banglore",
-      "summary": "some text some text some text some textsome text some text some text some text some text",
+      "title": "Cloud - Specialist",
+      "location": "Gurgaon/Bangalore",
+      "summary": "12+ years demonstrated experience designing, implementing and supporting enterprise-grade technical solutions in cloud meeting complex business requirements.",
       "responsibilities": [
-        "l1",
-        "l2",
-        "l3",
-        "l4",
-        "l5"
+        "Strategizing, designing and implementing highly efficient solution on Amazon Web Services, Azure or GCP for security, resilience, performant, networking,  availability, Blue-green deployments in context of business application. By leveraging CI best practices and tooling of Azure, AWS or Google",
+        "Writing infrastructure as code for public or private clouds and implement modern cloud Integration architecture using – Configuration Management (Chef, Puppet or Ansible ), SCM (TFS or GIT), CI tools (Jenkins or Bamboo), Azure Resource Manager, Cloud formation or Google Cloud Deployment Manager, Scripting language: Python, Bash and Shell, Container services like ECS, ACS, GCE or Kubernetes",
+        "Security Hardening of cloud infrastructure application/web server against known/unknown vulnerabilities.",
+        "Understands compliance, safe habour and law of land  ",
+        "Designing and implementing software engineering processes, improve  efficiency",
+        "Implementing shift left strategy",
+        "Designing and set up automated backup and restoration of application/web servers/databases/datalakes to object storage like S3",
+        "Architecting and implementing end to end monitoring solution in cloud (Nagios, Zabbix, AppD, CWatch etc) including billing"
       ]
     }
   ],
-  "aws": [
+  "mobile": [
     {
-      "id": "aws_id",
-      "title": "aws developer",
-      "location": "banglore",
-      "summary": "some text some text some text some textsome text some text some text some text some text",
+      "id": "mobile_id1",
+      "title": "Manager Mobile Solutions",
+      "location": "Gurgaon/Bangalore",
+      "summary": "As a Manager Mobile Solutions you will play a key role in delivering award winning, interactive experiences to our clients. You will drive the translation and construction of clients’ business problems into innovative technology solutions by creating and owning the technical vision of a project to ensure that the vision is achieved with a high level of quality. You will lead multiple teams converting high quality rich interactive experience design concepts to reality with your excellent understanding of proven and emerging technologies. You will use your creative technology skills to make ridiculously crazy ideas a reality. You have a proven track record of success in managing multi-track teams to deliver a comprehensive solution that achieves a common vision. You are an expert at architecting and managing end to end delivery of full scale IT projects & applications. You possess a broad and deep level of understanding in interactive development technologies and a history of successfully delivering projects on time and on budget.",
       "responsibilities": [
-        "l1",
-        "l2",
-        "l3",
-        "l4",
-        "l5"
+        "Serve as a technical advisor and problem solver to clients and partners to assist them in optimizing their use of emerging and established interactive technologies",
+        "Lead or co-lead sales opportunities such as RFP responses, proposal delivery, estimation and pricing, and architecture assessments",
+        "Conceptualize and produce reusable thought leadership material to further educate the greater Sapient community in Multi-Channel, Mobile, and Digital Merchandising strategy",
+        "Influence Sapient investment in the adoption of relevant new approaches, processes, and technologies",
+        "Responsible for design and architecture of the project and works with user experience design team, business analysts, and clients to create the needed requirements artifacts",
+        "Responsible for choosing the needed technology stack based on the functional, non-functional requirements and based on other factors like client drivers, environment and feasibility",
+        "For package implementations, perform the gap analysis between business requirements and the package features and design the configuration, customizations, extensions, and required interfaces",
+        "Responsible for consistency, high quality and adherence to applicable Sapient and/or client standards in solution delivery",
+        "Establishes steps of doneness for various types of activities that are done during EAR, Development and Maintenance phases of a project",
+        "For package implementations, helps create best practices/approaches to be leveraged by the team.",
+        "Drives setup of the different environment (development, test stage etc)",
+        "Responsible for ensuring that technical solution meets performance, reliability and other “ility” requirements",
+        "Troubleshoot complex technical issues on projects",
+        "Co-Manage multiple projects in a program with the Program Lead as Service Delivery Lead, to drive effective estimation, planning and delivery for all projects in the program portfolio that you are accountable for to ensure quality and profitability.",
+        "Represent the organization in customer-facing communication pertinent to Sapient’s technical expertise on the specific platform to Senior Client stakeholders to proactively manage contractual obligations",
+        "Business – Develop relationship management strategy at account level and facilitate issue resolution with business stakeholders",
+        "Vendor – negotiate discounts, suggest improvements to vendor relationship and procedures",
+        "POC for Finance/Purchasing, Business Manager.",
+        "Account/Portfolio Management – Drive Account planning sessions including relationship maps and key components",
+        "Client Management – Develops relationships with Senior Client stakeholders including C level executives. Proactively manage contractual obligations.",
+        "Is well versed in agile methodology, processes, tools and technology standards and can effectively chose relevant parts needed for the project",
+        "Works with the Project Manager and the Track leads to manage agile process compliance and monitor the quality of work",
+        "Provides mentoring on agile and technology best practices to teams",
+        "Is well versed with different ways to document requirements, design and architecture and can chose the right artifacts needed during a project",
+        "Defines and assesses completeness and quality of documents/artifacts",
+        "As Service Delivery Lead, manage medium to large sized team and resolve issues and dependencies",
+        "Review the key objectives of projects and clarify the linkage of tasks to the overall objectives",
+        "Responsible for performance assessment and working with the team for creating growth plans",
+        "Effectively communicate with the team on a periodic basis the company strategy, important events",
+        "Coach and mentor multiple teams and architects to help deliver to the client expectation",
+        "Actively participate in, and assists with, company events such as hiring, training and internal initiatives."
+      ]
+    },
+    {
+      "id": "mobile_id2",
+      "title": "Sr. Developer- Mobile Solutions (IOS)",
+      "location": "Gurgaon/Bangalore",
+      "summary": "Bring deep, hands-on technology expertise to the table on Mobile platform and will be responsible for supporting delivery teams through architecture, design and build in the capacity of a technology subject matter expert on Mobile platform.",
+      "responsibilities": [
+        "Proficiency in IOS",
+        "Min of 3 years of hands on experience in application Design and Development on IOS platform",
+        "Min 4-6 years of experience in Mobile application development",
+        "Understanding of Mobile best practices for application development.",
+        "Experience in design and development of IOS application(s) requiring integration with Web  Services.",
+        "Experience in leading development projects.",
+        "Understanding of Testing Methodology used in Mobile Domain.",
+        "Understanding of available framework(s) for application development on IOS platform."
+      ]
+    },
+    {
+      "id": "mobile_id3",
+      "title": "Sr. Developer- Mobile Solutions (Android)",
+      "location": "Gurgaon/Bangalore",
+      "summary": "Bring deep, hands-on technology expertise to the table on Mobile platform and will be responsible for supporting delivery teams through architecture, design and build in the capacity of a technology subject matter expert on Mobile platform.",
+      "responsibilities": [
+        "Proficiency in Android",
+        "Min of 3 years of hands on experience in application Design and Development on Android platform",
+        "Min 4-6 years of experience in Mobile application development",
+        "Understanding of Mobile best practices for application development.",
+        "Experience in design and development of Android application(s) requiring integration with Web  Services.",
+        "Experience in leading development projects.",
+        "Understanding of Testing Methodology used in Mobile Domain.",
+        "Understanding of available framework(s) for application development on Android platform."
+      ]
+    }
+  ],
+  "fullstack": [
+    {
+      "id": "fullstack_id",
+      "title": "Sr. Associate Platform Level 1/Level 2 – Full Stack",
+      "location": "Bangalore",
+      "summary": "A Senior Associate Platform (Senior Developer-Full Stack) contributes towards a particu- lar module/s of work by bringing deep core technology expertise and relevant business subject matter expertise to the table.",
+      "responsibilities": [
+        "Providing technical expertise for every phase of the project lifecycle—from concept development to solution design, implementation, optimization and support.",
+        "Interacts with a set of clients (client senior developers and architects) to create technology specifications from business requirements for one of the modules within the project.",
+        "Prepares the technical design of the more complex technology components within the module (one or more of client/web presentation tier, server tier, data access and data model, integration component, package function customization).",
+        "Assists the architect in articulating the pros and cons of using a certain technology stack or component or design pattern versus another to the clients and project team and drives selection of technologies, designs to come up with the optimal architecture.",
+        "Drives the performance tuning, re-design and re-factoring for a module.",
+        "Contributes to designing and implementing the build, releases process as well as system configuration and deployment characteristics of the application."
+      ]
+    }
+  ],
+  "java": [
+    {
+      "id": "java_id1",
+      "title": "Sr. Associate Platform Level 1/Level 2 – Core Java",
+      "location": "Bangalore",
+      "summary": "A Senior Associate Platform (Senior Developer-Core Java) contributes towards a particu- lar module/s of work by bringing deep core technology expertise and relevant business subject matter expertise to the table.",
+      "responsibilities": [
+        "Providing technical expertise for every phase of the project lifecycle—from concept development to solution design, implementation, optimization and support.",
+        "Interacts with a set of clients (client senior developers and architects) to create technology specifications from business requirements for one of the modules within the project.",
+        "Prepares the technical design of the more complex technology components within the module (one or more of client/web presentation tier, server tier, data access and data model, integration component, package function customization).",
+        "Assists the architect in articulating the pros and cons of using a certain technology stack or component or design pattern versus another to the clients and project team and drives selection of technologies, designs to come up with the optimal architecture.",
+        "Drives the performance tuning, re-design and re-factoring for a module.",
+        "Contributes to designing and implementing the build, releases process as well as system configuration and deployment characteristics of the application."
+      ]
+    },
+    {
+      "id": "java_id2",
+      "title": "Senior Associate (4 - 8 years of exp)/Manager (8+ years of exp)",
+      "location": "Bangalore",
+      "summary": "Must haves - Java8 and above, Microservices with Springboot/Spring, Reactive/Asynchronous programming, Experience with at-least one NoSQL (Any of Cassandra/Couch base/Hadoop), SOLID design principles and its applicability, Understanding of Design patterns (Creational, Structural, Behavioral) and its applicability, Experience with cloud (Any of AWS/Azure/GCP) ",
+      "good to have": "Apache Kafka, Apache Storm, Distributed computing, building scalable systems, UX areas like ReactJS, NodeJS, Webflux etc. Dockers and Kubernetes experience. Strategic thinking preferred over tactical thinking.",
+      "responsibilities": []
+    },
+    {
+      "id": "java_id3",
+      "title": "Senior Associate ‐ Technology ",
+      "location": "Bangalore",
+      "summary": "Senior Associate Technology owns implementation of a complex module throughout entire lifecycle, including engaging with Product Owner to understand product vision and roadmap, developing low level technical design under the supervision of Architect and implementing using BDD/TDD concepts. This role is responsible for taking ownership of the design, user interface, and technology integration of their module and interfacing with client technology and management teams. This role will also bring his/her experience to research and inform on enterprise-wide emerging technology trends.",
+      "responsibilities": [
+        "Implement new functionality on the system to meet business requirements",
+        "Design and develop high-volume, low-latency applications, delivering high-availability and performance.",
+        "Contribute in all phases of the development lifecycle. ",
+        "Write well designed, testable, efficient code. ",
+        "Ensure designs are in compliance with specification",
+        "Prepare and produce releases of software components.",
+        "Support continuous improvement by investigating alternatives and technologies and presenting these for architectural review."
+      ],
+      "experience guidelines": [
+        "4.5-8 years of hands on experience with some of the following technologies",
+        "Java8 and above, ",
+        "Microservices with Springboot/Spring, ",
+        "Reactive/Asynchronous programming, ",
+        "Experience with at-least one NoSQL (Any of Cassandra/Couch base/Hadoop), ",
+        "SOLID design principles and its applicability, ",
+        "Understanding of Design patterns (Creational, Structural, Behavioral) and its applicability,  ",
+        "Experience with cloud (Any of AWS/Azure/GCP) "
+      ],
+      "good to have": [
+        "Apache Kafka, ",
+        "Apache Storm, ",
+        "Distributed computing, ",
+        "Building scalable systems, ",
+        "UX areas like ReactJS, NodeJS, Webflux etc.",
+        "Dockers and Kubernetes experience.",
+        "Strategic thinking preferred over tactical thinking."
+      ]
+    },
+    {
+      "id": "java_id4",
+      "title": "Manager– Play/Akka",
+      "location": "Gurgaon/Bangalore",
+      "summary": "Manager - Technology drives the translation and construction of a client's business problems into innovative technology solutions by creating and owning the technical vision of the project and ensuring that the vision is achieved with a high level of quality. Looking for a candidate to join to a team of troublemakers involved in solving challenging problems in the ecommerce domain. We are seeking candidates having hands-on experience working with Java/J2EE based implementations. ",
+      "responsibilities": [
+        "Understand business requirements and participate in project roadmap discussions in order to design, estimate, and deliver secure and highly performing code",
+        "Design and develop high-volume, low-latency applications for mission-critical systems, delivering high-availability, concurrency and performance",
+        "Contribute in all phases of the development lifecycle ",
+        "Experience in distributed and parallel programming.",
+        "Exposure to AKKA and Play Frameworks."
+      ]
+    },
+    {
+      "id": "java_id5",
+      "title": "Manager– Springboot/Microservices",
+      "location": "Gurgaon/Bangalore",
+      "summary": "Looking for a candidate to join to a team of troublemakers involved in solving challenging problems in the ecommerce domain. We are seeking candidates having hands-on experience working with Java/J2EE based implementations.",
+      "responsibilities": [
+        "Architect/design/ implement cloud native java based Applications",
+        "Create architectural and design artifacts",
+        "End-to-end execution including design, implementation, unit testing and performance testing",
+        "Implement best practices in the relevant technology domain",
+        "Mentor and coach team members",
+        "Hands-on till now and willing to be hands-on as required.",
+        "Designing and Developing for the Cloud – preferably AWS/Google Cloud/Azure",
+        "Understanding of messaging and/or asynchronous processing",
+        "Exposure to agile and TDD processes"
+      ]
+    },
+    {
+      "id": "java_id6",
+      "title": "Sr Associate– Play/Akka",
+      "location": "Gurgaon/Bangalore",
+      "summary": "Looking for a candidate to join to a team of troublemakers involved in solving challenging problems in the ecommerce domain. We are seeking candidates having hands-on experience working with Java/J2EE based implementations.",
+      "responsibilities": [
+        "Understand business requirements and participate in project roadmap discussions in order to design, estimate, and deliver secure and highly performing code",
+        "Design and develop high-volume, low-latency applications for mission-critical systems, delivering high-availability, concurrency and performance",
+        "Contribute in all phases of the development lifecycle",
+        "Experience in distributed and parallel programming.",
+        "Exposure to AKKA and Play Frameworks."
+      ]
+    },
+    {
+      "id": "java_id7",
+      "title": "Sr Associate– Springboot/Microservices",
+      "location": "Gurgaon/Bangalore",
+      "summary": "Looking for a candidate to join to a team of troublemakers involved in solving challenging problems in the ecommerce domain. We are seeking candidates having hands-on experience working with Java/J2EE based implementations.",
+      "responsibilities": [
+        "Architect/design/ implement cloud native java based Applications",
+        "Create architectural and design artifacts",
+        "End-to-end execution including design, implementation, unit testing and performance testing",
+        "Implement best practices in the relevant technology domain",
+        "Mentor and coach team members",
+        "Hands-on till now and willing to be hands-on as required.",
+        "Designing and Developing for the Cloud – preferably AWS/Google Cloud/Azure",
+        "Understanding of messaging and/or asynchronous processing",
+        "Exposure to agile and TDD processes"
+      ]
+    },
+    {
+      "id": "java_id8",
+      "title": "Sr. Associate Platform Level 1/Level 2 – Core Java",
+      "location": "Gurgaon",
+      "summary": "A Senior Associate Platform (Senior Developer-Core Java) contributes towards a particu- lar module/s of work by bringing deep core technology expertise and relevant business subject matter expertise to the table.",
+      "responsibilities": [
+        "Providing technical expertise for every phase of the project lifecycle—from concept development to solution design, implementation, optimization and support.",
+        "Interacts with a set of clients (client senior developers and architects) to create technology specifications from business requirements for one of the modules within the project.",
+        "Prepares the technical design of the more complex technology components within the module (one or more of client/web presentation tier, server tier, data access and data model, integration component, package function customization).",
+        "Assists the architect in articulating the pros and cons of using a certain technology stack or component or design pattern versus another to the clients and project team and drives selection of technologies, designs to come up with the optimal architecture.",
+        "Drives the performance tuning, re-design and re-factoring for a module.",
+        "Contributes to designing and implementing the build, releases process as well as system configuration and deployment characteristics of the application."
       ]
     }
   ]

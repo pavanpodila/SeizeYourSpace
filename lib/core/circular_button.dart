@@ -36,7 +36,7 @@ class CircularButton extends StatelessWidget {
               Text(
                 '${this.textContent}',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               )
             ],
           ),

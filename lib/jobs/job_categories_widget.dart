@@ -20,19 +20,47 @@ class JobCategoryPage extends StatelessWidget {
         .of<JobList>(context).setJobCategory;
 
     return AppPageView(
-        child: GridView.count(
-            primary: true,
-            padding: const EdgeInsets.all(20.0),
-            crossAxisSpacing: 20.0,
-            mainAxisSpacing: 20.0,
-            crossAxisCount: 3,
-            children: jobCategories.map((jobCategory) =>
-              CircularButton(textContent: '${jobCategory}', onSelected: () {
-                setJobCategory(jobCategory);
-                applicantDetails.setJobCategory(jobCategory);
-                return Navigator.pushNamed(context, '/jobs');
-              })
-            ).toList()
-        ));
+        child: Column(
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Image.asset(
+                  'lib/assets/image1.png',
+                ),
+              ],
+            ),
+            Padding(
+                padding: const EdgeInsets.symmetric(vertical: 50), child: null),
+            Column(
+              children: <Widget>[
+                Text(
+                  "Select the category to apply",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                )
+              ],
+            ),
+            Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20), child: null),
+            new Expanded(
+              child: GridView.count(
+                  primary: true,
+                  padding: const EdgeInsets.all(20.0),
+                  crossAxisSpacing: 20.0,
+                  mainAxisSpacing: 20.0,
+                  crossAxisCount: 3,
+                  children: jobCategories.map((jobCategory) =>
+                    CircularButton(textContent: '${jobCategory}', onSelected: () {
+                      setJobCategory(jobCategory);
+                      applicantDetails.setJobCategory(jobCategory);
+                      return Navigator.pushNamed(context, '/jobs');
+                    })
+                  ).toList()
+              )
+            ),
+          ],
+        )
+        
+    );
   }
 }

@@ -31,7 +31,8 @@ dependencies:
   email_validator: '^1.0.0'
   regexed_validator: ^1.0.2
   serializable: ^0.11.2+1
-
+  esys_flutter_share: ^1.0.0
+  archive: ^2.0.8
 
 dev_dependencies:
   mobx_codegen:
@@ -52,6 +53,7 @@ flutter:
   uses-material-design: false
   assets:
     - lib/assets/jobs.json
+    - lib/assets/image1.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
