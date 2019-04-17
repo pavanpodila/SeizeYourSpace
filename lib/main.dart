@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:photo_job/jobs/job_categories_widget.dart';
 import 'package:photo_job/applicant_details.dart';
 import 'package:photo_job/camera/camera_widgets.dart';
+import 'package:photo_job/Admin/Admin_page.dart';
 
 final cameraStore = CameraStore();
 final jobsStore = JobList();
@@ -29,7 +30,8 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Photo Job',
           routes: {
-            '/': (_) => HomePage(),
+            '/': (_) => AdminPage(),
+            '/home': (_) => HomePage(),
             '/jobCategory': (_) => JobCategoryPage(),
             '/jobs': (_) => JobsPage(
                   onSelected: (context) {

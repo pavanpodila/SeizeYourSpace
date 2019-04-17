@@ -31,7 +31,8 @@ dependencies:
   email_validator: '^1.0.0'
   regexed_validator: ^1.0.2
   serializable: ^0.11.2+1
-
+  esys_flutter_share: ^1.0.0
+  archive: ^2.0.8
 
 dev_dependencies:
   mobx_codegen:

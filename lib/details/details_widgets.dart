@@ -44,7 +44,7 @@ class DetailsPageState extends State<DetailsPage> {
               child: Text("Ok"),
               onPressed: () {
                 Navigator.pop(context);
-                return Navigator.pushNamed(context, '/');
+                return Navigator.pushNamed(context, '/home');
               },
             ),
           ],

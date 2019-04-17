@@ -76,6 +76,13 @@ class JobView extends StatelessWidget {
                         title: Text('Job Summary'),
                         subtitle: Text('${this.job.summary}'),
                       )),
+                  Padding(
+                      padding:
+                      const EdgeInsets.only(bottom: 15.0, left: 0, right: 0),
+                      child: ListTile(
+                        title: Text('Job Summary'),
+                        subtitle: Text('${this.job.responsibilities}'),
+                      )),
                   RaisedButton(
                     onPressed: () {
                       this.onSelected(this.job);
