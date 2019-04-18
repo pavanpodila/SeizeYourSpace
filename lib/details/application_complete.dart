@@ -2,21 +2,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:photo_job/core/app_page_view.dart';
+import 'package:photo_job/core/theme.dart';
 
 class ApplicationCompletePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppPageView(
+      backgroundColor: theme.radiantRed,
       child: Column(
         children: <Widget>[
           Image.asset(
-            'lib/assets/image1.png',
+            'lib/assets/banner.png',
           ),
           Padding(
             padding: const EdgeInsets.only(top: 40.0, left: 30, right: 30),
             child: Text(
               "We have received your application!\nYou will hear from us soon.",
-              style: TextStyle(fontSize: 20),
+              style: theme.headingTextStyle.apply(color: Colors.white),
             ),
           ),
           Expanded(
@@ -25,12 +27,20 @@ class ApplicationCompletePage extends StatelessWidget {
                 child: Icon(
                   CupertinoIcons.check_mark_circled_solid,
                   size: 200,
-                  color: Colors.blueAccent,
+                  color: Colors.white,
                 ),
                 onPressed: () {
                   Navigator.popUntil(context, ModalRoute.withName('/home'));
                 }),
-          ))
+          )),
+          Text('publicis'),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 20.0),
+            child: Text(
+              'sapient',
+              style: TextStyle(color: Colors.white),
+            ),
+          )
         ],
       ),
     );

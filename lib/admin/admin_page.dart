@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_job/applicant_details.dart';
 import 'package:photo_job/core/app_page_view.dart';
+import 'package:photo_job/core/theme.dart';
 import 'package:provider/provider.dart';
 
 class AdminPage extends StatelessWidget {
@@ -21,7 +22,7 @@ class AdminPage extends StatelessWidget {
                     await applicantDetails.readApplicantDetails();
                     return Navigator.pushNamed(context, '/home');
                   },
-                  color: Colors.blueAccent,
+                  color: theme.blue,
                   child: Text(
                     'Export as Text File',
                     style: TextStyle(fontSize: 16.9),

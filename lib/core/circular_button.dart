@@ -1,14 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:photo_job/core/theme.dart';
 
 class CircularButton extends StatelessWidget {
   CircularButton(
       {@required this.text,
       @required this.onPressed,
       this.color = Colors.white,
+      this.borderColor,
       this.textColor = Colors.black});
+
   String text;
   final Color color;
+  final Color borderColor;
   final Color textColor;
   final void Function() onPressed;
 
@@ -28,7 +32,7 @@ class CircularButton extends StatelessWidget {
             // The border you want
             border: new Border.all(
               width: 5.0,
-              color: Colors.blueAccent,
+              color: borderColor ?? theme.blue,
             ),
           ),
           child: Center(
@@ -36,7 +40,7 @@ class CircularButton extends StatelessWidget {
               '${this.text}',
               textAlign: TextAlign.center,
               style: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 15, color: textColor),
+                  fontWeight: FontWeight.bold, fontSize: 16, color: textColor),
             ),
           )),
     );

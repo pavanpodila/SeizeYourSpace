@@ -8,6 +8,7 @@ import 'package:photo_job/camera/camera_store.dart';
 import 'package:photo_job/camera/camera_widgets.dart';
 import 'package:photo_job/core/app_page_view.dart';
 import 'package:photo_job/core/circular_button.dart';
+import 'package:photo_job/core/theme.dart';
 import 'package:photo_job/jobs/job_list.dart';
 import 'package:provider/provider.dart';
 import 'package:regexed_validator/regexed_validator.dart';
@@ -36,32 +37,27 @@ class DetailsPageState extends State<DetailsPage> {
         body: AppPageView(
       child: ListView(
         children: <Widget>[
-          Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-            SizedBox(
-              width: 125,
-              height: 125,
-              child: CircleAvatarPhoto(
-                borderWidth: 5,
-                color: Colors.blueAccent,
-                child: applicantDetails.picPath != null
-                    ? Image.file(File(applicantDetails.picPath),
-                        fit: BoxFit.fitWidth)
-                    : Container(
-                        decoration: BoxDecoration(color: Colors.black12),
-                      ),
-              ),
-            ),
-            Padding(
-              child: CircularButton(
-                  text: '${jobStore.jobCategory}', onPressed: () {}),
-              padding: EdgeInsets.only(bottom: 5, top: 10),
-            )
-          ]),
           Padding(
-            child: Divider(
-              color: Colors.black26,
-            ),
-            padding: EdgeInsets.only(bottom: 5),
+            padding: const EdgeInsets.symmetric(vertical: 40.0),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  SizedBox(
+                    width: 125,
+                    height: 125,
+                    child: CircleAvatarPhoto(
+                      borderWidth: 5,
+                      color: theme.blue,
+                      child: applicantDetails.picPath != null
+                          ? Image.file(File(applicantDetails.picPath),
+                              fit: BoxFit.fitWidth)
+                          : Container(
+                              decoration: BoxDecoration(color: theme.lightGray),
+                            ),
+                    ),
+                  ),
+                  CircularButton(text: jobStore.jobCategory, onPressed: () {})
+                ]),
           ),
           SingleChildScrollView(
             child: Form(
@@ -199,7 +195,7 @@ class DetailsPageState extends State<DetailsPage> {
         onPressed: () {
           _submit(context, applicantDetails);
         },
-        color: Colors.blueAccent,
+        color: theme.blue,
         child: Text(
           'Apply',
           style: TextStyle(fontSize: 16),

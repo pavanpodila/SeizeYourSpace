@@ -1,12 +1,16 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_job/core/app_page_view.dart';
 import 'package:photo_job/core/circular_button.dart';
+import 'package:photo_job/core/theme.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppPageView(
+      backgroundColor: theme.radiantRed,
       child: Align(
         alignment: Alignment.center,
         child: Column(
@@ -20,13 +24,14 @@ class HomePage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 0),
               child: Text('sapient',
-                  style: TextStyle(color: Colors.redAccent, fontSize: 30)),
+                  style: TextStyle(color: Colors.white, fontSize: 30)),
             ),
             Padding(
-                padding: const EdgeInsets.symmetric(vertical: 70),
+                padding: const EdgeInsets.symmetric(vertical: 50),
                 child: AreYouOneOfUsText()),
             CircularButton(
-                color: Colors.blueAccent,
+                borderColor: theme.green,
+                color: Colors.black,
                 textColor: Colors.white,
                 text: 'Yes, \n this is me!',
                 onPressed: () {
@@ -35,7 +40,7 @@ class HomePage extends StatelessWidget {
             Padding(
                 padding: const EdgeInsets.symmetric(vertical: 50), child: null),
             Image.asset(
-              'lib/assets/image1.png',
+              'lib/assets/banner.png',
             ),
           ],
         ),
@@ -44,31 +49,78 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class AreYouOneOfUsText extends StatelessWidget {
+class AreYouOneOfUsText extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    final spans = [
+  _AreYouOneOfUsTextState createState() => _AreYouOneOfUsTextState();
+}
+
+class _AreYouOneOfUsTextState extends State<AreYouOneOfUsText>
+    with SingleTickerProviderStateMixin {
+  List<Animation<double>> _opacityAnimations;
+  AnimationController _controller;
+
+  List<String> _lines;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _lines = [
       "Are you someone who fuses startup thinking and agile methods?",
       "Transforms the norms?",
       "Makes bold choices for clients and communities?",
       "Never ceases to learn and grow?",
-    ]
-        .map((s) => Padding(
-              child: Text(
-                s,
-                textAlign: TextAlign.right,
-                style: TextStyle(fontSize: 16),
+    ];
+
+    final r = Random();
+
+    _controller =
+        AnimationController(duration: const Duration(seconds: 5), vsync: this);
+    bool flag = r.nextBool();
+    _opacityAnimations = _lines.map((_) {
+      final begin = flag ? 1.0 : r.nextDouble() / 3;
+      final end = flag ? r.nextDouble() / 3 : 1.0;
+
+      flag = !flag;
+
+      return Tween<double>(begin: begin, end: end).animate(_controller);
+    }).toList(growable: false);
+
+    _controller.repeat(reverse: true);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> widgets = _lines
+        .asMap()
+        .map((index, s) => MapEntry(
+            index,
+            Padding(
+              child: FadeTransition(
+                opacity: _opacityAnimations[index],
+                child: Text(
+                  s,
+                  textAlign: TextAlign.right,
+                  style: theme.bodyTextStyle
+                      .apply(color: Colors.white, fontSizeDelta: 4),
+                ),
               ),
-              padding: EdgeInsets.only(bottom: 8),
-            ))
+              padding: EdgeInsets.only(bottom: 20),
+            )))
+        .values
         .toList(growable: false);
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
-        children: spans,
+        children: widgets,
         crossAxisAlignment: CrossAxisAlignment.end,
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
   }
 }

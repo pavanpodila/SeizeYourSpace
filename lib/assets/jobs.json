@@ -160,7 +160,12 @@
       "location": "Bangalore",
       "summary": "Must haves - Java8 and above, Microservices with Springboot/Spring, Reactive/Asynchronous programming, Experience with at-least one NoSQL (Any of Cassandra/Couch base/Hadoop), SOLID design principles and its applicability, Understanding of Design patterns (Creational, Structural, Behavioral) and its applicability, Experience with cloud (Any of AWS/Azure/GCP) ",
       "good to have": "Apache Kafka, Apache Storm, Distributed computing, building scalable systems, UX areas like ReactJS, NodeJS, Webflux etc. Dockers and Kubernetes experience. Strategic thinking preferred over tactical thinking.",
-      "responsibilities": []
+      "responsibilities": [
+        "Understand business requirements and participate in project roadmap discussions in order to design, estimate, and deliver secure and highly performing code",
+        "Design and develop high-volume, low-latency applications for mission-critical systems, delivering high-availability, concurrency and performance",
+        "Contribute in all phases of the development lifecycle ",
+        "Experience in distributed and parallel programming."
+      ]
     },
     {
       "id": "java_id3",

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:photo_job/Admin/Admin_page.dart';
+import 'package:photo_job/Admin/admin_page.dart';
 import 'package:photo_job/applicant_details.dart';
 import 'package:photo_job/camera/camera_store.dart';
 import 'package:photo_job/camera/camera_widgets.dart';

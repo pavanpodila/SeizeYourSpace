@@ -3,10 +3,12 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:photo_job/applicant_details.dart';
 import 'package:photo_job/camera/camera_store.dart';
 import 'package:photo_job/core/app_page_view.dart';
+import 'package:photo_job/core/theme.dart';
 import 'package:provider/provider.dart';
 
 class TakePhotoPage extends StatelessWidget {
@@ -28,56 +30,62 @@ class TakePhotoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final applicantDetails = Provider.of<ApplicantDetails>(context);
     return AppPageView(
-      child: Column(children: <Widget>[
-        Text(
-          'How about a quick selfie?',
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 25, height: 1.5, color: Colors.blueAccent),
-        ),
-        Expanded(
-          child: Stack(
-            fit: StackFit.expand,
-            alignment: AlignmentDirectional.center,
-            children: <Widget>[
-              Observer(
-                  builder: (_) => store.isCameraReady
-                      ? CircleAvatarPhoto(
-                          child: CameraPreview(store.controller))
-                      : CircleAvatarPhoto(
-                          color: Colors.grey,
-                          child: Center(
-                              child: Text(
-                            'No Camera',
-                            style: TextStyle(color: Colors.grey),
-                          )))),
-              Observer(
-                  builder: (_) => (store.capturedPhotoFile != null)
-                      ? Align(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(children: <Widget>[
+          Text(
+            'How about a quick selfie?',
+            textAlign: TextAlign.center,
+            style: theme.headingTextStyle,
+          ),
+          Expanded(
+            child: Stack(
+              fit: StackFit.expand,
+              alignment: AlignmentDirectional.center,
+              children: <Widget>[
+                Observer(
+                    builder: (_) => store.isCameraReady
+                        ? CircleAvatarPhoto(
+                            child: CameraPreview(store.controller))
+                        : CircleAvatarPhoto(
+                            color: theme.lightGray,
+                            child: Center(
+                                child: Text(
+                              'No Camera',
+                              style: TextStyle(color: theme.lightGray),
+                            )))),
+                Observer(
+                    builder: (_) => Align(
                           alignment: Alignment.bottomLeft,
                           child: SizedBox(
                             width: 150,
                             height: 150,
                             child: CircleAvatarPhoto(
-                              borderWidth: 5,
-                              color: store.isCameraReady
-                                  ? Colors.redAccent
-                                  : Colors.grey,
-                              child: store.capturedPhotoFile != null
-                                  ? Image.file(File(store.capturedPhotoFile),
-                                      fit: BoxFit.fitWidth)
-                                  : Text('Your Photo'),
-                            ),
+                                borderWidth: 5,
+                                color: store.isCameraReady
+                                    ? theme.radiantRed
+                                    : theme.lightGray,
+                                child: store.capturedPhotoFile != null
+                                    ? Image.file(File(store.capturedPhotoFile),
+                                        fit: BoxFit.fitWidth)
+                                    : Center(
+                                        child: Text(
+                                          'Your Photo',
+                                          style: theme.actionTextStyle
+                                              .apply(color: theme.lightGray),
+                                        ),
+                                      )),
                           ),
-                        )
-                      : Container(height: 0, width: 0))
-            ],
+                        ))
+              ],
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20.0),
-          child: _buildActionButtonBar(context, applicantDetails),
-        ),
-      ]),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20.0),
+            child: _buildActionButtonBar(context, applicantDetails),
+          ),
+        ]),
+      ),
     );
   }
 
@@ -89,30 +97,28 @@ class TakePhotoPage extends StatelessWidget {
               children: <Widget>[
                 CupertinoButton(
                     child: Container(
-                        padding: EdgeInsets.all(5),
+                        padding: EdgeInsets.all(16),
                         decoration: ShapeDecoration(
-                            shape: CircleBorder(
-                                side: BorderSide(
-                                    color: Colors.redAccent, width: 3)),
-                            color: Colors.white),
+                            shape: CircleBorder(), color: theme.radiantRed),
                         child: Icon(
                           CupertinoIcons.photo_camera_solid,
                           size: 40,
+                          color: Colors.white,
                         )),
                     onPressed: store.takePicture),
-                (store.capturedPhotoFile != null)
-                    ? CupertinoButton(
-                        onPressed: () {
-                          applicantDetails
-                              .setImagePath(store.capturedPhotoFile);
-                          onAccept(context);
-                        },
-                        color: Colors.blueAccent,
-                        child: Text(
-                          'Looks Good',
-                          style: TextStyle(fontSize: 16),
-                        ))
-                    : Container(height: 0, width: 0)
+                CupertinoButton(
+                    onPressed: (store.capturedPhotoFile != null)
+                        ? () {
+                            applicantDetails
+                                .setImagePath(store.capturedPhotoFile);
+                            onAccept(context);
+                          }
+                        : null,
+                    color: theme.blue,
+                    child: Text(
+                      'Looks Good',
+                      style: TextStyle(fontSize: 16),
+                    ))
               ],
             )
           : CupertinoButton(

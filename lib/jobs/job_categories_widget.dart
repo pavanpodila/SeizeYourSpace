@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:photo_job/applicant_details.dart';
 import 'package:photo_job/core/app_page_view.dart';
 import 'package:photo_job/core/circular_button.dart';
+import 'package:photo_job/core/theme.dart';
 import 'package:photo_job/jobs/job_list.dart';
 import 'package:provider/provider.dart';
 
@@ -18,19 +19,15 @@ class JobCategoryPage extends StatelessWidget {
         child: Column(
       children: <Widget>[
         Image.asset(
-          'lib/assets/image1.png',
+          'lib/assets/banner.png',
         ),
-        Padding(padding: const EdgeInsets.symmetric(vertical: 50), child: null),
-        Column(
-          children: <Widget>[
-            Text(
+        Padding(
+            padding: const EdgeInsets.symmetric(vertical: 50),
+            child: Text(
               "Select the category to apply",
               textAlign: TextAlign.center,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-            )
-          ],
-        ),
-        Padding(padding: const EdgeInsets.symmetric(vertical: 20), child: null),
+              style: theme.headingTextStyle,
+            )),
         new Expanded(
             child: GridView.count(
                 primary: true,
@@ -40,7 +37,7 @@ class JobCategoryPage extends StatelessWidget {
                 crossAxisCount: 3,
                 children: jobCategories
                     .map((jobCategory) => CircularButton(
-                        text: '${jobCategory}',
+                        text: '$jobCategory',
                         onPressed: () {
                           setJobCategory(jobCategory);
                           applicantDetails.setJobCategory(jobCategory);
