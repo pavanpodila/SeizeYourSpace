@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:photo_job/applicant_details.dart';
 import 'package:photo_job/core/app_page_view.dart';
 import 'package:provider/provider.dart';
-import 'package:photo_job/applicant_details.dart';
 
 class AdminPage extends StatelessWidget {
   @override
@@ -27,7 +27,13 @@ class AdminPage extends StatelessWidget {
                     style: TextStyle(fontSize: 16.9),
                   ),
                   textColor: Colors.white70,
-                ))
+                )),
+            CupertinoButton(
+              child: Text('Not Now'),
+              onPressed: () {
+                Navigator.pushNamed(context, '/home');
+              },
+            )
           ],
         ),
       ),

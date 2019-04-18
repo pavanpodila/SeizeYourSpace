@@ -1,18 +1,18 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
-import 'package:photo_job/core/app_page_view.dart';
 import 'package:flutter/material.dart';
-import 'package:photo_job/core/circular_button.dart';
-import 'package:provider/provider.dart';
-import 'package:photo_job/jobs/job_list.dart';
-import 'package:regexed_validator/regexed_validator.dart';
 import 'package:flutter/services.dart';
 import 'package:photo_job/applicant_details.dart';
 import 'package:photo_job/camera/camera_store.dart';
 import 'package:photo_job/camera/camera_widgets.dart';
-import 'dart:io';
+import 'package:photo_job/core/app_page_view.dart';
+import 'package:photo_job/core/circular_button.dart';
+import 'package:photo_job/jobs/job_list.dart';
+import 'package:provider/provider.dart';
+import 'package:regexed_validator/regexed_validator.dart';
 
 class DetailsPage extends StatefulWidget {
-
   @override
   DetailsPageState createState() {
     return DetailsPageState();
@@ -20,7 +20,6 @@ class DetailsPage extends StatefulWidget {
 }
 
 class DetailsPageState extends State<DetailsPage> {
-
   String _name = '';
   String _phone = '';
   String _email = '';
@@ -35,69 +34,72 @@ class DetailsPageState extends State<DetailsPage> {
     final jobStore = Provider.of<JobList>(context);
     final applicantDetails = Provider.of<ApplicantDetails>(context);
     return Scaffold(
-        body: _showDialog ? CupertinoAlertDialog(
-          title: new Text("Success!!"),
-          content: new Text("We have received your application. We will get back to you shortly"),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              isDefaultAction: true,
-              child: Text("Ok"),
-              onPressed: () {
-                Navigator.pop(context);
-                return Navigator.pushNamed(context, '/home');
-              },
-            ),
-          ],
-        ) : AppPageView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  SizedBox(
-                    width: 125,
-                    height: 125,
-                    child: CircleAvatarPhoto(
-                      borderWidth: 5,
-                      color: Colors.blueAccent,
-                      child: Image.file(File(applicantDetails.picPath),
-                          fit: BoxFit.fitWidth),
-                    ),
+        body: _showDialog
+            ? CupertinoAlertDialog(
+                title: new Text("Success!!"),
+                content: new Text(
+                    "We have received your application. We will get back to you shortly"),
+                actions: <Widget>[
+                  CupertinoDialogAction(
+                    isDefaultAction: true,
+                    child: Text("Ok"),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      return Navigator.pushNamed(context, '/home');
+                    },
                   ),
-                  Padding(
-                    child: CircularButton(
-                        textContent: '${jobStore.jobCategory}', onSelected: () {}),
-                    padding: EdgeInsets.only(bottom: 5, top: 10),
-                  )
-                ]
-              ),
-              Padding(
-                child: Divider(
-                  color: Colors.black26,
-                ),
-                padding: EdgeInsets.only(bottom: 5),
-              ),
-              SingleChildScrollView(
-                child: Form(
-                  key: _formKey,
-                  autovalidate: true,
-                  child: Column(
-                    children: <Widget>[
-                      _addPaddingForField(nameField(context)),
-                      _addPaddingForField(emailFormField(context)),
-                      _addPaddingForField(phoneField(context, applicantDetails)),
-                      Padding(
-                        child: submitButton(context, applicantDetails),
-                        padding: EdgeInsets.only(top: 5),
-                      ),
-                    ],
-                  ),
-                ),
+                ],
               )
-            ],
-          ),
-        ));
+            : AppPageView(
+                child: ListView(
+                  children: <Widget>[
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          SizedBox(
+                            width: 125,
+                            height: 125,
+                            child: CircleAvatarPhoto(
+                              borderWidth: 5,
+                              color: Colors.blueAccent,
+                              child: Image.file(File(applicantDetails.picPath),
+                                  fit: BoxFit.fitWidth),
+                            ),
+                          ),
+                          Padding(
+                            child: CircularButton(
+                                textContent: '${jobStore.jobCategory}',
+                                onSelected: () {}),
+                            padding: EdgeInsets.only(bottom: 5, top: 10),
+                          )
+                        ]),
+                    Padding(
+                      child: Divider(
+                        color: Colors.black26,
+                      ),
+                      padding: EdgeInsets.only(bottom: 5),
+                    ),
+                    SingleChildScrollView(
+                      child: Form(
+                        key: _formKey,
+                        autovalidate: true,
+                        child: Column(
+                          children: <Widget>[
+                            _addPaddingForField(nameField(context)),
+                            _addPaddingForField(emailFormField(context)),
+                            _addPaddingForField(
+                                phoneField(context, applicantDetails)),
+                            Padding(
+                              child: submitButton(context, applicantDetails),
+                              padding: EdgeInsets.only(top: 5),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ));
   }
 
   _addPaddingForField(Widget widget) {
@@ -107,7 +109,8 @@ class DetailsPageState extends State<DetailsPage> {
     );
   }
 
-  TextFormField phoneField(BuildContext context, ApplicantDetails applicantDetails) {
+  TextFormField phoneField(
+      BuildContext context, ApplicantDetails applicantDetails) {
     return TextFormField(
       keyboardType: TextInputType.phone,
       textInputAction: TextInputAction.done,
@@ -209,7 +212,8 @@ class DetailsPageState extends State<DetailsPage> {
     return double.parse(s, (e) => null) != null;
   }
 
-  RaisedButton submitButton(BuildContext context, ApplicantDetails applicantDetails) {
+  RaisedButton submitButton(
+      BuildContext context, ApplicantDetails applicantDetails) {
     return RaisedButton(
       onPressed: () {
         _submit(context, applicantDetails);
@@ -229,4 +233,3 @@ class DetailsPageState extends State<DetailsPage> {
     FocusScope.of(context).requestFocus(nextFocus);
   }
 }
-

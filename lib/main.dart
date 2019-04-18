@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:photo_job/Admin/Admin_page.dart';
+import 'package:photo_job/applicant_details.dart';
 import 'package:photo_job/camera/camera_store.dart';
+import 'package:photo_job/camera/camera_widgets.dart';
 import 'package:photo_job/details/details_widgets.dart';
+import 'package:photo_job/home/home_widget.dart';
+import 'package:photo_job/jobs/job_categories_widget.dart';
 import 'package:photo_job/jobs/job_list.dart';
 import 'package:photo_job/jobs/jobs_widgets.dart';
-import 'package:photo_job/home/home_widget.dart';
 import 'package:provider/provider.dart';
-import 'package:photo_job/jobs/job_categories_widget.dart';
-import 'package:photo_job/applicant_details.dart';
-import 'package:photo_job/camera/camera_widgets.dart';
-import 'package:photo_job/Admin/Admin_page.dart';
 
 final cameraStore = CameraStore();
 final jobsStore = JobList();
@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
                 ),
             '/details': (_) => DetailsPage()
           },
-          initialRoute: '/',
+          initialRoute: '/home',
         ));
   }
 }

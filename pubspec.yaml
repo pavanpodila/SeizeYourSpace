@@ -14,7 +14,7 @@ description: Captures the photo of a prospect with the Job Description.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.2.0 <3.0.0"
+  sdk: ">=2.1.2-dev <3.0.0"
 
 dependencies:
   flutter:
@@ -23,19 +23,19 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
-  mobx:
-  flutter_mobx:
+  mobx: ^0.1.0
+  flutter_mobx: ^0.1.0
   camera:
   path_provider:
   provider: ^1.6.1
-  email_validator: '^1.0.0'
+  email_validator: ^1.0.0
   regexed_validator: ^1.0.2
-  serializable: ^0.11.2+1
+  json_serializable: ^2.2.1
   esys_flutter_share: ^1.0.0
   archive: ^2.0.8
 
 dev_dependencies:
-  mobx_codegen:
+  mobx_codegen: ^0.1.0
   build_runner:
   flutter_test:
     sdk: flutter

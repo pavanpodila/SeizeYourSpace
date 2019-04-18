@@ -26,7 +26,8 @@ mixin _$CameraStore on _CameraStore, Store {
 
   @override
   set selectedCamera(CameraDescription value) {
-    mainContext.checkIfStateModificationsAreAllowed(_$selectedCameraAtom);
+    _$selectedCameraAtom.context
+        .checkIfStateModificationsAreAllowed(_$selectedCameraAtom);
     super.selectedCamera = value;
     _$selectedCameraAtom.reportChanged();
   }
@@ -41,7 +42,8 @@ mixin _$CameraStore on _CameraStore, Store {
 
   @override
   set _cameraState(CameraState value) {
-    mainContext.checkIfStateModificationsAreAllowed(_$_cameraStateAtom);
+    _$_cameraStateAtom.context
+        .checkIfStateModificationsAreAllowed(_$_cameraStateAtom);
     super._cameraState = value;
     _$_cameraStateAtom.reportChanged();
   }
@@ -56,7 +58,8 @@ mixin _$CameraStore on _CameraStore, Store {
 
   @override
   set capturedPhotoFile(String value) {
-    mainContext.checkIfStateModificationsAreAllowed(_$capturedPhotoFileAtom);
+    _$capturedPhotoFileAtom.context
+        .checkIfStateModificationsAreAllowed(_$capturedPhotoFileAtom);
     super.capturedPhotoFile = value;
     _$capturedPhotoFileAtom.reportChanged();
   }
@@ -80,5 +83,17 @@ mixin _$CameraStore on _CameraStore, Store {
   @override
   Future<void> takePicture() {
     return _$takePictureAsyncAction.run(() => super.takePicture());
+  }
+
+  final _$_CameraStoreActionController = ActionController(name: '_CameraStore');
+
+  @override
+  dynamic clearPhotoPath() {
+    final _$actionInfo = _$_CameraStoreActionController.startAction();
+    try {
+      return super.clearPhotoPath();
+    } finally {
+      _$_CameraStoreActionController.endAction(_$actionInfo);
+    }
   }
 }
