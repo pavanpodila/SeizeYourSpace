@@ -2,52 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:photo_job/core/app_page_view.dart';
-import 'package:photo_job/core/circular_button.dart';
 import 'package:photo_job/core/theme.dart';
-
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return AppPageView(
-      backgroundColor: theme.radiantRed,
-      child: Align(
-        alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 0),
-              child: Text('publicis',
-                  style: TextStyle(color: Colors.black, fontSize: 30)),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 0),
-              child: Text('sapient',
-                  style: TextStyle(color: Colors.white, fontSize: 30)),
-            ),
-            Padding(
-                padding: const EdgeInsets.symmetric(vertical: 50),
-                child: AreYouOneOfUsText()),
-            CircularButton(
-                borderColor: theme.green,
-                color: Colors.black,
-                textColor: Colors.white,
-                text: 'Yes, \n this is me!',
-                onPressed: () {
-                  return Navigator.pushNamed(context, '/jobCategory');
-                }),
-            Padding(
-                padding: const EdgeInsets.symmetric(vertical: 50), child: null),
-            Image.asset(
-              'lib/assets/banner.png',
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 class AreYouOneOfUsText extends StatefulWidget {
   @override
@@ -102,7 +57,7 @@ class _AreYouOneOfUsTextState extends State<AreYouOneOfUsText>
                   s,
                   textAlign: TextAlign.right,
                   style: theme.bodyTextStyle
-                      .apply(color: Colors.white, fontSizeDelta: 4),
+                      .apply(color: Colors.white, fontSizeDelta: 2),
                 ),
               ),
               padding: EdgeInsets.only(bottom: 20),
@@ -122,5 +77,6 @@ class _AreYouOneOfUsTextState extends State<AreYouOneOfUsText>
   @override
   void dispose() {
     _controller.dispose();
+    super.dispose();
   }
 }

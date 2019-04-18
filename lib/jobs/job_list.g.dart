@@ -8,7 +8,18 @@ part of 'job_list.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies
 
-mixin _$JobList on JobListBase, Store {
+mixin _$JobStore on _JobStore, Store {
+  Computed<List<String>> _$jobCategoriesComputed;
+
+  @override
+  List<String> get jobCategories => (_$jobCategoriesComputed ??=
+          Computed<List<String>>(() => super.jobCategories))
+      .value;
+  Computed<List<Job>> _$jobsComputed;
+
+  @override
+  List<Job> get jobs =>
+      (_$jobsComputed ??= Computed<List<Job>>(() => super.jobs)).value;
   Computed<bool> _$hasSelectionComputed;
 
   @override
@@ -16,54 +27,38 @@ mixin _$JobList on JobListBase, Store {
       (_$hasSelectionComputed ??= Computed<bool>(() => super.hasSelection))
           .value;
 
-  final _$jobCategoriesAtom = Atom(name: 'JobListBase.jobCategories');
+  final _$_jobsMapAtom = Atom(name: '_JobStore._jobsMap');
 
   @override
-  ObservableList<String> get jobCategories {
-    _$jobCategoriesAtom.reportObserved();
-    return super.jobCategories;
+  Map<String, List<Job>> get _jobsMap {
+    _$_jobsMapAtom.reportObserved();
+    return super._jobsMap;
   }
 
   @override
-  set jobCategories(ObservableList<String> value) {
-    _$jobCategoriesAtom.context
-        .checkIfStateModificationsAreAllowed(_$jobCategoriesAtom);
-    super.jobCategories = value;
-    _$jobCategoriesAtom.reportChanged();
+  set _jobsMap(Map<String, List<Job>> value) {
+    _$_jobsMapAtom.context.checkIfStateModificationsAreAllowed(_$_jobsMapAtom);
+    super._jobsMap = value;
+    _$_jobsMapAtom.reportChanged();
   }
 
-  final _$jobCategoryAtom = Atom(name: 'JobListBase.jobCategory');
+  final _$selectedCategoryAtom = Atom(name: '_JobStore.selectedCategory');
 
   @override
-  String get jobCategory {
-    _$jobCategoryAtom.reportObserved();
-    return super.jobCategory;
-  }
-
-  @override
-  set jobCategory(String value) {
-    _$jobCategoryAtom.context
-        .checkIfStateModificationsAreAllowed(_$jobCategoryAtom);
-    super.jobCategory = value;
-    _$jobCategoryAtom.reportChanged();
-  }
-
-  final _$jobsAtom = Atom(name: 'JobListBase.jobs');
-
-  @override
-  ObservableList<Job> get jobs {
-    _$jobsAtom.reportObserved();
-    return super.jobs;
+  String get selectedCategory {
+    _$selectedCategoryAtom.reportObserved();
+    return super.selectedCategory;
   }
 
   @override
-  set jobs(ObservableList<Job> value) {
-    _$jobsAtom.context.checkIfStateModificationsAreAllowed(_$jobsAtom);
-    super.jobs = value;
-    _$jobsAtom.reportChanged();
+  set selectedCategory(String value) {
+    _$selectedCategoryAtom.context
+        .checkIfStateModificationsAreAllowed(_$selectedCategoryAtom);
+    super.selectedCategory = value;
+    _$selectedCategoryAtom.reportChanged();
   }
 
-  final _$selectedJobAtom = Atom(name: 'JobListBase.selectedJob');
+  final _$selectedJobAtom = Atom(name: '_JobStore.selectedJob');
 
   @override
   Job get selectedJob {
@@ -79,51 +74,32 @@ mixin _$JobList on JobListBase, Store {
     _$selectedJobAtom.reportChanged();
   }
 
-  final _$setJobCategoriesAsyncAction = AsyncAction('setJobCategories');
+  final _$loadJobsAsyncAction = AsyncAction('loadJobs');
 
   @override
-  Future setJobCategories() {
-    return _$setJobCategoriesAsyncAction.run(() => super.setJobCategories());
+  Future<void> loadJobs() {
+    return _$loadJobsAsyncAction.run(() => super.loadJobs());
   }
 
-  final _$selectJobsForCategoryAsyncAction =
-      AsyncAction('selectJobsForCategory');
-
-  @override
-  Future selectJobsForCategory() {
-    return _$selectJobsForCategoryAsyncAction
-        .run(() => super.selectJobsForCategory());
-  }
-
-  final _$JobListBaseActionController = ActionController(name: 'JobListBase');
+  final _$_JobStoreActionController = ActionController(name: '_JobStore');
 
   @override
   dynamic setJobCategory(String jobCategory) {
-    final _$actionInfo = _$JobListBaseActionController.startAction();
+    final _$actionInfo = _$_JobStoreActionController.startAction();
     try {
       return super.setJobCategory(jobCategory);
     } finally {
-      _$JobListBaseActionController.endAction(_$actionInfo);
+      _$_JobStoreActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void selectJob(Job job) {
-    final _$actionInfo = _$JobListBaseActionController.startAction();
+    final _$actionInfo = _$_JobStoreActionController.startAction();
     try {
       return super.selectJob(job);
     } finally {
-      _$JobListBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void selectJobWithIndex(int index) {
-    final _$actionInfo = _$JobListBaseActionController.startAction();
-    try {
-      return super.selectJobWithIndex(index);
-    } finally {
-      _$JobListBaseActionController.endAction(_$actionInfo);
+      _$_JobStoreActionController.endAction(_$actionInfo);
     }
   }
 }

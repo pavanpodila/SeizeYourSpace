@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:photo_job/applicant_details.dart';
 import 'package:photo_job/core/app_page_view.dart';
 import 'package:photo_job/core/circular_button.dart';
 import 'package:photo_job/core/theme.dart';
+import 'package:photo_job/home/main_store.dart';
 import 'package:photo_job/jobs/job.dart';
-import 'package:photo_job/jobs/job_list.dart';
 import 'package:provider/provider.dart';
 
 class JobsPage extends StatelessWidget {
@@ -16,22 +15,21 @@ class JobsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final jobStore = Provider.of<JobList>(context);
-    final applicantDetails = Provider.of<ApplicantDetails>(context);
+    final mainStore = Provider.of<MainStore>(context);
+    final jobStore = mainStore.jobStore;
+    final applicant = mainStore.applicant;
 
     return AppPageView(
         child: Column(
       children: <Widget>[
         Stack(
           children: <Widget>[
-            Image.asset(
-              'lib/assets/banner.png',
-            ),
+            PSBanner(),
             Positioned(
+              bottom: -20,
               right: 10,
-              top: 10,
               child: CircularButton(
-                text: jobStore.jobCategory,
+                text: jobStore.selectedCategory,
                 onPressed: null,
               ),
             )
@@ -43,7 +41,7 @@ class JobsPage extends StatelessWidget {
               return JobView(
                 job: jobStore.jobs[index],
                 onSelected: (job) {
-                  applicantDetails.setJobId(job.id);
+                  applicant.setJobId(job.id);
                   jobStore.selectJob(job);
                   this.onSelected(context);
                 },

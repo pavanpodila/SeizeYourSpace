@@ -3,13 +3,12 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:photo_job/applicant_details.dart';
-import 'package:photo_job/camera/camera_store.dart';
-import 'package:photo_job/camera/camera_widgets.dart';
 import 'package:photo_job/core/app_page_view.dart';
+import 'package:photo_job/core/circle_avatar_photo.dart';
 import 'package:photo_job/core/circular_button.dart';
 import 'package:photo_job/core/theme.dart';
-import 'package:photo_job/jobs/job_list.dart';
+import 'package:photo_job/home/applicant.dart';
+import 'package:photo_job/home/main_store.dart';
 import 'package:provider/provider.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 
@@ -31,72 +30,82 @@ class DetailsPageState extends State<DetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final jobStore = Provider.of<JobList>(context);
-    final applicantDetails = Provider.of<ApplicantDetails>(context);
+    final mainStore = Provider.of<MainStore>(context);
+    final jobStore = mainStore.jobStore;
+    final applicant = mainStore.applicant;
+
     return Scaffold(
         body: AppPageView(
-      child: ListView(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 40.0),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  SizedBox(
-                    width: 125,
-                    height: 125,
-                    child: CircleAvatarPhoto(
-                      borderWidth: 5,
-                      color: theme.blue,
-                      child: applicantDetails.picPath != null
-                          ? Image.file(File(applicantDetails.picPath),
-                              fit: BoxFit.fitWidth)
-                          : Container(
-                              decoration: BoxDecoration(color: theme.lightGray),
-                            ),
+      child: GestureDetector(
+        onTap: _dismissKeyboard,
+        child: ListView(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 40.0),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SizedBox(
+                      width: 125,
+                      height: 125,
+                      child: PSCircleAvatar(
+                        borderWidth: 5,
+                        child: applicant.picPath != null
+                            ? Image.file(File(applicant.picPath),
+                                fit: BoxFit.fitWidth)
+                            : Container(
+                                decoration:
+                                    BoxDecoration(color: theme.lightGray),
+                              ),
+                      ),
                     ),
-                  ),
-                  CircularButton(text: jobStore.jobCategory, onPressed: () {})
-                ]),
-          ),
-          SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              autovalidate: true,
-              child: Column(
-                children: <Widget>[
-                  _addPaddingForField(nameField(context)),
-                  _addPaddingForField(emailFormField(context)),
-                  _addPaddingForField(phoneField(context, applicantDetails)),
-                  Padding(
-                    child: submitButton(context, applicantDetails),
-                    padding: EdgeInsets.only(top: 5),
-                  ),
-                ],
-              ),
+                    CircularButton(
+                        text: jobStore.selectedCategory, onPressed: () {})
+                  ]),
             ),
-          )
-        ],
+            SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                autovalidate: true,
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: nameField(context, applicant),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: emailFormField(context, applicant),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: phoneField(context, applicant),
+                    ),
+                    submitButton(context, applicant),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     ));
   }
 
-  _addPaddingForField(Widget widget) {
-    return Padding(
-      child: widget,
-      padding: EdgeInsets.all(8),
-    );
+  @override
+  void dispose() {
+    _dismissKeyboard();
+    super.dispose();
   }
 
-  TextFormField phoneField(
-      BuildContext context, ApplicantDetails applicantDetails) {
+  TextFormField phoneField(BuildContext context, Applicant applicant) {
     return TextFormField(
       keyboardType: TextInputType.phone,
       textInputAction: TextInputAction.done,
       focusNode: _phoneFocus,
       onFieldSubmitted: (term) {
         _phoneFocus.unfocus();
-        _submit(context, applicantDetails);
+        _submit(context, applicant);
       },
       validator: (value) {
         if (validator.phone(value) != true || value.length < 10) {
@@ -118,7 +127,7 @@ class DetailsPageState extends State<DetailsPage> {
     );
   }
 
-  TextFormField emailFormField(BuildContext context) {
+  TextFormField emailFormField(BuildContext context, Applicant applicant) {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
       focusNode: _emailFocus,
@@ -145,7 +154,7 @@ class DetailsPageState extends State<DetailsPage> {
     );
   }
 
-  TextFormField nameField(BuildContext context) {
+  TextFormField nameField(BuildContext context, Applicant applicant) {
     return TextFormField(
         decoration: new InputDecoration(
           labelText: "Name",
@@ -173,13 +182,12 @@ class DetailsPageState extends State<DetailsPage> {
 
   _submit(context, applicantDetails) {
     if (_formKey.currentState.validate()) {
-      final cameraStore = Provider.of<CameraStore>(context);
+      final mainStore = Provider.of<MainStore>(context);
       _formKey.currentState.save();
-      FocusScope.of(context).requestFocus(new FocusNode());
-      cameraStore.clearPhotoPath();
-      applicantDetails.setNamePhoneAndEmailValue(_name, _email, _phone);
+      _dismissKeyboard();
 
-      Navigator.pushNamed(context, '/complete');
+      mainStore.submitApplication(context,
+          name: _name, email: _email, phone: _phone);
     }
   }
 
@@ -187,18 +195,23 @@ class DetailsPageState extends State<DetailsPage> {
     if (s == null) {
       return false;
     }
-    return double.parse(s, (e) => null) != null;
+
+    try {
+      return double.parse(s) != null;
+    } catch (e) {
+      return false;
+    }
   }
 
-  Widget submitButton(BuildContext context, ApplicantDetails applicantDetails) {
+  Widget submitButton(BuildContext context, Applicant applicant) {
     return CupertinoButton(
         onPressed: () {
-          _submit(context, applicantDetails);
+          _submit(context, applicant);
         },
         color: theme.blue,
         child: Text(
           'Apply',
-          style: TextStyle(fontSize: 16),
+          style: theme.bodyTextStyle,
         ));
   }
 
@@ -206,5 +219,9 @@ class DetailsPageState extends State<DetailsPage> {
       BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
     currentFocus.unfocus();
     FocusScope.of(context).requestFocus(nextFocus);
+  }
+
+  void _dismissKeyboard() {
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
   }
 }

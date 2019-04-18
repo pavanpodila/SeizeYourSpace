@@ -5,30 +5,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:photo_job/applicant_details.dart';
-import 'package:photo_job/camera/camera_store.dart';
 import 'package:photo_job/core/app_page_view.dart';
+import 'package:photo_job/core/circle_avatar_photo.dart';
 import 'package:photo_job/core/theme.dart';
+import 'package:photo_job/home/main_store.dart';
 import 'package:provider/provider.dart';
 
 class TakePhotoPage extends StatelessWidget {
-  final CameraStore store;
-
-  final void Function(BuildContext context) onEscape;
-  final void Function(BuildContext context) onCancel;
   final void Function(BuildContext context) onAccept;
 
-  TakePhotoPage(
-      {Key key,
-      @required this.store,
-      @required this.onEscape,
-      @required this.onAccept,
-      @required this.onCancel})
-      : super(key: key);
+  TakePhotoPage({Key key, @required this.onAccept}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final applicantDetails = Provider.of<ApplicantDetails>(context);
+    final mainStore = Provider.of<MainStore>(context);
+    final store = mainStore.camera;
     return AppPageView(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -45,9 +36,8 @@ class TakePhotoPage extends StatelessWidget {
               children: <Widget>[
                 Observer(
                     builder: (_) => store.isCameraReady
-                        ? CircleAvatarPhoto(
-                            child: CameraPreview(store.controller))
-                        : CircleAvatarPhoto(
+                        ? PSCircleAvatar(child: CameraPreview(store.controller))
+                        : PSCircleAvatar(
                             color: theme.lightGray,
                             child: Center(
                                 child: Text(
@@ -60,7 +50,7 @@ class TakePhotoPage extends StatelessWidget {
                           child: SizedBox(
                             width: 150,
                             height: 150,
-                            child: CircleAvatarPhoto(
+                            child: PSCircleAvatar(
                                 borderWidth: 5,
                                 color: store.isCameraReady
                                     ? theme.radiantRed
@@ -82,15 +72,16 @@ class TakePhotoPage extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20.0),
-            child: _buildActionButtonBar(context, applicantDetails),
+            child: _buildActionButtonBar(context, mainStore),
           ),
         ]),
       ),
     );
   }
 
-  Observer _buildActionButtonBar(
-      BuildContext context, ApplicantDetails applicantDetails) {
+  Observer _buildActionButtonBar(BuildContext context, MainStore mainStore) {
+    final store = mainStore.camera;
+
     return Observer(
       builder: (_) => store.isCameraReady
           ? Column(
@@ -109,7 +100,7 @@ class TakePhotoPage extends StatelessWidget {
                 CupertinoButton(
                     onPressed: (store.capturedPhotoFile != null)
                         ? () {
-                            applicantDetails
+                            mainStore.applicant
                                 .setImagePath(store.capturedPhotoFile);
                             onAccept(context);
                           }
@@ -127,35 +118,6 @@ class TakePhotoPage extends StatelessWidget {
                 onAccept(context);
               },
             ),
-    );
-  }
-}
-
-class CircleAvatarPhoto extends StatelessWidget {
-  CircleAvatarPhoto(
-      {@required this.child,
-      this.color = Colors.redAccent,
-      this.backgroundColor = Colors.white,
-      this.borderWidth = 10});
-
-  final double borderWidth;
-
-  final Color color;
-  final Color backgroundColor;
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: ClipPath(
-        clipper: ShapeBorderClipper(shape: CircleBorder()),
-        child: child,
-      ),
-      decoration: BoxDecoration(
-          color: backgroundColor,
-          border: Border.all(width: borderWidth, color: color),
-          shape: BoxShape.circle),
     );
   }
 }

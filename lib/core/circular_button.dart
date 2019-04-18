@@ -32,7 +32,7 @@ class CircularButton extends StatelessWidget {
             // The border you want
             border: new Border.all(
               width: 5.0,
-              color: borderColor ?? theme.blue,
+              color: borderColor ?? theme.radiantRed,
             ),
           ),
           child: Center(

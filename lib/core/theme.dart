@@ -41,3 +41,12 @@ final theme = Theme(
     captionTextStyle: TextStyle(fontSize: 12, color: Colors.grey),
     headingTextStyle: TextStyle(
         fontSize: 20, fontWeight: FontWeight.bold, color: primaryColor));
+
+class PSBanner extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(
+      'lib/assets/banner.png',
+    );
+  }
+}

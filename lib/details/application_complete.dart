@@ -3,17 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:photo_job/core/app_page_view.dart';
 import 'package:photo_job/core/theme.dart';
+import 'package:photo_job/home/main_store.dart';
+import 'package:provider/provider.dart';
 
 class ApplicationCompletePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final mainStore = Provider.of<MainStore>(context);
+
     return AppPageView(
       backgroundColor: theme.radiantRed,
       child: Column(
         children: <Widget>[
-          Image.asset(
-            'lib/assets/banner.png',
-          ),
+          PSBanner(),
           Padding(
             padding: const EdgeInsets.only(top: 40.0, left: 30, right: 30),
             child: Text(
@@ -30,7 +32,7 @@ class ApplicationCompletePage extends StatelessWidget {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  Navigator.popUntil(context, ModalRoute.withName('/home'));
+                  mainStore.endApplication(context);
                 }),
           )),
           Text('publicis'),

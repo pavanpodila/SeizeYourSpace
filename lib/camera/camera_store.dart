@@ -13,7 +13,6 @@ class CameraStore = _CameraStore with _$CameraStore;
 abstract class _CameraStore implements Store {
   _CameraStore() {
     _prepareCamera();
-    _clearPastImages();
   }
 
   String _imagesDirectory;
@@ -29,19 +28,15 @@ abstract class _CameraStore implements Store {
   CameraState _cameraState = CameraState.initializing;
 
   @observable
-  String capturedPhotoFile = null;
+  String capturedPhotoFile;
 
   void _prepareCamera() async {
     try {
+      _imagesDirectory = await _getDirectory();
       final cameras = await availableCameras();
       selectCamera(cameras
           .firstWhere((x) => x.lensDirection == CameraLensDirection.front));
     } catch (e) {}
-  }
-
-  @action
-  Future<void> _clearPastImages() async {
-    _imagesDirectory = await _getDirectory();
   }
 
   @action

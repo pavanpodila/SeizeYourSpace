@@ -64,13 +64,6 @@ mixin _$CameraStore on _CameraStore, Store {
     _$capturedPhotoFileAtom.reportChanged();
   }
 
-  final _$_clearPastImagesAsyncAction = AsyncAction('_clearPastImages');
-
-  @override
-  Future<void> _clearPastImages() {
-    return _$_clearPastImagesAsyncAction.run(() => super._clearPastImages());
-  }
-
   final _$selectCameraAsyncAction = AsyncAction('selectCamera');
 
   @override

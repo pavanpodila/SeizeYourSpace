@@ -1,26 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:photo_job/applicant_details.dart';
 import 'package:photo_job/core/app_page_view.dart';
 import 'package:photo_job/core/circular_button.dart';
 import 'package:photo_job/core/theme.dart';
-import 'package:photo_job/jobs/job_list.dart';
+import 'package:photo_job/home/main_store.dart';
 import 'package:provider/provider.dart';
 
 class JobCategoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final jobCategories = Provider.of<JobList>(context).jobCategories;
-    final applicantDetails = Provider.of<ApplicantDetails>(context);
-
-    final setJobCategory = Provider.of<JobList>(context).setJobCategory;
+    final mainStore = Provider.of<MainStore>(context);
+    final jobStore = mainStore.jobStore;
 
     return AppPageView(
         child: Column(
       children: <Widget>[
-        Image.asset(
-          'lib/assets/banner.png',
-        ),
+        PSBanner(),
         Padding(
             padding: const EdgeInsets.symmetric(vertical: 50),
             child: Text(
@@ -35,13 +30,11 @@ class JobCategoryPage extends StatelessWidget {
                 crossAxisSpacing: 20.0,
                 mainAxisSpacing: 20.0,
                 crossAxisCount: 3,
-                children: jobCategories
+                children: jobStore.jobCategories
                     .map((jobCategory) => CircularButton(
-                        text: '$jobCategory',
+                        text: jobCategory,
                         onPressed: () {
-                          setJobCategory(jobCategory);
-                          applicantDetails.setJobCategory(jobCategory);
-                          return Navigator.pushNamed(context, '/jobs');
+                          mainStore.setJobCategory(jobCategory, context);
                         }))
                     .toList())),
       ],
