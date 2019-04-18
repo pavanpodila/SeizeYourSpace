@@ -6,8 +6,6 @@ class AppPageView extends StatelessWidget {
   final Widget child;
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-        child: SafeArea(
-            child: Padding(padding: const EdgeInsets.all(8.0), child: child)));
+    return CupertinoPageScaffold(child: SafeArea(child: child));
   }
 }

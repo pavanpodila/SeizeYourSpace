@@ -4,6 +4,7 @@ import 'package:photo_job/Admin/Admin_page.dart';
 import 'package:photo_job/applicant_details.dart';
 import 'package:photo_job/camera/camera_store.dart';
 import 'package:photo_job/camera/camera_widgets.dart';
+import 'package:photo_job/details/application_complete.dart';
 import 'package:photo_job/details/details_widgets.dart';
 import 'package:photo_job/home/home_widget.dart';
 import 'package:photo_job/jobs/job_categories_widget.dart';
@@ -47,7 +48,8 @@ class MyApp extends StatelessWidget {
                         fullscreenDialog: true));
                   },
                 ),
-            '/details': (_) => DetailsPage()
+            '/details': (_) => DetailsPage(),
+            '/complete': (_) => ApplicationCompletePage(),
           },
           initialRoute: '/home',
         ));

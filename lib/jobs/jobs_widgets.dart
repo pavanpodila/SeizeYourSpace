@@ -118,21 +118,20 @@ class JobView extends StatelessWidget {
                               bottom: 10.0, left: 0, right: 0),
                           child: ListTile(
                             title: Text('Responsibilities'),
-                            subtitle: Text('${responsibilties}'),
+                            subtitle: Text('$responsibilties'),
                           )),
                   Padding(
                       padding: const EdgeInsets.only(
                           bottom: 10.0, left: 0, right: 0),
-                      child: RaisedButton(
+                      child: CupertinoButton(
                         onPressed: () {
                           this.onSelected(this.job);
                         },
                         color: Colors.blueAccent,
                         child: Text(
                           'This is me!',
-                          style: TextStyle(fontSize: 16.9),
+                          style: TextStyle(fontSize: 16),
                         ),
-                        textColor: Colors.white70,
                       ))
                 ],
               ),

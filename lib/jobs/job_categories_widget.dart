@@ -40,8 +40,8 @@ class JobCategoryPage extends StatelessWidget {
                 crossAxisCount: 3,
                 children: jobCategories
                     .map((jobCategory) => CircularButton(
-                        textContent: '${jobCategory}',
-                        onSelected: () {
+                        text: '${jobCategory}',
+                        onPressed: () {
                           setJobCategory(jobCategory);
                           applicantDetails.setJobCategory(jobCategory);
                           return Navigator.pushNamed(context, '/jobs');

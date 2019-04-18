@@ -2,41 +2,43 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CircularButton extends StatelessWidget {
-  CircularButton({@required this.textContent, @required this.onSelected});
-  String textContent;
-  final void Function() onSelected;
+  CircularButton(
+      {@required this.text,
+      @required this.onPressed,
+      this.color = Colors.white,
+      this.textColor = Colors.black});
+  String text;
+  final Color color;
+  final Color textColor;
+  final void Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () async {
-          this.onSelected();
-        },
-        child: Container(
+      onTap: () async {
+        this.onPressed();
+      },
+      child: Container(
           width: 120,
           height: 120,
           decoration: new BoxDecoration(
             // Circle shape
             shape: BoxShape.circle,
-            color: Colors.white,
+            color: color,
             // The border you want
             border: new Border.all(
               width: 5.0,
               color: Colors.blueAccent,
             ),
           ),
-          child: Column(
-            children: <Widget>[
-              Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: null),
-              Text(
-                '${this.textContent}',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-              )
-            ],
-          ),
-        ));
+          child: Center(
+            child: Text(
+              '${this.text}',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, fontSize: 15, color: textColor),
+            ),
+          )),
+    );
   }
 }

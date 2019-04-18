@@ -73,7 +73,10 @@ class TakePhotoPage extends StatelessWidget {
             ],
           ),
         ),
-        _buildActionButtonBar(context, applicantDetails),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20.0),
+          child: _buildActionButtonBar(context, applicantDetails),
+        ),
       ]),
     );
   }
@@ -98,7 +101,7 @@ class TakePhotoPage extends StatelessWidget {
                         )),
                     onPressed: store.takePicture),
                 (store.capturedPhotoFile != null)
-                    ? RaisedButton(
+                    ? CupertinoButton(
                         onPressed: () {
                           applicantDetails
                               .setImagePath(store.capturedPhotoFile);
@@ -107,10 +110,8 @@ class TakePhotoPage extends StatelessWidget {
                         color: Colors.blueAccent,
                         child: Text(
                           'Looks Good',
-                          style: TextStyle(fontSize: 16.9),
-                        ),
-                        textColor: Colors.white70,
-                      )
+                          style: TextStyle(fontSize: 16),
+                        ))
                     : Container(height: 0, width: 0)
               ],
             )

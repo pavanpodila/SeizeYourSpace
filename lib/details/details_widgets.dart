@@ -24,7 +24,6 @@ class DetailsPageState extends State<DetailsPage> {
   String _phone = '';
   String _email = '';
   final _formKey = GlobalKey<FormState>();
-  bool _showDialog = false;
   final FocusNode _nameFocus = FocusNode();
   final FocusNode _emailFocus = FocusNode();
   final FocusNode _phoneFocus = FocusNode();
@@ -34,77 +33,56 @@ class DetailsPageState extends State<DetailsPage> {
     final jobStore = Provider.of<JobList>(context);
     final applicantDetails = Provider.of<ApplicantDetails>(context);
     return Scaffold(
-        body: _showDialog
-            ? CupertinoAlertDialog(
-                title: new Text("Success!!"),
-                content: new Text(
-                    "We have received your application. We will get back to you shortly"),
-                actions: <Widget>[
-                  CupertinoDialogAction(
-                    isDefaultAction: true,
-                    child: Text("Ok"),
-                    onPressed: () {
-                      Navigator.pop(context);
-                      return Navigator.pushNamed(context, '/home');
-                    },
+        body: AppPageView(
+      child: ListView(
+        children: <Widget>[
+          Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+            SizedBox(
+              width: 125,
+              height: 125,
+              child: CircleAvatarPhoto(
+                borderWidth: 5,
+                color: Colors.blueAccent,
+                child: applicantDetails.picPath != null
+                    ? Image.file(File(applicantDetails.picPath),
+                        fit: BoxFit.fitWidth)
+                    : Container(
+                        decoration: BoxDecoration(color: Colors.black12),
+                      ),
+              ),
+            ),
+            Padding(
+              child: CircularButton(
+                  text: '${jobStore.jobCategory}', onPressed: () {}),
+              padding: EdgeInsets.only(bottom: 5, top: 10),
+            )
+          ]),
+          Padding(
+            child: Divider(
+              color: Colors.black26,
+            ),
+            padding: EdgeInsets.only(bottom: 5),
+          ),
+          SingleChildScrollView(
+            child: Form(
+              key: _formKey,
+              autovalidate: true,
+              child: Column(
+                children: <Widget>[
+                  _addPaddingForField(nameField(context)),
+                  _addPaddingForField(emailFormField(context)),
+                  _addPaddingForField(phoneField(context, applicantDetails)),
+                  Padding(
+                    child: submitButton(context, applicantDetails),
+                    padding: EdgeInsets.only(top: 5),
                   ),
                 ],
-              )
-            : AppPageView(
-                child: ListView(
-                  children: <Widget>[
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          SizedBox(
-                            width: 125,
-                            height: 125,
-                            child: CircleAvatarPhoto(
-                              borderWidth: 5,
-                              color: Colors.blueAccent,
-                              child: applicantDetails.picPath != null
-                                  ? Image.file(File(applicantDetails.picPath),
-                                      fit: BoxFit.fitWidth)
-                                  : Container(
-                                      decoration:
-                                          BoxDecoration(color: Colors.black12),
-                                    ),
-                            ),
-                          ),
-                          Padding(
-                            child: CircularButton(
-                                textContent: '${jobStore.jobCategory}',
-                                onSelected: () {}),
-                            padding: EdgeInsets.only(bottom: 5, top: 10),
-                          )
-                        ]),
-                    Padding(
-                      child: Divider(
-                        color: Colors.black26,
-                      ),
-                      padding: EdgeInsets.only(bottom: 5),
-                    ),
-                    SingleChildScrollView(
-                      child: Form(
-                        key: _formKey,
-                        autovalidate: true,
-                        child: Column(
-                          children: <Widget>[
-                            _addPaddingForField(nameField(context)),
-                            _addPaddingForField(emailFormField(context)),
-                            _addPaddingForField(
-                                phoneField(context, applicantDetails)),
-                            Padding(
-                              child: submitButton(context, applicantDetails),
-                              padding: EdgeInsets.only(top: 5),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ));
+              ),
+            ),
+          )
+        ],
+      ),
+    ));
   }
 
   _addPaddingForField(Widget widget) {
@@ -204,9 +182,8 @@ class DetailsPageState extends State<DetailsPage> {
       FocusScope.of(context).requestFocus(new FocusNode());
       cameraStore.clearPhotoPath();
       applicantDetails.setNamePhoneAndEmailValue(_name, _email, _phone);
-      setState(() {
-        _showDialog = true;
-      });
+
+      Navigator.pushNamed(context, '/complete');
     }
   }
 
@@ -217,19 +194,16 @@ class DetailsPageState extends State<DetailsPage> {
     return double.parse(s, (e) => null) != null;
   }
 
-  RaisedButton submitButton(
-      BuildContext context, ApplicantDetails applicantDetails) {
-    return RaisedButton(
-      onPressed: () {
-        _submit(context, applicantDetails);
-      },
-      color: Colors.blueAccent,
-      child: Text(
-        'Apply',
-        style: TextStyle(fontSize: 16.9),
-      ),
-      textColor: Colors.white70,
-    );
+  Widget submitButton(BuildContext context, ApplicantDetails applicantDetails) {
+    return CupertinoButton(
+        onPressed: () {
+          _submit(context, applicantDetails);
+        },
+        color: Colors.blueAccent,
+        child: Text(
+          'Apply',
+          style: TextStyle(fontSize: 16),
+        ));
   }
 
   _fieldFocusChange(
