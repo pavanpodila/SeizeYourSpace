@@ -62,8 +62,13 @@ class DetailsPageState extends State<DetailsPage> {
                             child: CircleAvatarPhoto(
                               borderWidth: 5,
                               color: Colors.blueAccent,
-                              child: Image.file(File(applicantDetails.picPath),
-                                  fit: BoxFit.fitWidth),
+                              child: applicantDetails.picPath != null
+                                  ? Image.file(File(applicantDetails.picPath),
+                                      fit: BoxFit.fitWidth)
+                                  : Container(
+                                      decoration:
+                                          BoxDecoration(color: Colors.black12),
+                                    ),
                             ),
                           ),
                           Padding(

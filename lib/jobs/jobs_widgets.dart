@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:photo_job/core/app_page_view.dart';
-import 'package:photo_job/jobs/job_list.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:photo_job/jobs/job.dart';
-import 'package:provider/provider.dart';
 import 'package:photo_job/applicant_details.dart';
+import 'package:photo_job/core/app_page_view.dart';
+import 'package:photo_job/jobs/job.dart';
+import 'package:photo_job/jobs/job_list.dart';
+import 'package:provider/provider.dart';
 
 class JobsPage extends StatelessWidget {
   JobsPage({this.onSelected});
@@ -65,10 +65,10 @@ class JobView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String responsibiltiesWidget = '';
+    String responsibilties = '';
 
     this.job.responsibilities.forEach((entry) {
-      responsibiltiesWidget = responsibiltiesWidget + entry + "\n\n";
+      responsibilties = responsibilties + entry + "\n\n";
     });
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -81,24 +81,30 @@ class JobView extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   ListTile(
-                    title: Text('JOB TITLE'),
-                    subtitle: Text('${this.job.title}'),
-                  ),
-                  Divider(
-                    color: Colors.black26,
+                    title: Text(
+                      'Title',
+                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                    ),
+                    subtitle: Text(
+                      '${this.job.title}',
+                      style: TextStyle(fontSize: 16, color: Colors.black),
+                    ),
                   ),
                   ListTile(
-                    title: Text('JOB LOCATION'),
-                    subtitle: Text('${this.job.location}'),
-                  ),
-                  Divider(
-                    color: Colors.black26,
+                    title: Text(
+                      'Location',
+                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                    ),
+                    subtitle: Text(
+                      '${this.job.location}',
+                      style: TextStyle(fontSize: 16, color: Colors.black),
+                    ),
                   ),
                   Padding(
                       padding: const EdgeInsets.only(
                           bottom: 15.0, left: 0, right: 0),
                       child: ListTile(
-                        title: Text('Job Summary'),
+                        title: Text('Summary'),
                         subtitle: Text('${this.job.summary}'),
                       )),
                   this.job.responsibilities != null &&
@@ -112,7 +118,7 @@ class JobView extends StatelessWidget {
                               bottom: 10.0, left: 0, right: 0),
                           child: ListTile(
                             title: Text('Responsibilities'),
-                            subtitle: Text('${responsibiltiesWidget}'),
+                            subtitle: Text('${responsibilties}'),
                           )),
                   Padding(
                       padding: const EdgeInsets.only(
@@ -123,7 +129,7 @@ class JobView extends StatelessWidget {
                         },
                         color: Colors.blueAccent,
                         child: Text(
-                          'I am here!',
+                          'This is me!',
                           style: TextStyle(fontSize: 16.9),
                         ),
                         textColor: Colors.white70,
@@ -131,12 +137,6 @@ class JobView extends StatelessWidget {
                 ],
               ),
             ),
-            decoration: new BoxDecoration(boxShadow: [
-              new BoxShadow(
-                color: Colors.black12,
-                blurRadius: 1.0,
-              ),
-            ]),
           ),
         )
       ],

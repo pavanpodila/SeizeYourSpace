@@ -4,10 +4,10 @@ import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:photo_job/applicant_details.dart';
 import 'package:photo_job/camera/camera_store.dart';
 import 'package:photo_job/core/app_page_view.dart';
 import 'package:provider/provider.dart';
-import 'package:photo_job/applicant_details.dart';
 
 class TakePhotoPage extends StatelessWidget {
   final CameraStore store;
@@ -32,7 +32,7 @@ class TakePhotoPage extends StatelessWidget {
         Text(
           'How about a quick selfie?',
           textAlign: TextAlign.center,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, height: 1.5, color: Colors.blueAccent),
+          style: TextStyle(fontSize: 25, height: 1.5, color: Colors.blueAccent),
         ),
         Expanded(
           child: Stack(
@@ -41,13 +41,15 @@ class TakePhotoPage extends StatelessWidget {
             children: <Widget>[
               Observer(
                   builder: (_) => store.isCameraReady
-                      ? CircleAvatarPhoto(child: CameraPreview(store.controller))
+                      ? CircleAvatarPhoto(
+                          child: CameraPreview(store.controller))
                       : CircleAvatarPhoto(
                           color: Colors.grey,
-                          child: Text(
+                          child: Center(
+                              child: Text(
                             'No Camera',
                             style: TextStyle(color: Colors.grey),
-                          ))),
+                          )))),
               Observer(
                   builder: (_) => (store.capturedPhotoFile != null)
                       ? Align(
@@ -95,21 +97,29 @@ class TakePhotoPage extends StatelessWidget {
                           size: 40,
                         )),
                     onPressed: store.takePicture),
-                (store.capturedPhotoFile != null) ? RaisedButton(
-                  onPressed: () {
-                    applicantDetails.setImagePath(store.capturedPhotoFile);
-                    onAccept(context);
-                  },
-                  color: Colors.blueAccent,
-                  child: Text(
-                    'Looks Good',
-                    style: TextStyle(fontSize: 16.9),
-                  ),
-                  textColor: Colors.white70,
-                ) : Container(height: 0, width: 0)
+                (store.capturedPhotoFile != null)
+                    ? RaisedButton(
+                        onPressed: () {
+                          applicantDetails
+                              .setImagePath(store.capturedPhotoFile);
+                          onAccept(context);
+                        },
+                        color: Colors.blueAccent,
+                        child: Text(
+                          'Looks Good',
+                          style: TextStyle(fontSize: 16.9),
+                        ),
+                        textColor: Colors.white70,
+                      )
+                    : Container(height: 0, width: 0)
               ],
             )
-          : Container(),
+          : CupertinoButton(
+              child: Text('Proceed without Photo'),
+              onPressed: () {
+                onAccept(context);
+              },
+            ),
     );
   }
 }

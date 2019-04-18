@@ -1,5 +1,5 @@
 {
-  "Devops": [
+  "DevOps": [
     {
       "id": "devops_1",
       "title": "Senior Associate- Infrastructure DevOps",
@@ -32,7 +32,7 @@
       ]
     }
   ],
-  "cloud": [
+  "Cloud": [
     {
       "id": "cloud_id",
       "title": "Cloud - Specialist",
@@ -50,7 +50,7 @@
       ]
     }
   ],
-  "mobile": [
+  "Mobile": [
     {
       "id": "mobile_id1",
       "title": "Manager Mobile Solutions",
@@ -123,7 +123,7 @@
       ]
     }
   ],
-  "fullstack": [
+  "FullStack": [
     {
       "id": "fullstack_id",
       "title": "Sr. Associate Platform Level 1/Level 2 – Full Stack",
@@ -139,7 +139,7 @@
       ]
     }
   ],
-  "java": [
+  "Java": [
     {
       "id": "java_id1",
       "title": "Sr. Associate Platform Level 1/Level 2 – Core Java",
@@ -175,25 +175,6 @@
         "Ensure designs are in compliance with specification",
         "Prepare and produce releases of software components.",
         "Support continuous improvement by investigating alternatives and technologies and presenting these for architectural review."
-      ],
-      "experience guidelines": [
-        "4.5-8 years of hands on experience with some of the following technologies",
-        "Java8 and above, ",
-        "Microservices with Springboot/Spring, ",
-        "Reactive/Asynchronous programming, ",
-        "Experience with at-least one NoSQL (Any of Cassandra/Couch base/Hadoop), ",
-        "SOLID design principles and its applicability, ",
-        "Understanding of Design patterns (Creational, Structural, Behavioral) and its applicability,  ",
-        "Experience with cloud (Any of AWS/Azure/GCP) "
-      ],
-      "good to have": [
-        "Apache Kafka, ",
-        "Apache Storm, ",
-        "Distributed computing, ",
-        "Building scalable systems, ",
-        "UX areas like ReactJS, NodeJS, Webflux etc.",
-        "Dockers and Kubernetes experience.",
-        "Strategic thinking preferred over tactical thinking."
       ]
     },
     {

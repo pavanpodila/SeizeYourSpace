@@ -28,10 +28,10 @@ class HomePage extends StatelessWidget {
               children: <Widget>[
                 Text(
                   "Are you someone who\n"
-                  "Fuses startup thinking and agile methods?\n"
+                      "Fuses startup thinking and agile methods?\n"
                       "Transforms the norms?\n"
-                  "Makes bold choices for clients and communities?\n"
-                  "Never ceases to learn and grow?",
+                      "Makes bold choices for clients and communities?\n"
+                      "Never ceases to learn and grow?",
                   textAlign: TextAlign.center,
                   style: TextStyle(fontWeight: FontWeight.normal, fontSize: 15),
                 )
@@ -39,18 +39,16 @@ class HomePage extends StatelessWidget {
             ),
             Padding(
                 padding: const EdgeInsets.symmetric(vertical: 50), child: null),
-            CircularButton(textContent: 'Yes, \n this is me!', onSelected: () {
-              return Navigator.pushNamed(context, '/jobCategory');
-            }),
+            CircularButton(
+                textContent: 'Yes, \n this is me!',
+                onSelected: () {
+                  return Navigator.pushNamed(context, '/jobCategory');
+                }),
             Padding(
                 padding: const EdgeInsets.symmetric(vertical: 50), child: null),
-            Column(
-            children: <Widget>[
-              Image.asset(
-                'lib/assets/image1.png',
-              ),
-            ],
-          ),
+            Image.asset(
+              'lib/assets/image1.png',
+            ),
           ],
         ),
       ),
