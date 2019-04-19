@@ -69,70 +69,62 @@ class JobView extends StatelessWidget {
     this.job.responsibilities.forEach((entry) {
       responsibilities = responsibilities + entry + "\n\n";
     });
-    return Padding(
-      padding: const EdgeInsets.only(top: 30.0, left: 15.0, right: 15.0),
-      child: Card(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              title: Text(
-                'Title',
-                style: theme.captionTextStyle,
-              ),
-              subtitle: Text(
-                this.job.title,
-                style: theme.headingTextStyle,
-              ),
+    return Container(
+      padding:
+          const EdgeInsets.only(top: 30.0, bottom: 30, left: 15.0, right: 15.0),
+      decoration: BoxDecoration(
+          border:
+              Border(bottom: BorderSide(width: 1, color: theme.radiantRed))),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: Text(
+              this.job.title,
+              style: theme.headingTextStyle,
             ),
-            ListTile(
-              title: Text(
-                'Location',
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: Text(
+              'Location',
+              style: theme.captionTextStyle,
+            ),
+          ),
+          Text(
+            this.job.location,
+            style: theme.bodyTextStyle,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 16.0, bottom: 8),
+            child: Text(
+              'Summary',
+              style: theme.captionTextStyle,
+            ),
+          ),
+          Text(this.job.summary),
+          Padding(
+              padding: const EdgeInsets.only(top: 16.0, bottom: 8),
+              child: Text(
+                'Responsibilities',
                 style: theme.captionTextStyle,
-              ),
-              subtitle: Text(
-                this.job.location,
+              )),
+          Text(responsibilities),
+          Center(
+            child: CupertinoButton(
+              onPressed: () {
+                this.onSelected(this.job);
+              },
+              color: theme.blue,
+              child: Text(
+                'This is me!',
                 style: theme.bodyTextStyle,
               ),
             ),
-            Padding(
-                padding: const EdgeInsets.only(bottom: 15.0, left: 0, right: 0),
-                child: ListTile(
-                  title: Text(
-                    'Summary',
-                    style: theme.bodyTextStyle,
-                  ),
-                  subtitle: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Text(this.job.summary),
-                  ),
-                )),
-            Padding(
-                padding: const EdgeInsets.only(bottom: 10.0, left: 0, right: 0),
-                child: ListTile(
-                  title: Text(
-                    'Responsibilities',
-                    style: theme.bodyTextStyle,
-                  ),
-                  subtitle: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Text(responsibilities),
-                  ),
-                )),
-            Padding(
-                padding: const EdgeInsets.only(bottom: 10.0, left: 0, right: 0),
-                child: CupertinoButton(
-                  onPressed: () {
-                    this.onSelected(this.job);
-                  },
-                  color: theme.blue,
-                  child: Text(
-                    'This is me!',
-                    style: theme.bodyTextStyle,
-                  ),
-                ))
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

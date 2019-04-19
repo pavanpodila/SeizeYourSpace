@@ -56,8 +56,9 @@ class _AreYouOneOfUsTextState extends State<AreYouOneOfUsText>
                 child: Text(
                   s,
                   textAlign: TextAlign.right,
-                  style: theme.bodyTextStyle
-                      .apply(color: Colors.white, fontSizeDelta: 2),
+                  style: theme.bodyTextStyle.apply(
+                      color: index % 2 == 0 ? Colors.white : Colors.black,
+                      fontSizeDelta: 2),
                 ),
               ),
               padding: EdgeInsets.only(bottom: 20),

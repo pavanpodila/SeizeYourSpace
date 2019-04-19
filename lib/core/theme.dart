@@ -41,7 +41,7 @@ final theme = Theme(
     yellow: Color.fromARGB(255, 255, 230, 59),
     actionTextStyle: TextStyle(fontSize: 16),
     bodyTextStyle: TextStyle(fontSize: 16),
-    captionTextStyle: TextStyle(fontSize: 12, color: Colors.grey),
+    captionTextStyle: TextStyle(fontSize: 12, color: primaryColor),
     headingTextStyle: TextStyle(
         fontSize: 20, fontWeight: FontWeight.bold, color: primaryColor));
 
