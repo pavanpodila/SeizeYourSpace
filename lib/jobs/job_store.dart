@@ -1,8 +1,8 @@
 import 'package:mobx/mobx.dart';
+import 'package:photo_job/core/domain/job.dart';
 import 'package:photo_job/core/services/jobs_service.dart';
-import 'package:photo_job/jobs/job.dart';
 
-part 'job_list.g.dart';
+part 'job_store.g.dart';
 
 class JobStore = _JobStore with _$JobStore;
 

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:photo_job/jobs/job.dart';
+import 'package:photo_job/core/domain/job.dart';
 
 class JobsService {
   Future<Map<String, List<Job>>> load() async {

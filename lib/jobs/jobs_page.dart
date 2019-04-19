@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:photo_job/core/app_page_view.dart';
 import 'package:photo_job/core/circular_button.dart';
+import 'package:photo_job/core/domain/job.dart';
 import 'package:photo_job/core/theme.dart';
 import 'package:photo_job/home/main_store.dart';
-import 'package:photo_job/jobs/job.dart';
 import 'package:provider/provider.dart';
 
 class JobsPage extends StatelessWidget {

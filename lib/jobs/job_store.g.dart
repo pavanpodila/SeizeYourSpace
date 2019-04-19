@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'job_list.dart';
+part of 'job_store.dart';
 
 // **************************************************************************
 // StoreGenerator

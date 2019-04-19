@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:photo_job/camera/camera_store.dart';
+import 'package:photo_job/core/domain/applicant.dart';
 import 'package:photo_job/core/services/applicant_service.dart';
 import 'package:photo_job/home/app_route.dart';
-import 'package:photo_job/home/applicant.dart';
-import 'package:photo_job/jobs/job_list.dart';
+import 'package:photo_job/jobs/job_store.dart';
 
 part 'main_store.g.dart';
 

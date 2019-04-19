@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_job/Admin/admin_page.dart';
 import 'package:photo_job/camera/take_photo_page.dart';
-import 'package:photo_job/details/application_complete.dart';
+import 'package:photo_job/details/application_complete_page.dart';
 import 'package:photo_job/details/details_widgets.dart';
 import 'package:photo_job/home/app_route.dart';
 import 'package:photo_job/home/home_page.dart';
