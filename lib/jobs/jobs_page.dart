@@ -38,8 +38,10 @@ class JobsPage extends StatelessWidget {
         new Expanded(child: Observer(builder: (_) {
           return ListView.builder(
             itemBuilder: (_, index) {
+              final job = jobStore.jobs[index];
+
               return JobView(
-                job: jobStore.jobs[index],
+                job: job,
                 onSelected: (job) {
                   applicant.setJobId(job.id);
                   jobStore.selectJob(job);
@@ -69,6 +71,7 @@ class JobView extends StatelessWidget {
     this.job.responsibilities.forEach((entry) {
       responsibilities = responsibilities + entry + "\n\n";
     });
+
     return Container(
       padding:
           const EdgeInsets.only(top: 30.0, bottom: 30, left: 15.0, right: 15.0),
