@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:photo_job/core/theme.dart';
 import 'package:photo_job/home/applicant.dart';
 
 class ApplicantService {
@@ -13,28 +14,52 @@ class ApplicantService {
     _getProfilesDirectory();
   }
 
-  writeApplication(Applicant details) async {
+  Future<File> writeApplication(Applicant details) async {
     final file = _getApplicationFile(details);
 
-    // Write the file
-    await file.writeAsString(jsonEncode({
+    return file.writeAsString(toJSON(details));
+  }
+
+  String toJSON(Applicant details) {
+    return jsonEncode({
       "jobId": details.jobId,
       "jobCategory": details.jobCategory,
       "name": details.name,
       "phone": details.phone,
       "email": details.email,
       "picPath": details.picRelativePath
-    }));
+    });
   }
 
-  _getApplicationFile(Applicant details) {
+  Applicant fromJSON(String source) {
+    try {
+      final map = jsonDecode(source);
+      final applicant = Applicant(
+          jobId: map['jobId'],
+          jobCategory: map['jobCategory'],
+          name: map['name'],
+          phone: map['phone'],
+          email: map['email'],
+          picRelativePath: map['picPath']);
+
+      applicant.picPath = applicant.picRelativePath != null
+          ? '${_profilesDirectory.path}${applicant.picRelativePath}'
+          : null;
+
+      return applicant;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  File _getApplicationFile(Applicant details) {
     return File(
         '${_profilesDirectory.path}/${details.email}-${details.jobId}.txt');
   }
 
   _getProfilesDirectory() async {
     final directory = await getApplicationDocumentsDirectory();
-    final path = '${directory.path}/profiles';
+    final path = '${directory.path}$PROFILE_PATH';
     if (!await Directory(path).exists()) {
       await Directory(path).create(recursive: true);
     }
@@ -43,22 +68,20 @@ class ApplicantService {
   }
 
   Future<List<Applicant>> readApplicants() async {
-    try {
-      final applicants = _profilesDirectory
-          .listSync(recursive: true, followLinks: true)
-          .map((entity) async {
-        if (entity.path.contains("profiles") && entity.path.contains(".txt")) {
-          File file = File(entity.path);
-          String contents = await file.readAsString();
-          final application = jsonDecode(contents);
+    final entityList =
+        _profilesDirectory.list(recursive: false, followLinks: true);
 
-          return Applicant.fromJSON(application);
-        }
-      });
-    } catch (e) {
-      // If encountering an error, return null
-      return null;
+    List<Applicant> applicants = [];
+    await for (final entity in entityList) {
+      if (entity.path.contains(".txt")) {
+        File file = File(entity.path);
+        String contents = await file.readAsString();
+
+        applicants.add(fromJSON(contents));
+      }
     }
+
+    return applicants;
   }
 
   prepareFileForSharing() async {

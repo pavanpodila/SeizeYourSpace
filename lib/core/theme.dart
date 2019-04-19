@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+const PROFILE_PATH = '/profiles';
+const PICTURES_PATH = '$PROFILE_PATH/pictures';
+
 class Theme {
   Theme(
       {this.radiantRed,

@@ -4,6 +4,7 @@ import 'package:photo_job/core/app_page_view.dart';
 import 'package:photo_job/core/circular_button.dart';
 import 'package:photo_job/core/one_of_us_widget.dart';
 import 'package:photo_job/core/theme.dart';
+import 'package:photo_job/home/app_route.dart';
 import 'package:photo_job/home/main_store.dart';
 import 'package:provider/provider.dart';
 
@@ -19,8 +20,14 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('publicis',
-                style: TextStyle(color: Colors.black, fontSize: 30)),
+            GestureDetector(
+              onLongPress: () {
+                mainStore.loadApplicants();
+                Navigator.pushReplacementNamed(context, AppRoute.admin);
+              },
+              child: Text('publicis',
+                  style: TextStyle(color: Colors.black, fontSize: 30)),
+            ),
             Text('sapient',
                 style: TextStyle(color: Colors.white, fontSize: 30)),
             Padding(

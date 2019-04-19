@@ -1,26 +1,39 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:photo_job/camera/camera_store.dart';
+import 'package:photo_job/core/services/applicant_service.dart';
 import 'package:photo_job/home/app_route.dart';
 import 'package:photo_job/home/applicant.dart';
 import 'package:photo_job/jobs/job_list.dart';
 
-class MainStore implements Store {
+part 'main_store.g.dart';
+
+class MainStore = _MainStore with _$MainStore;
+
+abstract class _MainStore implements Store {
   @observable
   Applicant applicant;
+
+  @observable
+  ObservableFuture<List<Applicant>> applicants;
+
+  ApplicantService _applicantService = ApplicantService();
 
   JobStore jobStore = JobStore();
 
   CameraStore camera = CameraStore();
 
+  @action
   beginApplication(BuildContext context) {
+    camera.clearPhotoPath();
     applicant = Applicant();
     Navigator.pushNamed(context, AppRoute.categories);
   }
 
+  @action
   endApplication(BuildContext context) {
+    Navigator.pushReplacementNamed(context, AppRoute.home);
     applicant = null;
-    Navigator.popUntil(context, ModalRoute.withName(AppRoute.home));
   }
 
   void setJobCategory(String jobCategory, BuildContext context) {
@@ -31,9 +44,13 @@ class MainStore implements Store {
 
   void submitApplication(BuildContext context,
       {String name, String email, String phone}) {
-    camera.clearPhotoPath();
     applicant.setValues(name: name, email: email, phone: phone);
     applicant.writeApplicantDetails();
     Navigator.pushNamed(context, AppRoute.complete);
+  }
+
+  @action
+  loadApplicants() {
+    applicants = ObservableFuture(_applicantService.readApplicants());
   }
 }

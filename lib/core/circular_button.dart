@@ -10,7 +10,7 @@ class CircularButton extends StatelessWidget {
       this.borderColor,
       this.textColor = Colors.black});
 
-  String text;
+  final String text;
   final Color color;
   final Color borderColor;
   final Color textColor;

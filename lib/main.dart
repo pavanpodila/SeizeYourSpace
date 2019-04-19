@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Photo Job',
           routes: {
-            AppRoute.root: (_) => AdminPage(),
+            AppRoute.admin: (_) => AdminPage(),
             AppRoute.home: (_) => WillPopScope(
                 onWillPop: () => Future.value(false), child: HomePage()),
             AppRoute.categories: (_) => JobCategoryPage(),
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
             AppRoute.details: (_) => DetailsPage(),
             AppRoute.complete: (_) => ApplicationCompletePage(),
           },
-          initialRoute: '/home',
+          initialRoute: AppRoute.home,
         ));
   }
 }

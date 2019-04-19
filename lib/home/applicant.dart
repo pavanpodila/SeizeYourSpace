@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:photo_job/core/services/applicant_service.dart';
+import 'package:photo_job/core/theme.dart';
 
 class Applicant {
   String name;
@@ -12,9 +13,13 @@ class Applicant {
   String picPath;
   String picRelativePath;
 
-  Applicant.fromJSON(json) {}
-
-  Applicant();
+  Applicant(
+      {this.name,
+      this.phone,
+      this.email,
+      this.jobCategory,
+      this.jobId,
+      this.picRelativePath});
 
   final ApplicantService service = ApplicantService();
 
@@ -33,7 +38,7 @@ class Applicant {
   }
 
   setImagePath(String path) {
-    List<String> tokenizedPath = path.split("profiles");
+    final List<String> tokenizedPath = path.split(PROFILE_PATH);
     this.picPath = path;
     this.picRelativePath = tokenizedPath[1];
   }

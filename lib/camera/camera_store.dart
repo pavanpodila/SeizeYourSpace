@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:mobx/mobx.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:photo_job/core/theme.dart';
 
 part 'camera_store.g.dart';
 
@@ -72,7 +73,7 @@ abstract class _CameraStore implements Store {
 
   static Future<String> _getDirectory() async {
     final dir = await getApplicationDocumentsDirectory();
-    final testDir = '${dir.path}/profiles/pictures';
+    final testDir = '${dir.path}$PICTURES_PATH';
     if (!await Directory(testDir).exists()) {
       await Directory(testDir).create(recursive: true);
     }
