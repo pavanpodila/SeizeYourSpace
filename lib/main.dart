@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:photo_job/Admin/admin_page.dart';
 import 'package:photo_job/camera/take_photo_page.dart';
 import 'package:photo_job/details/application_complete_page.dart';
 import 'package:photo_job/details/details_widgets.dart';
@@ -26,7 +25,6 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Photo Job',
           routes: {
-            AppRoute.admin: (_) => AdminPage(),
             AppRoute.home: (_) => WillPopScope(
                 onWillPop: () => Future.value(false), child: HomePage()),
             AppRoute.categories: (_) => JobCategoryPage(),

@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:photo_job/admin/admin_page.dart';
 import 'package:photo_job/core/app_page_view.dart';
 import 'package:photo_job/core/circular_button.dart';
 import 'package:photo_job/core/one_of_us_widget.dart';
 import 'package:photo_job/core/theme.dart';
-import 'package:photo_job/home/app_route.dart';
 import 'package:photo_job/home/main_store.dart';
 import 'package:provider/provider.dart';
 
@@ -23,7 +23,10 @@ class HomePage extends StatelessWidget {
             GestureDetector(
               onLongPress: () {
                 mainStore.loadApplicants();
-                Navigator.pushReplacementNamed(context, AppRoute.admin);
+                Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (_) => AdminPage(), fullscreenDialog: true));
               },
               child: Text('publicis',
                   style: TextStyle(color: Colors.black, fontSize: 30)),
