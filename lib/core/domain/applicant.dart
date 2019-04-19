@@ -46,4 +46,15 @@ class Applicant {
   Future<File> writeApplicantDetails() async {
     return service.writeApplication(this);
   }
+
+  Map<String, String> toJson() {
+    return {
+      "jobId": jobId,
+      "jobCategory": jobCategory,
+      "name": name,
+      "phone": phone,
+      "email": email,
+      "picPath": picRelativePath
+    };
+  }
 }

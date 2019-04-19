@@ -23,23 +23,21 @@ class _AdminPageState extends State<AdminPage> {
     return AppPageView(
       child: Column(
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              CupertinoButton(
-                  onPressed: () async {
-                    mainStore.loadApplicants();
-                  },
-                  child: Icon(
-                    CupertinoIcons.refresh,
-                    size: 30,
-                  )),
-              CupertinoButton(
-                child: Text('Back Home'),
-                onPressed: () {
-                  Navigator.pushReplacementNamed(context, AppRoute.home);
+          CupertinoNavigationBar(
+            leading: CupertinoButton(
+              child: Icon(CupertinoIcons.back),
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, AppRoute.home);
+              },
+            ),
+            middle: Text('Export Profiles'),
+            trailing: CupertinoButton(
+                onPressed: () async {
+                  mainStore.share();
                 },
-              ),
-            ],
+                child: Icon(
+                  CupertinoIcons.share,
+                )),
           ),
           Observer(builder: (context) {
             final applicantsFuture = Provider.of<MainStore>(context).applicants;
@@ -63,7 +61,6 @@ class _AdminPageState extends State<AdminPage> {
               child: ListView.builder(
                 itemBuilder: (context, index) {
                   final x = applicants[index];
-                  print(x.picRelativePath);
 
                   return Padding(
                     padding: const EdgeInsets.all(8.0),

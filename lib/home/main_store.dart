@@ -53,4 +53,8 @@ abstract class _MainStore implements Store {
   loadApplicants() {
     applicants = ObservableFuture(_applicantService.readApplicants());
   }
+
+  share() async {
+    await _applicantService.invokeShare();
+  }
 }

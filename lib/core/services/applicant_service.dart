@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:esys_flutter_share/esys_flutter_share.dart';
-import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:photo_job/core/domain/applicant.dart';
 import 'package:photo_job/core/theme.dart';
@@ -17,18 +16,7 @@ class ApplicantService {
   Future<File> writeApplication(Applicant details) async {
     final file = _getApplicationFile(details);
 
-    return file.writeAsString(toJSON(details));
-  }
-
-  String toJSON(Applicant details) {
-    return jsonEncode({
-      "jobId": details.jobId,
-      "jobCategory": details.jobCategory,
-      "name": details.name,
-      "phone": details.phone,
-      "email": details.email,
-      "picPath": details.picRelativePath
-    });
+    return file.writeAsString(jsonEncode(details.toJson()));
   }
 
   Applicant fromJSON(String source) {
@@ -84,23 +72,11 @@ class ApplicantService {
     return applicants;
   }
 
-  prepareFileForSharing() async {
-    File data = new File('${_profilesDirectory.path}/out.txt');
+  invokeShare() async {
+    final applicants = await readApplicants();
+    final json = jsonEncode(applicants);
+    final bytes = utf8.encode(json);
 
-    _profilesDirectory
-        .listSync(recursive: true, followLinks: true)
-        .forEach((entity) async {
-      if (entity.path.contains("profiles") && entity.path.contains(".txt")) {
-        File file = File(entity.path);
-        String contents = await file.readAsString();
-        contents = contents + "\n";
-        data.writeAsStringSync(contents, mode: FileMode.append);
-      }
-    });
-
-    final ByteData bytes = await rootBundle.load(data.path);
-    await Share.file('Applicant Data', 'Applicants.txt',
-        bytes.buffer.asUint8List(), 'text/plain');
-    data.deleteSync();
+    await Share.file('Applicant Profiles', 'profiles.json', bytes, 'text/json');
   }
 }

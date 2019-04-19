@@ -48,13 +48,16 @@ abstract class _CameraStore implements Store {
       await controller.dispose();
     }
 
-    controller = CameraController(camera, ResolutionPreset.low);
-    await controller.initialize();
-
-    _cameraState =
-        controller.value.isInitialized ? CameraState.ready : CameraState.failed;
-
-    selectedCamera = camera;
+    try {
+      controller = CameraController(camera, ResolutionPreset.low);
+      await controller.initialize();
+      _cameraState = controller.value.isInitialized
+          ? CameraState.ready
+          : CameraState.failed;
+      selectedCamera = camera;
+    } catch (e) {
+      _cameraState = CameraState.failed;
+    }
   }
 
   @action
