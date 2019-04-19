@@ -35,6 +35,19 @@ class JobsPage extends StatelessWidget {
             )
           ],
         ),
+        Align(
+          alignment: Alignment.topRight,
+          child: Padding(
+            padding: const EdgeInsets.only(right: 16.0, top: 8, bottom: 8),
+            child: Text(
+              '${jobStore.jobs.length} Position${jobStore.jobs.length != 1 ? 's' : ''}',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: theme.radiantRed,
+                  fontSize: 14),
+            ),
+          ),
+        ),
         new Expanded(child: Observer(builder: (_) {
           return ListView.builder(
             itemBuilder: (_, index) {
