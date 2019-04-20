@@ -81,7 +81,10 @@ class DetailsPageState extends State<DetailsPage> {
                       padding: const EdgeInsets.all(8.0),
                       child: phoneField(context, applicant),
                     ),
-                    submitButton(context, applicant),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: submitButton(context, applicant),
+                    ),
                   ],
                 ),
               ),
