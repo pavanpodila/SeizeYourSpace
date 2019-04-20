@@ -28,9 +28,13 @@ class JobsPage extends StatelessWidget {
             Positioned(
               bottom: -20,
               right: 10,
-              child: CircularButton(
-                text: jobStore.selectedCategory,
-                onPressed: null,
+              child: Hero(
+                tag: jobStore.selectedCategory,
+                transitionOnUserGestures: true,
+                child: CircularButton(
+                  text: jobStore.selectedCategory,
+                  onPressed: null,
+                ),
               ),
             )
           ],

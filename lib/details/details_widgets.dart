@@ -46,8 +46,8 @@ class DetailsPageState extends State<DetailsPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     SizedBox(
-                      width: 125,
-                      height: 125,
+                      width: 150,
+                      height: 150,
                       child: PSCircleAvatar(
                         borderWidth: 5,
                         child: applicant.picPath != null

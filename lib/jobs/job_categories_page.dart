@@ -31,11 +31,14 @@ class JobCategoryPage extends StatelessWidget {
                 mainAxisSpacing: 20.0,
                 crossAxisCount: 3,
                 children: jobStore.jobCategories
-                    .map((jobCategory) => CircularButton(
-                        text: jobCategory,
-                        onPressed: () {
-                          mainStore.setJobCategory(jobCategory, context);
-                        }))
+                    .map((jobCategory) => Hero(
+                        tag: jobCategory,
+                        transitionOnUserGestures: true,
+                        child: CircularButton(
+                            text: jobCategory,
+                            onPressed: () {
+                              mainStore.setJobCategory(jobCategory, context);
+                            })))
                     .toList())),
       ],
     ));
