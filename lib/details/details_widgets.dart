@@ -82,7 +82,7 @@ class DetailsPageState extends State<DetailsPage> {
                       child: phoneField(context, applicant),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 16.0),
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
                       child: submitButton(context, applicant),
                     ),
                   ],
