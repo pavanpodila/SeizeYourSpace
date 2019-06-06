@@ -11,7 +11,7 @@ enum CameraState { initializing, ready, failed }
 
 class CameraStore = _CameraStore with _$CameraStore;
 
-abstract class _CameraStore implements Store {
+abstract class _CameraStore with Store {
   _CameraStore() {
     _prepareCamera();
   }

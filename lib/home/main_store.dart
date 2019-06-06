@@ -10,7 +10,7 @@ part 'main_store.g.dart';
 
 class MainStore = _MainStore with _$MainStore;
 
-abstract class _MainStore implements Store {
+abstract class _MainStore with Store {
   @observable
   Applicant applicant;
 

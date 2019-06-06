@@ -6,7 +6,7 @@ part 'job_store.g.dart';
 
 class JobStore = _JobStore with _$JobStore;
 
-abstract class _JobStore implements Store {
+abstract class _JobStore with Store {
   final JobsService service = JobsService();
 
   _JobStore() {
