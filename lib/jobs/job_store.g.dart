@@ -6,7 +6,7 @@ part of 'job_store.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars
+// ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$JobStore on _JobStore, Store {
   Computed<List<String>> _$jobCategoriesComputed;
@@ -31,47 +31,51 @@ mixin _$JobStore on _JobStore, Store {
 
   @override
   Map<String, List<Job>> get _jobsMap {
+    _$_jobsMapAtom.context.enforceReadPolicy(_$_jobsMapAtom);
     _$_jobsMapAtom.reportObserved();
     return super._jobsMap;
   }
 
   @override
   set _jobsMap(Map<String, List<Job>> value) {
-    _$_jobsMapAtom.context.checkIfStateModificationsAreAllowed(_$_jobsMapAtom);
-    super._jobsMap = value;
-    _$_jobsMapAtom.reportChanged();
+    _$_jobsMapAtom.context.conditionallyRunInAction(() {
+      super._jobsMap = value;
+      _$_jobsMapAtom.reportChanged();
+    }, _$_jobsMapAtom, name: '${_$_jobsMapAtom.name}_set');
   }
 
   final _$selectedCategoryAtom = Atom(name: '_JobStore.selectedCategory');
 
   @override
   String get selectedCategory {
+    _$selectedCategoryAtom.context.enforceReadPolicy(_$selectedCategoryAtom);
     _$selectedCategoryAtom.reportObserved();
     return super.selectedCategory;
   }
 
   @override
   set selectedCategory(String value) {
-    _$selectedCategoryAtom.context
-        .checkIfStateModificationsAreAllowed(_$selectedCategoryAtom);
-    super.selectedCategory = value;
-    _$selectedCategoryAtom.reportChanged();
+    _$selectedCategoryAtom.context.conditionallyRunInAction(() {
+      super.selectedCategory = value;
+      _$selectedCategoryAtom.reportChanged();
+    }, _$selectedCategoryAtom, name: '${_$selectedCategoryAtom.name}_set');
   }
 
   final _$selectedJobAtom = Atom(name: '_JobStore.selectedJob');
 
   @override
   Job get selectedJob {
+    _$selectedJobAtom.context.enforceReadPolicy(_$selectedJobAtom);
     _$selectedJobAtom.reportObserved();
     return super.selectedJob;
   }
 
   @override
   set selectedJob(Job value) {
-    _$selectedJobAtom.context
-        .checkIfStateModificationsAreAllowed(_$selectedJobAtom);
-    super.selectedJob = value;
-    _$selectedJobAtom.reportChanged();
+    _$selectedJobAtom.context.conditionallyRunInAction(() {
+      super.selectedJob = value;
+      _$selectedJobAtom.reportChanged();
+    }, _$selectedJobAtom, name: '${_$selectedJobAtom.name}_set');
   }
 
   final _$loadJobsAsyncAction = AsyncAction('loadJobs');

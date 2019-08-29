@@ -6,7 +6,7 @@ part of 'camera_store.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars
+// ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$CameraStore on _CameraStore, Store {
   Computed<bool> _$isCameraReadyComputed;
@@ -20,48 +20,51 @@ mixin _$CameraStore on _CameraStore, Store {
 
   @override
   CameraDescription get selectedCamera {
+    _$selectedCameraAtom.context.enforceReadPolicy(_$selectedCameraAtom);
     _$selectedCameraAtom.reportObserved();
     return super.selectedCamera;
   }
 
   @override
   set selectedCamera(CameraDescription value) {
-    _$selectedCameraAtom.context
-        .checkIfStateModificationsAreAllowed(_$selectedCameraAtom);
-    super.selectedCamera = value;
-    _$selectedCameraAtom.reportChanged();
+    _$selectedCameraAtom.context.conditionallyRunInAction(() {
+      super.selectedCamera = value;
+      _$selectedCameraAtom.reportChanged();
+    }, _$selectedCameraAtom, name: '${_$selectedCameraAtom.name}_set');
   }
 
   final _$_cameraStateAtom = Atom(name: '_CameraStore._cameraState');
 
   @override
   CameraState get _cameraState {
+    _$_cameraStateAtom.context.enforceReadPolicy(_$_cameraStateAtom);
     _$_cameraStateAtom.reportObserved();
     return super._cameraState;
   }
 
   @override
   set _cameraState(CameraState value) {
-    _$_cameraStateAtom.context
-        .checkIfStateModificationsAreAllowed(_$_cameraStateAtom);
-    super._cameraState = value;
-    _$_cameraStateAtom.reportChanged();
+    _$_cameraStateAtom.context.conditionallyRunInAction(() {
+      super._cameraState = value;
+      _$_cameraStateAtom.reportChanged();
+    }, _$_cameraStateAtom, name: '${_$_cameraStateAtom.name}_set');
   }
 
   final _$capturedPhotoFileAtom = Atom(name: '_CameraStore.capturedPhotoFile');
 
   @override
   String get capturedPhotoFile {
+    _$capturedPhotoFileAtom.context.enforceReadPolicy(_$capturedPhotoFileAtom);
     _$capturedPhotoFileAtom.reportObserved();
     return super.capturedPhotoFile;
   }
 
   @override
   set capturedPhotoFile(String value) {
-    _$capturedPhotoFileAtom.context
-        .checkIfStateModificationsAreAllowed(_$capturedPhotoFileAtom);
-    super.capturedPhotoFile = value;
-    _$capturedPhotoFileAtom.reportChanged();
+    _$capturedPhotoFileAtom.context.conditionallyRunInAction(() {
+      super.capturedPhotoFile = value;
+      _$capturedPhotoFileAtom.reportChanged();
+    }, _$capturedPhotoFileAtom, name: '${_$capturedPhotoFileAtom.name}_set');
   }
 
   final _$selectCameraAsyncAction = AsyncAction('selectCamera');

@@ -50,6 +50,7 @@ class PSBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image.asset(
       'lib/assets/banner.png',
+      fit: BoxFit.fill,
     );
   }
 }

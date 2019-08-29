@@ -11,13 +11,15 @@ part 'main_store.g.dart';
 class MainStore = _MainStore with _$MainStore;
 
 abstract class _MainStore with Store {
+  _MainStore(ApplicantService service) : _applicantService = service;
+
   @observable
   Applicant applicant;
 
   @observable
   ObservableFuture<List<Applicant>> applicants;
 
-  ApplicantService _applicantService = ApplicantService();
+  ApplicantService _applicantService;
 
   JobStore jobStore = JobStore();
 

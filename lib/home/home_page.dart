@@ -36,17 +36,20 @@ class HomePage extends StatelessWidget {
             Padding(
                 padding: const EdgeInsets.symmetric(vertical: 30),
                 child: AreYouOneOfUsText()),
-            CircularButton(
-                borderColor: Colors.white,
-                color: Colors.black,
-                textColor: Colors.white,
-                text: 'Yes, \n this is me!',
-                onPressed: () {
-                  mainStore.beginApplication(context);
-                }),
-            Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20), child: null),
-            PSBanner(),
+            Stack(
+              alignment: AlignmentDirectional.center,
+              children: <Widget>[
+                PSBanner(),
+                CircularButton(
+                    borderColor: Colors.white,
+                    color: Colors.black,
+                    textColor: Colors.white,
+                    text: 'Yes, \n this is me!',
+                    onPressed: () {
+                      mainStore.beginApplication(context);
+                    }),
+              ],
+            ),
           ],
         ),
       ),
