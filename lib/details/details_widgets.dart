@@ -6,9 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:photo_job/core/app_page_view.dart';
 import 'package:photo_job/core/circle_avatar_photo.dart';
 import 'package:photo_job/core/circular_button.dart';
-import 'package:photo_job/core/domain/applicant.dart';
 import 'package:photo_job/core/theme.dart';
 import 'package:photo_job/home/main_store.dart';
+import 'package:photo_job/sdk/domain/applicant.dart';
 import 'package:provider/provider.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 

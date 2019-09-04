@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:photo_job/core/app_page_view.dart';
 import 'package:photo_job/core/circular_button.dart';
-import 'package:photo_job/core/domain/job.dart';
 import 'package:photo_job/core/theme.dart';
 import 'package:photo_job/home/main_store.dart';
+import 'package:photo_job/sdk/domain/job_profile.dart';
 import 'package:provider/provider.dart';
 
 class JobsPage extends StatelessWidget {
@@ -60,7 +60,7 @@ class JobsPage extends StatelessWidget {
               return JobView(
                 job: job,
                 onSelected: (job) {
-                  applicant.setJobId(job.id);
+                  applicant.jobId = job.id;
                   jobStore.selectJob(job);
                   this.onSelected(context);
                 },
@@ -77,9 +77,9 @@ class JobsPage extends StatelessWidget {
 class JobView extends StatelessWidget {
   JobView({@required this.job, @required this.onSelected});
 
-  final void Function(Job job) onSelected;
+  final void Function(JobProfile job) onSelected;
 
-  final Job job;
+  final JobProfile job;
 
   @override
   Widget build(BuildContext context) {

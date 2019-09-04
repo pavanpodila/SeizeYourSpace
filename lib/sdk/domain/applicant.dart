@@ -1,8 +1,12 @@
 import 'dart:io';
 
-import 'package:photo_job/core/services/applicant_service.dart';
 import 'package:photo_job/core/theme.dart';
+import 'package:photo_job/sdk/applicant_service.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'applicant.g.dart';
+
+@JsonSerializable()
 class Applicant {
   String name;
   String phone;
@@ -10,7 +14,10 @@ class Applicant {
 
   String jobCategory;
   String jobId;
+
+  @JsonKey(ignore: true)
   String picPath;
+
   String picRelativePath;
 
   Applicant(
@@ -29,14 +36,6 @@ class Applicant {
     this.name = name;
   }
 
-  setJobCategory(String category) {
-    this.jobCategory = category;
-  }
-
-  setJobId(String id) {
-    this.jobId = id;
-  }
-
   setImagePath(String path) {
     final List<String> tokenizedPath = path.split(PROFILE_PATH);
     this.picPath = path;
@@ -47,14 +46,5 @@ class Applicant {
     return service.writeApplication(this);
   }
 
-  Map<String, String> toJson() {
-    return {
-      "jobId": jobId,
-      "jobCategory": jobCategory,
-      "name": name,
-      "phone": phone,
-      "email": email,
-      "picPath": picRelativePath
-    };
-  }
+  Map<String, dynamic> toJson() => _$ApplicantToJson(this);
 }

@@ -15,11 +15,11 @@ mixin _$JobStore on _JobStore, Store {
   List<String> get jobCategories => (_$jobCategoriesComputed ??=
           Computed<List<String>>(() => super.jobCategories))
       .value;
-  Computed<List<Job>> _$jobsComputed;
+  Computed<List<JobProfile>> _$jobsComputed;
 
   @override
-  List<Job> get jobs =>
-      (_$jobsComputed ??= Computed<List<Job>>(() => super.jobs)).value;
+  List<JobProfile> get jobs =>
+      (_$jobsComputed ??= Computed<List<JobProfile>>(() => super.jobs)).value;
   Computed<bool> _$hasSelectionComputed;
 
   @override
@@ -30,14 +30,14 @@ mixin _$JobStore on _JobStore, Store {
   final _$_jobsMapAtom = Atom(name: '_JobStore._jobsMap');
 
   @override
-  Map<String, List<Job>> get _jobsMap {
+  Map<String, List<JobProfile>> get _jobsMap {
     _$_jobsMapAtom.context.enforceReadPolicy(_$_jobsMapAtom);
     _$_jobsMapAtom.reportObserved();
     return super._jobsMap;
   }
 
   @override
-  set _jobsMap(Map<String, List<Job>> value) {
+  set _jobsMap(Map<String, List<JobProfile>> value) {
     _$_jobsMapAtom.context.conditionallyRunInAction(() {
       super._jobsMap = value;
       _$_jobsMapAtom.reportChanged();
@@ -64,14 +64,14 @@ mixin _$JobStore on _JobStore, Store {
   final _$selectedJobAtom = Atom(name: '_JobStore.selectedJob');
 
   @override
-  Job get selectedJob {
+  JobProfile get selectedJob {
     _$selectedJobAtom.context.enforceReadPolicy(_$selectedJobAtom);
     _$selectedJobAtom.reportObserved();
     return super.selectedJob;
   }
 
   @override
-  set selectedJob(Job value) {
+  set selectedJob(JobProfile value) {
     _$selectedJobAtom.context.conditionallyRunInAction(() {
       super.selectedJob = value;
       _$selectedJobAtom.reportChanged();
@@ -98,7 +98,7 @@ mixin _$JobStore on _JobStore, Store {
   }
 
   @override
-  void selectJob(Job job) {
+  void selectJob(JobProfile job) {
     final _$actionInfo = _$_JobStoreActionController.startAction();
     try {
       return super.selectJob(job);

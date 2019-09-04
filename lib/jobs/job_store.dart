@@ -1,20 +1,20 @@
 import 'package:mobx/mobx.dart';
-import 'package:photo_job/core/domain/job.dart';
-import 'package:photo_job/core/services/jobs_service.dart';
+import 'package:photo_job/sdk/domain/job_profile.dart';
+import 'package:photo_job/sdk/job_profiles_service.dart';
 
 part 'job_store.g.dart';
 
 class JobStore = _JobStore with _$JobStore;
 
 abstract class _JobStore with Store {
-  final JobsService service = JobsService();
+  final JobProfilesService service = JobProfilesService();
 
   _JobStore() {
     loadJobs();
   }
 
   @observable
-  Map<String, List<Job>> _jobsMap = {};
+  Map<String, List<JobProfile>> _jobsMap = {};
 
   @computed
   List<String> get jobCategories =>
@@ -24,10 +24,10 @@ abstract class _JobStore with Store {
   String selectedCategory;
 
   @observable
-  Job selectedJob;
+  JobProfile selectedJob;
 
   @computed
-  List<Job> get jobs => _jobsMap[selectedCategory] ?? [];
+  List<JobProfile> get jobs => _jobsMap[selectedCategory] ?? [];
 
   @computed
   bool get hasSelection => selectedJob != null;
@@ -35,6 +35,7 @@ abstract class _JobStore with Store {
   @action
   Future<void> loadJobs() async {
     _jobsMap = await service.load();
+    print(_jobsMap);
   }
 
   @action
@@ -43,7 +44,7 @@ abstract class _JobStore with Store {
   }
 
   @action
-  void selectJob(Job job) {
+  void selectJob(JobProfile job) {
     selectedJob = job;
   }
 }

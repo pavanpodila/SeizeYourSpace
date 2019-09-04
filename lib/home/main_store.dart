@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:photo_job/camera/camera_store.dart';
-import 'package:photo_job/core/domain/applicant.dart';
-import 'package:photo_job/core/services/applicant_service.dart';
 import 'package:photo_job/home/app_route.dart';
 import 'package:photo_job/jobs/job_store.dart';
+import 'package:photo_job/sdk/applicant_service.dart';
+import 'package:photo_job/sdk/domain/applicant.dart';
 
 part 'main_store.g.dart';
 
@@ -40,7 +40,7 @@ abstract class _MainStore with Store {
 
   void setJobCategory(String jobCategory, BuildContext context) {
     jobStore.setJobCategory(jobCategory);
-    applicant.setJobCategory(jobCategory);
+    applicant.jobCategory = jobCategory;
     Navigator.pushNamed(context, AppRoute.jobs);
   }
 

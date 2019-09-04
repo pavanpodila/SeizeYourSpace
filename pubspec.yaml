@@ -30,12 +30,13 @@ dependencies:
   provider: ^3.0.0
   email_validator: ^1.0.0
   regexed_validator: ^1.0.2
-  json_serializable: ^2.2.1
   esys_flutter_share: ^1.0.0
   archive: ^2.0.8
 
 dev_dependencies:
   mobx_codegen: ^0.3.7
+  json_annotation: ^3.0.0
+  json_serializable: ^3.2.2
   build_runner:
   flutter_test:
     sdk: flutter

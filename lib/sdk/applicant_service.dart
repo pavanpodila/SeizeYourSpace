@@ -3,8 +3,9 @@ import 'dart:io';
 
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:photo_job/core/domain/applicant.dart';
 import 'package:photo_job/core/theme.dart';
+
+import 'package:photo_job/sdk/domain/applicant.dart';
 
 class ApplicantService {
   Directory _profilesDirectory;
