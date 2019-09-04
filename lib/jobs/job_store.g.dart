@@ -84,26 +84,4 @@ mixin _$JobStore on _JobStore, Store {
   Future<void> loadJobs() {
     return _$loadJobsAsyncAction.run(() => super.loadJobs());
   }
-
-  final _$_JobStoreActionController = ActionController(name: '_JobStore');
-
-  @override
-  dynamic setJobCategory(String jobCategory) {
-    final _$actionInfo = _$_JobStoreActionController.startAction();
-    try {
-      return super.setJobCategory(jobCategory);
-    } finally {
-      _$_JobStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void selectJob(JobProfile job) {
-    final _$actionInfo = _$_JobStoreActionController.startAction();
-    try {
-      return super.selectJob(job);
-    } finally {
-      _$_JobStoreActionController.endAction(_$actionInfo);
-    }
-  }
 }

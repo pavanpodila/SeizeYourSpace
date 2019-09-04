@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:photo_job/core/theme.dart';
@@ -28,8 +29,6 @@ class Applicant {
       this.jobId,
       this.picRelativePath});
 
-  final ApplicantService service = ApplicantService();
-
   setValues({String name, String email, String phone}) {
     this.phone = phone;
     this.email = email;
@@ -42,8 +41,19 @@ class Applicant {
     this.picRelativePath = tokenizedPath[1];
   }
 
-  Future<File> writeApplicantDetails() async {
-    return service.writeApplication(this);
+  factory Applicant.fromJson(String source, Directory parentDir) {
+    try {
+      final map = jsonDecode(source);
+      final applicant = _$ApplicantFromJson(map);
+
+      applicant.picPath = applicant.picRelativePath != null
+          ? '${parentDir.path}${applicant.picRelativePath}'
+          : null;
+
+      return applicant;
+    } catch (e) {
+      return null;
+    }
   }
 
   Map<String, dynamic> toJson() => _$ApplicantToJson(this);

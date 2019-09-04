@@ -14,31 +14,10 @@ class ApplicantService {
     _getProfilesDirectory();
   }
 
-  Future<File> writeApplication(Applicant details) async {
+  Future<File> saveApplication(Applicant details) async {
     final file = _getApplicationFile(details);
 
     return file.writeAsString(jsonEncode(details.toJson()));
-  }
-
-  Applicant fromJSON(String source) {
-    try {
-      final map = jsonDecode(source);
-      final applicant = Applicant(
-          jobId: map['jobId'],
-          jobCategory: map['jobCategory'],
-          name: map['name'],
-          phone: map['phone'],
-          email: map['email'],
-          picRelativePath: map['picPath']);
-
-      applicant.picPath = applicant.picRelativePath != null
-          ? '${_profilesDirectory.path}${applicant.picRelativePath}'
-          : null;
-
-      return applicant;
-    } catch (e) {
-      return null;
-    }
   }
 
   File _getApplicationFile(Applicant details) {
@@ -56,7 +35,7 @@ class ApplicantService {
     _profilesDirectory = Directory(path);
   }
 
-  Future<List<Applicant>> readApplicants() async {
+  Future<List<Applicant>> loadApplicants() async {
     final entityList =
         _profilesDirectory.list(recursive: false, followLinks: true);
 
@@ -66,7 +45,7 @@ class ApplicantService {
         File file = File(entity.path);
         String contents = await file.readAsString();
 
-        applicants.add(fromJSON(contents));
+        applicants.add(Applicant.fromJson(contents, _profilesDirectory));
       }
     }
 
@@ -74,7 +53,7 @@ class ApplicantService {
   }
 
   invokeShare() async {
-    final applicants = await readApplicants();
+    final applicants = await loadApplicants();
     final json = jsonEncode(applicants);
     final bytes = utf8.encode(json);
 

@@ -35,16 +35,5 @@ abstract class _JobStore with Store {
   @action
   Future<void> loadJobs() async {
     _jobsMap = await service.load();
-    print(_jobsMap);
-  }
-
-  @action
-  setJobCategory(String jobCategory) {
-    selectedCategory = jobCategory;
-  }
-
-  @action
-  void selectJob(JobProfile job) {
-    selectedJob = job;
   }
 }

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AppPageView extends StatelessWidget {
@@ -9,8 +8,8 @@ class AppPageView extends StatelessWidget {
   final Widget child;
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      child: SafeArea(child: child),
+    return Scaffold(
+      body: SafeArea(child: child),
       backgroundColor: backgroundColor,
     );
   }

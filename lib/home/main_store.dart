@@ -39,21 +39,21 @@ abstract class _MainStore with Store {
   }
 
   void setJobCategory(String jobCategory, BuildContext context) {
-    jobStore.setJobCategory(jobCategory);
+    jobStore.selectedCategory = jobCategory;
     applicant.jobCategory = jobCategory;
     Navigator.pushNamed(context, AppRoute.jobs);
   }
 
   void submitApplication(BuildContext context,
-      {String name, String email, String phone}) {
+      {String name, String email, String phone}) async {
     applicant.setValues(name: name, email: email, phone: phone);
-    applicant.writeApplicantDetails();
+    await _applicantService.saveApplication(applicant);
     Navigator.pushNamed(context, AppRoute.complete);
   }
 
   @action
   loadApplicants() {
-    applicants = ObservableFuture(_applicantService.readApplicants());
+    applicants = ObservableFuture(_applicantService.loadApplicants());
   }
 
   share() async {

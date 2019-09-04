@@ -61,7 +61,7 @@ class JobsPage extends StatelessWidget {
                 job: job,
                 onSelected: (job) {
                   applicant.jobId = job.id;
-                  jobStore.selectJob(job);
+                  jobStore.selectedJob = job;
                   this.onSelected(context);
                 },
               );

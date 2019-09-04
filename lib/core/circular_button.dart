@@ -23,8 +23,9 @@ class CircularButton extends StatelessWidget {
         this.onPressed();
       },
       child: Container(
-          width: 120,
-          height: 120,
+          width: 140,
+          height: 140,
+          padding: EdgeInsets.all(5),
           decoration: new BoxDecoration(
             // Circle shape
             shape: BoxShape.circle,
